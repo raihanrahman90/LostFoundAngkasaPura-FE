@@ -1,0 +1,25 @@
+
+.bgHome {
+    background-color: #138FC7;
+}
+.inputs {
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+button {
+    background-color: #138FC7 !important;
+}
+
+a {
+    color: #7EAFD8 !important;
+}
+
