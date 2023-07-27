@@ -17,7 +17,7 @@ export default function FoundItem() {
       id: 2,
       namaBarang: "Barang 2",
       kategori: "Kategori 2",
-      tanggalDitemukan: "2023-07-24",
+      tanggalDitemukan: "2023-07-21",
       status: "Inactive",
       tindakan: "done",
     },
@@ -25,7 +25,7 @@ export default function FoundItem() {
       id: 3,
       namaBarang: "Barang 3",
       kategori: "Kategori 3",
-      tanggalDitemukan: "2023-07-24",
+      tanggalDitemukan: "2023-07-29",
       status: "Inactive",
       tindakan: "done",
     },
@@ -65,15 +65,26 @@ export default function FoundItem() {
   ];
 
   const [data, setData] = useState(datatable);
+  const [kategori, setKategori] = useState("");
+  const [tgl, setTgl] = useState("");
 
-  const handleSeracr = (e) => {
-    if (e.target.value === "") return setData(datatable);
-    let katacari = e.target.value;
-    let hasilcari = data.filter((item) => {
-      return item.namaBarang.toLowerCase().includes(katacari.toLowerCase());
+  const handleKategori = (e) => {
+    setKategori(e.target.value);
+
+  }
+
+  const handleTgl = (e) => {
+    setTgl(e.target.value);
+    console.log(e.target.value);
+   }
+
+   const handleFilter = () => { 
+    if (kategori === "" && tgl === "") return setData(datatable);
+    let hasilFilter = data.filter((item) => {
+      return item.kategori.toLowerCase().includes(kategori.toLowerCase()) && item.tanggalDitemukan.includes(tgl);
     });
-    setData(hasilcari);
-  };
+    setData(hasilFilter);
+   }
 
   return (
     <div className="bgDashboard">
@@ -88,12 +99,50 @@ export default function FoundItem() {
         >
           <h1 className="pb-5 ">Found Item</h1>
           <div className="d-flex justify-content-end pb-4">
-            <input
-              className="border border-3 border-dark text-dark me-1  me-3"
-              type="text"
-              onChange={handleSeracr}
-              placeholder="Search"
-            />
+           {/* pop UP */}
+                      {/* <!-- Button trigger modal --> */}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Filter
+            </button>
+
+            {/* <!-- Modal --> */}
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+
+                      <label className="pb-3 fw-bold" htmlFor="kategori">Kategori</label>
+                      <select
+                        onChange={handleKategori}
+                        className="form-select"
+                        id="kategori"
+                      >
+                        <option value="Kategori 5">Perhiasan</option>
+                        <option value="Kategori 5">Tas</option>
+                        <option value="Kategori 5">Dompet</option>
+                        <option value="Kategori 5">Koper</option>
+                      </select>
+                    </div>
+
+                    <div className="mt-3">
+                      <input type="date" onChange={handleTgl}/>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onClick={handleFilter}>Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           {/*  */}
             <Link
               className="border border-3 border-dark text-dark me-1  text-decoration-none"
               to="/admin/AddItem"

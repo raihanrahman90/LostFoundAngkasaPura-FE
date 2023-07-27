@@ -22,7 +22,7 @@ export default function Navbar() {
         </li>
         <li className='py-3'>
           <img src={logo} width={20} height={20} alt='' />
-          <Link style={{ textDecoration: 'none'}} to='/admin/found-item'>
+          <Link style={{ textDecoration: 'none'}} to='/admin/FoundItem'>
             <span className='menu_link '>
             Found Item
             </span>
@@ -30,7 +30,7 @@ export default function Navbar() {
         </li>
         <li className='py-3'>
           <img src={logo} width={20} height={20} alt='' />
-          <Link style={{ textDecoration: 'none' }} to='/admin/customer-report'>
+          <Link style={{ textDecoration: 'none' }} to='/admin/CustomReport'>
             <span className='menu_link '>
             Customer Report
             </span>
