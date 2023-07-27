@@ -1,34 +1,59 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../../Asset/logo.png'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../Asset/logo.png';
+import '../../Asset/style.css';
 
 export default function Navbar() {
   return (
-    <div className=' pt-5 bg-dark'>
-      <img src={logo} alt="" />
-      <h1>Customer Service</h1>
-      <ul style={{listStyle: "none", paddingTop: 30, }}>
-        <li className='py-3' >
-            <img src={logo} width={20} height={20} alt="" />
-           <Link style={{textDecoration: "none"}} to='/admin/dashboard'>Dashboard</Link>
+    <div className='NavbarBG  mx-auto ps-5 '>
+      <div className='justify-content-center align-items-center mb-3'>
+        <img className='logoNav mb-5' src={logo} alt='Logo' />
+        <h5 className='ml-2 mb-0 text-black'>Customer <span style={{color : "#FFF000"}}>Service</span> 
+          </h5>
+      </div>
+      <ul style={{ listStyle: 'none', padding: '30px 0' }}>
+        <li className='py-3'>
+          <img src={logo} width={20} height={20} alt='' />
+          <Link  style={{ textDecoration: 'none' }} to='/admin/dashboard'>
+            <span className='menu_link '>
+            Dashboard
+            </span>
+          </Link>
         </li>
         <li className='py-3'>
-            <img src={logo} width={20} height={20} alt="" />
-           <Link style={{textDecoration: "none"}} to='/admin/dashboard'>Found Item</Link>
+          <img src={logo} width={20} height={20} alt='' />
+          <Link style={{ textDecoration: 'none'}} to='/admin/found-item'>
+            <span className='menu_link '>
+            Found Item
+            </span>
+          </Link>
         </li>
         <li className='py-3'>
-            <img src={logo} width={20} height={20} alt="" />
-           <Link style={{textDecoration: "none"}} to='/admin/dashboard'>Customer Report</Link>
+          <img src={logo} width={20} height={20} alt='' />
+          <Link style={{ textDecoration: 'none' }} to='/admin/customer-report'>
+            <span className='menu_link '>
+            Customer Report
+            </span>
+          </Link>
         </li>
         <li className='py-3'>
-            <img src={logo} width={20} height={20} alt="" />
-           <Link style={{textDecoration: "none"}} to='/admin/dashboard'>Report</Link>
-        </li>
-        <li className='py-3'>
-            <img src={logo} width={20} height={20} alt="" />
-           <Link style={{textDecoration: "none"}} to='/admin/dashboard'>Sing Out</Link>
+          <img src={logo} width={20} height={20} alt='' />
+          <Link style={{ textDecoration: 'none' }} to='/admin/report'>
+            <span className='menu_link '>
+            Report
+            </span>
+          </Link>
         </li>
       </ul>
+
+      <div className='menu_link_singout' >
+          <img src={logo} width={20} height={20} alt='' />
+          <Link style={{ textDecoration: 'none' }} to='/admin'>
+            <span className='menu_link'>
+            Sign Out
+            </span>
+          </Link>
+        </div>
     </div>
-  )
+  );
 }

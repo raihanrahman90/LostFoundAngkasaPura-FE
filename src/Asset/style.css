@@ -23,3 +23,60 @@ a {
     color: #7EAFD8 !important;
 }
 
+/* navbar */
+.logoNav{
+    width: 80%;
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu_link{
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    padding-left: 10px;
+}
+.menu_link_singout{
+    color: rgb(5, 5, 5);
+    font-size: 20px;
+    padding-left: 10px;
+    align-items: end;
+    padding-top: 200px;
+}
+
+li:hover{
+    background-color: #138FC7;
+    border-radius: 10px;
+}
+
+.NavbarBG {
+    width: 100%; /* Set the width to 100% to take the full width */
+    background-color: #ffffff; /* Primary color - You can change it to any color you want */
+    color: white; /* Text color */
+    padding: 20px; /* Add padding to the Navbar */
+    border-radius: 30px;
+}
+
+.bgDashboard {
+    background-color: #138FC7;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.table-container {
+    margin: 20px !important; /* Adjust the margin value to control the spacing */
+  }
+
+/* ADD ITem */
+
+.inpuText{
+    border: none;
+    border-bottom: 1px solid #000000;
+    width: 90%;
+    margin-bottom: 30px !important;
+}
+
+.labelInput{
+    font-size: 20px !important;
+}
