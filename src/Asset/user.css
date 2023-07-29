@@ -1,4 +1,32 @@
 /* create baground gradasi */
-.bg-gradasi {
-    background: linear-gradient(to right, #00d2ff, #3a7bd5);
+.bgdasboard {
+    background: linear-gradient(to right, #3DAAAF, #40CB92);
+    display: relative;
+}
+
+.title{
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 36px;
+    color: #FFFFFF;
+    padding-top: 5%;
+}
+
+.buttonTitle{
+    /* margin-bottom: 10% !important; */
+    margin-bottom: 6% !important;
+}
+
+.cardTitle{
+    display: absolute;
+    margin-left: 25vw;
+    width: 50%; 
+    margin-bottom: 5%;
+
+}
+
+.listBarang{
+    margin-top: 10% !important;
 }

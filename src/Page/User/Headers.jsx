@@ -25,12 +25,12 @@ export default function Headers() {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item ms-5">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active fw-bold" aria-current="page" href="#">
                   Beranda
                 </a>
               </li>
               <li class="nav-item ms-5">
-                <a class="nav-link" href="#">
+                <a class="nav-link fw-bold" href="#">
                   List Claim
                 </a>
               </li>
