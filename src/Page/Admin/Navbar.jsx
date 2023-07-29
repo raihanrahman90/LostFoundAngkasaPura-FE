@@ -36,17 +36,9 @@ export default function Navbar() {
             </span>
           </Link>
         </li>
-        <li className='py-3'>
-          <img src={logo} width={20} height={20} alt='' />
-          <Link style={{ textDecoration: 'none' }} to='/admin/report'>
-            <span className='menu_link '>
-            Report
-            </span>
-          </Link>
-        </li>
       </ul>
 
-      <div className='menu_link_singout' >
+      <div className='menu_link_singout pb-5' >
           <img src={logo} width={20} height={20} alt='' />
           <Link style={{ textDecoration: 'none' }} to='/admin'>
             <span className='menu_link'>

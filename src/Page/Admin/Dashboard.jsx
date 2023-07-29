@@ -9,17 +9,17 @@ export default function Dashboard() {
   return (
     <div className="bgDashboard">
       <div className="row  pt-5 pb-5">
-        <div className="col-2 ">
+        <div className="col-lg-2 col-md-3 col-sm-4">
           <Navbar />
         </div>
 
         <div
-          className="col-10 pt-5  "
+          className="col-lg-10 col-md-9 col-sm-8 pt-5"
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
           <h1>Dashboard</h1>
           <div className="row">
-            <div className="col-4 d-flex justify-content-center bg-primary ">
+            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center bg-primary mb-4">
               <img src={add_alert} alt="" />
               <div>
                 <h3>Found Item</h3>
@@ -27,7 +27,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="col-4 d-flex justify-content-center bg-danger">
+            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center bg-danger mb-4">
               <img src={lab_profile} alt="" />
               <div>
                 <h3>Customer Report</h3>
@@ -35,20 +35,22 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="col-4 d-flex justify-content-center bg-success  ">
+            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center bg-success mb-4">
               <img src={check_circle} alt="" />
               <div>
-                <h3>Complate Case</h3>
+                <h3>Complete Case</h3>
                 <h3>30</h3>
               </div>
             </div>
           </div>
 
-          <div
-            className=" mx-auto d-block"
-            style={{ width: "70%", height: "70%" }}
-          >
+          <div className="mx-auto d-block" style={{ width: "70%", height: "70%" }}>
             <Chart />
+          </div>
+
+          <div>
+            {/* create button download exel dengan posisi tengah */}
+            <button className="btn btn-primary d-block float-end">Download Report</button>
           </div>
         </div>
       </div>

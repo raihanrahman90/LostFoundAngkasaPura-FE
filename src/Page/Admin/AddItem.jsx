@@ -36,12 +36,12 @@ export default function AddItem() {
   return (
     <div className="bgDashboard">
       <form className="row  pt-5 pb-5" onSubmit={handleSubmit}>
-        <div className="col-2 ">
+        <div className="col-md-2 ">
           <Navbar />
         </div>
 
         <div
-          className="col-10 pt-5  "
+          className="col-md-10 pt-5 "
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
           <h1>ADD ITEM</h1>
@@ -109,7 +109,7 @@ export default function AddItem() {
             )}
           </div>
 
-          <input type="submit" value="Submit" className="btn btn-primary float-end  me-5 " />
+          <input type="submit" value="Submit" className="btn btn-primary float-end me-md-5 " />
         </div>
       </form>
     </div>

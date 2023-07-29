@@ -7,6 +7,12 @@ import AddItem from "./Page/Admin/AddItem";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
 
+
+// user
+import HomePage from "./Page/User/HomePage";
+import Headers from "./Page/User/Headers";
+
+
 function App() {
 
   return (
@@ -20,6 +26,9 @@ function App() {
           <Route path="/admin/AddItem" element={<AddItem />} />
           <Route path="/admin/Dashboard" element={<Dashboard />} />
           <Route path="/admin/CustomReport" element={<CustomReport />} />
+{/* user */}
+          <Route path="/HomePage" element={<HomePage />} />
+
 
 
 

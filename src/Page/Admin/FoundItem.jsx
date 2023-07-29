@@ -89,12 +89,12 @@ export default function FoundItem() {
   return (
     <div className="bgDashboard">
       <div className="row  pt-5 pb-5">
-        <div className="col-2 ">
+        <div className="col-lg-2 col-md-3 col-sm-4 ">
           <Navbar />
         </div>
 
         <div
-          className="col-10 pt-5  "
+          className="col-md-10 pt-5  "
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
           <h1 className="pb-5 ">Found Item</h1>
