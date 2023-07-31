@@ -4,6 +4,8 @@ import { Chart } from "./Chart";
 import add_alert from "../../Asset/add_alert.png";
 import lab_profile from "../../Asset/lab_profile.png";
 import check_circle from "../../Asset/check_circle.png";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function Dashboard() {
   return (
@@ -17,7 +19,11 @@ export default function Dashboard() {
           className="col-lg-10 col-md-9 col-sm-8 pt-5"
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
+          <div className="d-flex justify-content-between">
           <h1>Dashboard</h1>
+          <button className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold mb-2 rounded">Download Report</button>
+
+          </div>
           <div className="row">
             <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center bg-primary mb-4">
               <img src={add_alert} alt="" />
@@ -50,7 +56,6 @@ export default function Dashboard() {
 
           <div>
             {/* create button download exel dengan posisi tengah */}
-            <button className="btn btn-primary d-block float-end">Download Report</button>
           </div>
         </div>
       </div>

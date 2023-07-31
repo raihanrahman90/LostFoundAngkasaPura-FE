@@ -8,20 +8,20 @@ export default function CustomReport() {
     {
         id: 0,
         namaCustomer: "Barang 4",
-        Nohp: "Kategori 4",
-        Email: "2023-07-24",
+        Nohp: "111111",
+        Email: "1@gmail.com",
     },
     {
         id: 1,
         namaCustomer: "Barang 4",
-        Nohp: "Kategori 4",
-        Email: "2023-07-24",
+        Nohp: "00000000",
+        Email: "2@gmail.com",
     },
     {
         id: 2,
         namaCustomer: "Barang 4",
-        Nohp: "Kategori 4",
-        Email: "2023-07-24",
+        Nohp: "00000000",
+        Email: "3@gmail.com",
     },
     {
         id: 3,
@@ -45,14 +45,31 @@ export default function CustomReport() {
 
   const [data, setData] = useState(datatable);
 
-  const handleSeracr = (e) => {
-    if (e.target.value === "") return setData(datatable);
-    let katacari = e.target.value;
-    let hasilcari = data.filter((item) => {
-      return item.namaCustomer.toLowerCase().includes(katacari.toLowerCase());
-    });
-    setData(hasilcari);
-  };
+  const [noHp, setNoHp] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleNoHp = (e) => {
+    setNoHp(e.target.value);
+
+  }
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+   }
+
+   const handleFilter = () => { 
+      if (noHp == "" && email == "") {
+        setData(datatable);
+        return;
+      }
+      const newData = datatable.filter((item) => {
+        if (item.Nohp == noHp || item.Email == email) {
+          return item;
+        }
+      });
+      setData(newData);
+   }
 
   return (
     <div className="bgDashboard">
@@ -67,12 +84,39 @@ export default function CustomReport() {
         >
           <h1 className="pb-5 ">Customer Report</h1>
           <div className="d-flex justify-content-end pb-4">
-            <input
-              className="border border-3 border-dark text-dark me-1  me-3"
-              type="text"
-              onChange={handleSeracr}
-              placeholder="Search"
-            />
+          <button type="button" className="btn bg-primary fw-bold text-white px-3 me-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Filter
+            </button>
+
+            {/* <!-- Modal --> */}
+            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+                    <div>
+
+                      <label className="pb-3 fw-bold" htmlFor="kategori">NoHp</label>
+                      <input type="text" onChange={handleNoHp}/>
+
+                    </div>
+
+                    <div className="mt-3">
+                    <label className="pb-3 fw-bold" htmlFor="kategori">Email</label>
+                      <input type="email" onChange={handleEmail}/>
+                    </div>
+
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleFilter}>Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="table-">
             <table className="table table-bordered pt-5  ">
