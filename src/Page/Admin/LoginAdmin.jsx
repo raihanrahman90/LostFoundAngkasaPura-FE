@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
-import {defaultRequest}from '../../Hooks/DefaultRequest';
+import {login}from '../../Hooks/Admin/Admin';
 
 
 export default function LoginAdmin() {
@@ -13,12 +13,8 @@ export default function LoginAdmin() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const data = {
-      email: email,
-      password: password,
-    }
     const response = await defaultRequest.post(`/api/v1/auth/login`, data);
-    const result = response.data;
+    const result = await login(email, password);
     console.log(result);
     if (result.status === 'success') {
       const token = result.data.token;
