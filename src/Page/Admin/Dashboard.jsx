@@ -20,7 +20,7 @@ export default function Dashboard() {
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
           <div className="d-flex justify-content-between">
-          <h1>Dashboard</h1>
+          <h1>Dashboardasdfas</h1>
           <button className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold mb-2 rounded">Download Report</button>
 
           </div>
