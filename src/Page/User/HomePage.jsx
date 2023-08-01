@@ -2,6 +2,7 @@ import React from 'react';
 import Headers from './Headers';
 import '../../Asset/style.css'; 
 import Logo from '../../Asset/logo.png';
+import Footer from './Footer';
 
 export default function HomePage() {
 
@@ -38,24 +39,22 @@ export default function HomePage() {
         <h5 className="text-white">Cari barangmu yang hilang, Kami akan membantumu mencari barangmu yang <br />hilang dan mengabarikannya ke kamu</h5>
 
         <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold" >Cari Barangmu</button>
+        
 
       <div className="cardTitle position-absolute">
           <div className="  cardSection">
             <div class="card" style={{width: "100%"}}>
           <div className="container row">
                 <div class="col-6 card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Laporkan Barang hilang</h5>
+                    {/* <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> */}
+                    <p class="card-text">Anda kehilangan barang? laporakan segera ke petugas kami, kami akan berupaya mencari barang anda.
+                    Note : Jika Barang Tidak di temukan pada list barang setelah 1x24 jam, silahkan click di bawah ini</p>
+                    <a href="#">disini.</a>
                 </div>
                 <div class="col-6 card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <h5 class="card-title">Cari Barang Hilang</h5>
+                    <p class="card-text">Semua informasi barang yang hilang yang telah ditemukan tersedia di dalam web ini. cari barang anda yang hilang di website ini dan klaim kepemilikan barang anda.</p>
                 </div>
                 </div>
                 </div>
@@ -86,13 +85,17 @@ export default function HomePage() {
                     })}
                 </div>
 
-                <div className='pb-5 mb-5'>
-                    <button className='bg-warning text-white border-0 d-flex justify-content-center my-3 rounded py-2 px-4 mx-auto'>
+                <div className='pb-5'>
+                    <button className='bg-warning text-white border-0 d-flex justify-content-center mt-3 rounded py-2 px-4 mx-auto'>
                         lihat semua 
                     </button>
                 </div>
 
             </div>
+        </div>
+
+        <div className='bg-dark'>
+            <Footer />
         </div>
     </div>
   );
