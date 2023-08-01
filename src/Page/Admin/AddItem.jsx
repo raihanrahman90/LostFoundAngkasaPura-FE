@@ -1,41 +1,73 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
+import axios from "axios";
 import "../../Asset/style.css";
 
 export default function AddItem() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
   const [tanggalDitemukan, setTanggalDitemukan] = useState("");
-  const [fotoBarang, setFotoBarang] = useState("");
   const [kategori, setKategori] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [base64Image, setBase64Image] = useState("");
 
-  const data = {
-    namaBarang: namaBarang,
-    ciriBarang: ciriBarang,
-    tanggalDitemukan: tanggalDitemukan,
-    fotoBarang: fotoBarang,
-    kategori: kategori,
-  };
+  const BASE_URL = 'http://103.150.92.47:8081';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(data);
-  };
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFotoBarang(reader.result);
+        setBase64Image(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
+
+
+  const handleSubmit = async () => {
+    const data = {
+      name: namaBarang,
+      description: ciriBarang,
+      category: kategori,
+      foundDate: tanggalDitemukan,
+      imageBase64: base64Image,
+    };
+
+    console.log(data);
+
+    try {
+      const response = await axios.post(`${BASE_URL}/Admin/Item-Found`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(response.data);
+      console.log("Item berhasil ditambahkan");
+    } catch (error) {
+      console.error("Error adding item:", error);
+      alert("Gagal menambahkan item");
+    }
+  };
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFotoBarang(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   return (
     <div className="bgDashboard">
-      <form className="row  pt-5 pb-5" onSubmit={handleSubmit}>
+      <form className="row  pt-5 pb-5" >
         <div className="col-md-2 ">
           <Navbar />
         </div>
@@ -96,22 +128,22 @@ export default function AddItem() {
             <label className="pb-3 fw-bold" htmlFor="fotoBarang">Foto Barang</label>
             <input
               type="file"
-              onChange={handleImageChange}
+              onChange={handleFileInputChange}
               className="form-control"
               id="fotoBarang"
             />
-            {fotoBarang && (
-              <img
-                src={fotoBarang}
-                alt="Uploaded"
-                style={{ maxWidth: "50px", marginTop: "30px" }}
-              />
-            )}
+            {selectedFile && (
+        <img
+          src={base64Image}
+          alt="Selected Image"
+          style={{ maxWidth: "300px", marginTop: "10px" }}
+        />
+      )}
           </div>
 
-          <input type="submit" value="Submit" className="btn btn-primary float-end me-md-5 " />
+          <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 " />
         </div>
-      </form>
+      </form >
     </div>
   );
 }

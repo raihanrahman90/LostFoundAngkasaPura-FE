@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +11,8 @@ export default function LoginAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const BASE_URL = 'http://103.150.92.47:8081';
+  let navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,15 +20,17 @@ export default function LoginAdmin() {
       email: email,
       password: password,
     }
-    const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, data);
+    const response = await axios.post(`${BASE_URL}/admin/Admin/login`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
     const result = response.data;
-    console.log(result);
-    if (result.status === 'success') {
-      const token = result.data.token;
-      const user = jwt.decode(token);
-      Cookies.set('token', token);
-      Cookies.set('user', JSON.stringify(user));
-      window.location.href = '/admin';
+    // console.log(result);
+    if (result.statusCode === 200) {
+      Cookies.set('token', result.data);
+      navigate('/admin/dashboard');
     }
   };
 

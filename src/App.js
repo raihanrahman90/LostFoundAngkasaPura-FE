@@ -10,9 +10,6 @@ import CustomReport from "./Page/Admin/CustomReport";
 // user
 import HomePage from "./Page/User/HomePage";
 
-
-
-
 function App() {
 
   return (
