@@ -1,89 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
+import { Await, Link } from "react-router-dom";
 import "../../Asset/style.css";
-
+import axios from "axios";
+import Cookies from 'js-cookie';
 export default function FoundItem() {
-  const datatable = [
-    {
-      id: 1,
-      namaBarang: "Barang 1",
-      kategori: "Kategori 1",
-      tanggalDitemukan: "2023-07-23",
-      status: "Active",
-      tindakan: "proces",
-    },
-    {
-      id: 2,
-      namaBarang: "Barang 2",
-      kategori: "Kategori 2",
-      tanggalDitemukan: "2023-07-21",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    {
-      id: 3,
-      namaBarang: "Barang 3",
-      kategori: "Kategori 3",
-      tanggalDitemukan: "2023-07-29",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    {
-      id: 4,
-      namaBarang: "Barang 4",
-      kategori: "Kategori 4",
-      tanggalDitemukan: "2023-07-24",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    {
-      id: 5,
-      namaBarang: "Barang 5",
-      kategori: "Kategori 5",
-      tanggalDitemukan: "2023-07-24",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    {
-      id: 4,
-      namaBarang: "Barang 4",
-      kategori: "Kategori 4",
-      tanggalDitemukan: "2023-07-24",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    {
-      id: 5,
-      namaBarang: "Barang 5",
-      kategori: "Kategori 5",
-      tanggalDitemukan: "2023-07-24",
-      status: "Inactive",
-      tindakan: "done",
-    },
-    
-  ];
-
-  const [data, setData] = useState(datatable);
+  const [data, setData] = useState([]);
   const [kategori, setKategori] = useState("");
   const [tgl, setTgl] = useState("");
 
   const handleKategori = (e) => {
     setKategori(e.target.value);
-
   }
+
 
   const handleTgl = (e) => {
     setTgl(e.target.value);
     console.log(e.target.value);
    }
 
+useEffect(() => {
+  const token = Cookies.get("token");
+  axios.get("http://103.150.92.47:8081/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then((res) => {
+    console.log(res.data);
+    setData(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+}, []);
+
+
+
    const handleFilter = () => { 
-    if (kategori === "" && tgl === "") return setData(datatable);
-    let hasilFilter = data.filter((item) => {
-      return item.kategori.toLowerCase().includes(kategori.toLowerCase()) && item.tanggalDitemukan.includes(tgl);
-    });
-    setData(hasilFilter);
+    // if (kategori === "" && tgl === "") return setData(datatable);
+    // let hasilFilter = data.filter((item) => {
+    //   return item.kategori.toLowerCase().includes(kategori.toLowerCase()) && item.tanggalDitemukan.includes(tgl);
+    // });
+    // setData(hasilFilter);
    }
 
   return (
@@ -150,7 +110,7 @@ export default function FoundItem() {
               ADD NEW ITEM
             </Link>
           </div>
-          <div className="table-">
+          <div className="table container">
             <table className="table table-bordered pt-5  ">
               <thead>
                 <tr>

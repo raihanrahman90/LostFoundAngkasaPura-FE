@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 import "../../Asset/style.css";
+import { addItem } from "../../Hooks/Admin/AddItem";
 
 export default function AddItem() {
   const [namaBarang, setNamaBarang] = useState("");
@@ -11,7 +12,6 @@ export default function AddItem() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Image, setBase64Image] = useState("");
 
-  const BASE_URL = 'http://103.150.92.47:8081';
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -29,41 +29,21 @@ export default function AddItem() {
 
 
   const handleSubmit = async () => {
-    const data = {
-      name: namaBarang,
-      description: ciriBarang,
-      category: kategori,
-      foundDate: tanggalDitemukan,
-      imageBase64: base64Image,
-    };
 
-    console.log(data);
-
-    try {
-      const response = await axios.post(`${BASE_URL}/Admin/Item-Found`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log(response.data);
-      console.log("Item berhasil ditambahkan");
-    } catch (error) {
-      console.error("Error adding item:", error);
-      alert("Gagal menambahkan item");
+    const result = await addItem(
+      {
+        name: namaBarang,
+        description: ciriBarang,
+        category: kategori,
+        foundDate: tanggalDitemukan,
+        imageBase64: base64Image,
+      }
+    );
+    if(result){
+      console.log(result);
     }
-  };
+};
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFotoBarang(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
 
   return (
     <div className="bgDashboard">
