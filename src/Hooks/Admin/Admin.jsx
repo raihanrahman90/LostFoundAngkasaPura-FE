@@ -3,7 +3,7 @@ export const login = async ({
     email, password
 })=>{
     return await defaultRequest
-    .post(`/auth/login`, {
+    .post(`/admin/Admin/login`, {
         email:email,
         password:password
     })

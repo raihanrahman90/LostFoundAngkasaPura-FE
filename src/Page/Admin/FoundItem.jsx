@@ -8,43 +8,69 @@ export default function FoundItem() {
   const [data, setData] = useState([]);
   const [kategori, setKategori] = useState("");
   const [tgl, setTgl] = useState("");
+  const [valueKategori, setValueKategori] = useState([]);
 
   const handleKategori = (e) => {
     setKategori(e.target.value);
   }
 
-
   const handleTgl = (e) => {
     setTgl(e.target.value);
-    console.log(e.target.value);
-   }
+    console.log("tgl", tgl)
+  }
 
-useEffect(() => {
-  const token = Cookies.get("token");
-  axios.get("http://103.150.92.47:8081/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  .then((res) => {
-    console.log(res.data);
-    setData(res.data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  useEffect(() => {
+    const token = Cookies.get("token");
+    axios.get("http://103.150.92.47:8081/Admin/Item-Found", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setData(res.data.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-}, []);
+  }, []);
 
+  useEffect(() => {
+    const token = Cookies.get("token");
+    axios.get("http://103.150.92.47:8081/Admin/Item-Found/Category", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setValueKategori(res.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
+  }, []);
 
-   const handleFilter = () => { 
-    // if (kategori === "" && tgl === "") return setData(datatable);
-    // let hasilFilter = data.filter((item) => {
-    //   return item.kategori.toLowerCase().includes(kategori.toLowerCase()) && item.tanggalDitemukan.includes(tgl);
-    // });
-    // setData(hasilFilter);
-   }
+  const handleFilter = () => {
+    let filteredData = data;
+
+    if(kategori === "" && tgl === "")return setData(data);
+  
+    if (kategori !== "") {
+      filteredData = filteredData.filter(item =>
+        item.category.toLowerCase().includes(kategori.toLowerCase())
+      );
+    }
+  
+    if (tgl !== "") {
+      filteredData = filteredData.filter(item =>
+        item.tanggalDitemukan && item.tanggalDitemukan.includes(tgl)
+      );
+    }
+  
+    setData(filteredData);
+  }
+  
 
   return (
     <div className="bgDashboard">
@@ -82,10 +108,11 @@ useEffect(() => {
                         className="form-select"
                         id="kategori"
                       >
-                        <option value="Kategori 5">Perhiasan</option>
-                        <option value="Kategori 5">Tas</option>
-                        <option value="Kategori 5">Dompet</option>
-                        <option value="Kategori 5">Koper</option>
+                        {valueKategori.map((item, index) => {
+                          return (
+                            <option value={item.category}>{item.category}</option>
+                          );
+                        })}
                       </select>
                     </div>
 
@@ -110,7 +137,7 @@ useEffect(() => {
               ADD NEW ITEM
             </Link>
           </div>
-          <div className="table container">
+          <div className="table">
             <table className="table table-bordered pt-5  ">
               <thead>
                 <tr>
@@ -127,11 +154,11 @@ useEffect(() => {
                   return (
                     <tr>
                       <td>{item.id}</td>
-                      <td>{item.namaBarang}</td>
-                      <td>{item.kategori}</td>
-                      <td>{item.tanggalDitemukan}</td>
+                      <td>{item.name}</td>
+                      <td>{item.category}</td>
+                      <td>{item.foundDate}</td>
                       <td>{item.status}</td>
-                      <td>{item.tindakan}</td>
+                      <td>{item.description}</td>
                     </tr>
                   );
                 })}

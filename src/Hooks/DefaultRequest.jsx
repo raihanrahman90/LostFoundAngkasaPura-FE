@@ -14,13 +14,13 @@ export const authRequest = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: 'Bearer '+ Cookies.get('token')
+    "Authorization": 'Bearer '+ Cookies.get('token')
   
   },
 });
 
 export const instance = axios.create({
   baseURL: BASE_URL,
-  headers: {Authorization: 'Bearer '+ Cookies.get('token')}
+  headers: {"Authorization": 'Bearer '+ Cookies.get('token')}
 });
 
