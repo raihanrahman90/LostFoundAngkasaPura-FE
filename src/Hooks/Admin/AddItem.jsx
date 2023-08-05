@@ -1,6 +1,9 @@
 import {authRequest, instance} from '../DefaultRequest'
 
+<<<<<<< HEAD
 import Cookies from "js-cookie";
+=======
+>>>>>>> origin/jamal
 export const addItem = async ({
     name, description, category, foundDate, imageBase64
 })=>{
@@ -17,9 +20,12 @@ export const addItem = async ({
     }
     )
     .catch((error)=>{
+<<<<<<< HEAD
         console.log("di sini");
         console.log("isi cookie")
         console.log(Cookies.get("token"));
+=======
+>>>>>>> origin/jamal
         console.error(new Error("TOLOOOOOOONG"));
     }
     );

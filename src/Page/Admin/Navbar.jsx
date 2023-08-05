@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Asset/logo.png'
+import logo from '../../Asset/logo.png';
 import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -19,10 +19,15 @@ export default function Navbar() {
   };
 
   return (
-    <div className='NavbarBG  mx-auto h-full'>
+    <div className='NavbarBG  mx-auto ps-5 '>
+      <div className='justify-content-center align-items-center mb-3'>
+        <img className='logoNav mb-5' src={logo} alt='Logo' />
+        <h5 className='ml-2 mb-0 text-black'>Customer <span style={{color : "#FFF000"}}>Service</span> 
+          </h5>
+      </div>
       <ul style={{ listStyle: 'none', padding: '30px 0' }}>
-        <li className='py-3 px-3'>
-          <BsGraphDown style={{color: "black"}}/>
+        <li className='py-3'>
+        <BsGraphDown style={{color: "black"}}/>
           <Link  style={{ textDecoration: 'none' }} to='/admin/dashboard'>
             <span className='menu_link '>
             Dashboard
@@ -49,10 +54,10 @@ export default function Navbar() {
       </ul>
       
       {/* create button logout */}
-      <button className='menu_link_singout w-100 btn bg-transparent'>
-        <BiLogOut style={{color: "black"}}/>
-        <button className="btn btn-outline-primary border-0 text-dark " onClick={logout}  ><span  className='menu_link '>Log out</span></button>
-      </button>
+      <div className='menu_link_singout'>
+      <BiLogOut style={{color: "black"}}/>
+        <button className="btn bg-transparent btn-outline-primary border-0 text-dark my-5 " onClick={logout}  ><span  className='menu_link '>Log out</span></button>
+      </div>
     </div>
   );
 }

@@ -15,6 +15,12 @@
     transition: all 0.3s ease-in-out;
 }
 
+<<<<<<< HEAD
+=======
+button {
+    background-color: #138FC7 !important;
+}
+>>>>>>> origin/jamal
 
 a {
     color: #7EAFD8 !important;
@@ -60,7 +66,11 @@ li:hover{
 }
 
 .bgDashboard {
+<<<<<<< HEAD
     background-color: #ecf0f1;
+=======
+    background-color: #138FC7;
+>>>>>>> origin/jamal
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
@@ -81,10 +91,13 @@ li:hover{
 
 .labelInput{
     font-size: 20px !important;
+<<<<<<< HEAD
 }
 .h-200px{
     height: 200px;
 }
 .w-36px{
     width: 36px;
+=======
+>>>>>>> origin/jamal
 }

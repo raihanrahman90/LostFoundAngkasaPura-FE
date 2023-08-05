@@ -21,7 +21,11 @@ export default function Detail() {
         },
       })
       .then((res) => {
+<<<<<<< HEAD
         console.log(res.data.data.data);
+=======
+        // console.log(res.data.data.data);
+>>>>>>> origin/jamal
         setData(res.data.data.data);
       })
       .catch((err) => {

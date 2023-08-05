@@ -4,9 +4,10 @@ import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
+
 import {defaultRequest}from '../../Hooks/DefaultRequest';
 import {login}from '../../Hooks/Admin/Admin';
- 
+
 
 export default function LoginAdmin() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ export default function LoginAdmin() {
       password: password,
     });
     if (data) {
-      console.log(data.data);
+      // console.log(data.data);
       Cookies.set('token', data.data);
       navigate('/admin/dashboard');
     }
