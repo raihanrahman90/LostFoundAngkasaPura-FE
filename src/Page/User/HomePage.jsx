@@ -35,7 +35,7 @@ export default function HomePage() {
     <div>
       <Headers />
 
-      <div className="bgdasboard text-center">
+      <div className="bgdasboard text-center hv-75">
         <div className="">
           <h1 className="title text-white pb-5 fw-bold display-4 display-md-3">
             Temukan <span className="text-warning">Barangmu</span>
@@ -50,21 +50,18 @@ export default function HomePage() {
           </button>
         </div>
       </div>
-      <div className="row my-2 mx-5  ">
-        <div className="col-md-6 text-center d-flex justify-content-center py-5  ">
-          <div className="shadow-lg  mb-5 bg-body rounded py-5 w-75 ">
+      <div className="row my-2 mx-5 justify-content-center hv-45 px-sm-5 px-md-0">
+        <div className="col-md-6 text-center d-flex py-5 row rounded shadow landingpage-card bg-white h-fit-content">
+          <div className="col-md-6">
             <p className=" fw-bold fs-3">Laporkan Barang hilang</p>
-            <p className=" fs-6 text-center">
-              Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
-              berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
-              pada list barang setelah 1x24 jam, silahkan klik{" "}
-              <a href="#">disini</a>.
-            </p>
+              <p className=" fs-6 text-center">
+                Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
+                berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
+                pada list barang setelah 1x24 jam, silahkan klik{" "}
+                <a href="#">disini</a>.
+              </p>
           </div>
-        </div>
-
-        <div className="col-md-6 text-center py-5 d-flex justify-content-center  ">
-          <div className="shadow-lg  mb-5 bg-body rounded py-5 w-75">
+          <div className="col-md-6">
             <p className=" fw-bold fs-3">Cari Barang Hilang</p>
             <p className="fs-6">
               Semua informasi barang yang hilang yang telah ditemukan tersedia
@@ -73,33 +70,6 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        {/* <div className="cardTitle">
-            <div className="cardSection">
-              <div className="card">
-                <div className="">
-                  <div className="row ">
-                    <div className="col-md-6 card-body ">
-                      <p className="card-title fw-bold fs-3">Laporkan Barang hilang</p>
-                      <p className="card-text fs-6">
-                        Anda kehilangan barang? Laporkan segera ke petugas kami,
-                        kami akan berupaya mencari barang anda. Note: Jika
-                        Barang Tidak ditemukan pada list barang setelah 1x24
-                        jam, silahkan klik <a href="#">disini</a>.
-                      </p>
-                    </div>
-                    <div className="col-md-6 card-body">
-                      <p className="card-title fs-3 fw-bold">Cari Barang Hilang</p>
-                      <p className="card-text fs-6">
-                        Semua informasi barang yang hilang yang telah ditemukan
-                        tersedia di dalam web ini. Cari barang anda yang hilang
-                        di website ini dan klaim kepemilikan barang anda.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
       </div>
 
       <div className="listBarang  ">

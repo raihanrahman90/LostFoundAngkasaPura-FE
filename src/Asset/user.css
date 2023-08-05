@@ -18,3 +18,19 @@
     /* margin-bottom: 10% !important; */
     margin-bottom: 6% !important;
 }
+.hv-75{
+    height: 75vh;
+}
+.hv-50{
+    height: 50vh;
+}
+.hv-45{
+    height: 45vh;
+}
+.h-fit-content{
+    height: fit-content;
+}
+.landingpage-card{
+    margin-top: -100px!important;
+    z-index: 99px;
+}
