@@ -108,7 +108,7 @@ export default function FoundItemList() {
                     <td>{item.name}</td>
                     <td>{item.category}</td>
                     <td>{item.foundDate}</td>
-                    <td>{item.status}</td>
+                    <td><div className="badge bg-primary">{item.status}</div></td>
                     <td>{item.description}</td>
                   </tr>
                 ))}
