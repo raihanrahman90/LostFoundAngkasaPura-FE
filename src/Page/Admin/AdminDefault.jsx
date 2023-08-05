@@ -11,7 +11,7 @@ export const AdminDefault = ({title, body}) =>{
         </div>
 
         <div
-          className="col-lg-10 col-md-9 col-sm-8 pt-5 bg-white rounded"
+          className="col-lg-10 col-md-9 col-sm-8 pt-5 bg-white  shadow"
         >
           <div className="d-flex justify-content-between row">
             <h3>{title}</h3>

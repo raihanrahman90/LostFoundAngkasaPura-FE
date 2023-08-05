@@ -22,26 +22,19 @@ export default function FoundItemList() {
   const handleTgl = (e) => {
     setTgl(e.target.value);
   }
-  const nextButton = ()=>{
-    console.log("issi current page "+currentPage)
+  const nextButton = async ()=>{
     setCurrentPage(currentPage+1);
-    
-    console.log("issi current page "+currentPage)
-    fetchData();
   }
   const prevButton = ()=>{
-    console.log("issi current page "+currentPage)
     setCurrentPage(currentPage-1);
-    console.log("issi current page "+currentPage)
-    fetchData();
   }
   const fetchData= async () => {
-    const url = `http://103.150.92.47:8081/Admin/Item-Found?page=${currentPage}`;
+    let url = `http://103.150.92.47:8081/Admin/Item-Found?page=${currentPage}`;
     if(tgl.trim() != ""){
       url = `${url}&foundData=${tgl}`;
     }
     if(kategori.trim() != ""){
-      url = `${url}&catetgory=${kategori}`;
+      url = `${url}&category=${kategori}`;
     }
 
     const token = Cookies.get("token");
@@ -77,7 +70,7 @@ export default function FoundItemList() {
       console.log(err);
     });
     fetchData();
-  }, []);
+  }, [currentPage, tgl, kategori]);
 
   return (
     <AdminDefault

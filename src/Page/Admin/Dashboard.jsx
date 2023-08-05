@@ -22,11 +22,15 @@ export default function Dashboard() {
         {
             data.map(data=>{
               return <div className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center mb-2 col-12">
-                <div className={"px-5 rounded d-flex justify-content-center w-100 row "+data.color} >
-                  <img src={data.icon} alt="" className="col-4"/>
-                  <div className="col-8">
-                    <h3>{data.text}</h3>
-                    <h3>{data.count}</h3>
+                <div className={"px-5 py-3 rounded d-flex justify-content-center align-middle w-100 row "+data.color} >
+                  <div className="col-4 justify-content-center align-middle inline-block d-flex">
+                    <img src={data.icon} alt="" width={72} className="align-self-center"/>
+                  </div>
+                  <div className="col-8 py-2 d-flex">
+                    <div className="align-self-center">
+                      <h6>{data.text}</h6>
+                      <h4>{data.count}</h4>
+                    </div>
                   </div>
                 </div>
               </div>
