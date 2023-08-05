@@ -22,8 +22,7 @@ export default function Navbar() {
     <div className='NavbarBG  mx-auto ps-5 '>
       <div className='justify-content-center align-items-center mb-3'>
         <img className='logoNav mb-5' src={logo} alt='Logo' />
-        <h5 className='ml-2 mb-0 text-black'>Customer <span style={{color : "#FFF000"}}>Service</span> 
-          </h5>
+        <h5 className='ml-2 mb-0 text-black'>Customer Service</h5>
       </div>
       <ul style={{ listStyle: 'none', padding: '30px 0' }}>
         <li className='py-3'>

@@ -41,11 +41,7 @@ export default function ListData({
             to="/admin/DetailClaim"
             state={{ from : id}}
           >
-<<<<<<< HEAD
             Detail
-=======
-            Edit
->>>>>>> origin/jamal
           </Link>
         </div>
       </div>

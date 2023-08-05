@@ -7,7 +7,7 @@ import check_circle from "../../Asset/check_circle.png";
 
 export default function Dashboard() {
   return (
-    <div className="bgDashboard">
+    <div className="bg-secondary vh-100 vw-100 ">
       <div className="row  pt-5 pb-5">
         <div className="col-lg-2 col-md-3 col-sm-4">
           <Navbar />
@@ -20,8 +20,8 @@ export default function Dashboard() {
           <div className="d-flex justify-content-between">
             <h1>Dashboard</h1>
           </div>
-          <div className="row pt-4">
-          <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center  mb-2">
+          <div className="row pt-4 text-white">
+            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center  mb-2">
               <div className="bg-primary px-5 rounded d-flex justify-content-center "  >
                 <img src={add_alert} alt="" />
                 <div>

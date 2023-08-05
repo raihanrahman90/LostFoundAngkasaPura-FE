@@ -1,5 +1,7 @@
 $theme-colors: (
   "primary": #138FC7,
-  "danger": #ff4136
+  "danger": #ff4136,
+  "secondary":#ecf0f1,
+  "success":#2ecc71
 );
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
