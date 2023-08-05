@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
+import { useNavigate } from 'react-router-dom';
+
 import {defaultRequest}from '../../Hooks/DefaultRequest';
+import {login}from '../../Hooks/Admin/Admin';
 
 
 export default function LoginAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  let navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const data = {
+    const data = await login({
       email: email,
       password: password,
-    }
-    const response = await defaultRequest.post(`/api/v1/auth/login`, data);
-    const result = response.data;
-    console.log(result);
-    if (result.status === 'success') {
-      const token = result.data.token;
-      //const user = jwt.decode(token);
-      Cookies.set('token', token);
-      //Cookies.set('user', JSON.stringify(user));
-      window.location.href = '/admin';
+    });
+    if (data) {
+      // console.log(data.data);
+      Cookies.set('token', data.data);
+      navigate('/admin/dashboard');
     }
   };
-
 
   return (
     <section className="vh-100" style={{backgroundColor: "#138FC7"}}>

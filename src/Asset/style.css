@@ -41,7 +41,12 @@ a {
     font-size: 20px;
     padding-left: 10px;
     align-items: end;
-    padding-top: 200px;
+    margin-top: 200px;
+}
+
+.menu_link_singout:hover{
+    background-color: #138FC7;
+    border-radius: 10px;
 }
 
 li:hover{

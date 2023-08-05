@@ -1,49 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Cookies from 'js-cookie';
 import "../../Asset/style.css";
 
 export default function CustomReport() {
-  const datatable = [
-    {
-        id: 0,
-        namaCustomer: "Barang 4",
-        Nohp: "111111",
-        Email: "1@gmail.com",
-    },
-    {
-        id: 1,
-        namaCustomer: "Barang 4",
-        Nohp: "00000000",
-        Email: "2@gmail.com",
-    },
-    {
-        id: 2,
-        namaCustomer: "Barang 4",
-        Nohp: "00000000",
-        Email: "3@gmail.com",
-    },
-    {
-        id: 3,
-        namaCustomer: "Barang 4",
-        Nohp: "Kategori 4",
-        Email: "2023-07-24",
-    },
-    {
-        id: 5,
-        namaCustomer: "Barang 4",
-        Nohp: "Kategori 4",
-        Email: "2023-07-24",
-    },
-    {
-      id: 4,
-      namaCustomer: "Barang 4",
-      Nohp: "Kategori 4",
-      Email: "2023-07-24",
-    }
-  ];
 
-  const [data, setData] = useState(datatable);
+
+  const [data, setData] = useState([]);
 
   const [noHp, setNoHp] = useState("");
   const [email, setEmail] = useState("");
@@ -59,17 +24,34 @@ export default function CustomReport() {
    }
 
    const handleFilter = () => { 
-      if (noHp == "" && email == "") {
-        setData(datatable);
-        return;
-      }
-      const newData = datatable.filter((item) => {
-        if (item.Nohp == noHp || item.Email == email) {
-          return item;
-        }
-      });
-      setData(newData);
+      // if (noHp == "" && email == "") {
+      //   setData(datatable);
+      //   return;
+      // }
+      // const newData = datatable.filter((item) => {
+      //   if (item.Nohp == noHp || item.Email == email) {
+      //     return item;
+      //   }
+      // });
+      // setData(newData);
    }
+
+   useEffect(() => {
+    const token = Cookies.get("token");
+    axios.get("http://103.150.92.47:8081/Admin/Item-Found", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      setData(res.data.data.data);
+      // console.log(res.data.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  }, []);
 
   return (
     <div className="bgDashboard">
@@ -123,9 +105,9 @@ export default function CustomReport() {
               <thead>
                 <tr>
                   <th>id</th>
-                  <th>Nama Customer</th>
+                  <th>Nama Barang</th>
                   <th>Nohp</th>
-                  <th>Email</th>
+                  <th>identityType</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,9 +115,9 @@ export default function CustomReport() {
                   return (
                     <tr>
                       <td>{item.id}</td>
-                      <td>{item.namaCustomer}</td>
-                      <td>{item.Nohp}</td>
-                      <td>{item.Email}</td>
+                      <td>{item.name}</td>
+                      <td>{item.identityNumber}</td>
+                      <td>{item.identityType}</td>
                     </tr>
                   );
                 })}

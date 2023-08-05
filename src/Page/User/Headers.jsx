@@ -75,11 +75,11 @@ export default function Headers() {
 
                     <h5 className="mb-3">Login</h5>
                     <div>
-                    <input className="px-4 py-2 w-100 " onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Alamat Email" />
+                    <input className="mx-1 px-4 py-2 w-100 " onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Alamat Email" />
                     </div>
 
                     <div className="mt-3">
-                      <input className="px-4 py-2 w-100" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" />
+                      <input className="mx-1 px-4 py-2 w-100" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" />
                     </div>
 
                     <p className="mt-3"><a href="#"> Lupa password </a></p>
