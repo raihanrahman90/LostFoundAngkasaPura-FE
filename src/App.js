@@ -15,26 +15,26 @@ import HomePage from "./Page/User/HomePage";
 function App() {
 
   return (
-    <div className="hv-100">
-    <BrowserRouter>
-        <Routes>
-          {/* <Route path="/" element={<Login />} /> */}
-          <Route path="/admin" element={<LoginAdmin />} />
-          <Route path="/admin/FoundItem" element={<FoundItem />} />
-          <Route path="/admin/navbar" element={<Navbar />} />
-          <Route path="/admin/AddItem" element={<AddItem />} />
-          <Route path="/admin/Dashboard" element={<Dashboard />} />
-          <Route path="/admin/CustomReport" element={<CustomReport />} />
-          <Route path="/admin/ListClaim" element={<ListClaim />} />
-          <Route path="/admin/DetailClaim" element={<DetailClaim />} />
+    <div className="hv-100 wv-100">
+      <BrowserRouter>
+          <Routes>
+            {/* <Route path="/" element={<Login />} /> */}
+            <Route path="/admin" element={<LoginAdmin />} />
+            <Route path="/admin/FoundItem" element={<FoundItem />} />
+            <Route path="/admin/navbar" element={<Navbar />} />
+            <Route path="/admin/AddItem" element={<AddItem />} />
+            <Route path="/admin/Dashboard" element={<Dashboard />} />
+            <Route path="/admin/CustomReport" element={<CustomReport />} />
+            <Route path="/admin/ListClaim" element={<ListClaim />} />
+            <Route path="/admin/DetailClaim" element={<DetailClaim />} />
 
 
-{/* user */}
-          <Route path="/" element={<HomePage />} />
+  {/* user */}
+            <Route path="/" element={<HomePage />} />
 
 
-        </Routes>
-    </BrowserRouter>
+          </Routes>
+      </BrowserRouter>
 
       </div>
   );

@@ -24,3 +24,43 @@ export const instance = axios.create({
   headers: {"Authorization": 'Bearer '+ Cookies.get('token')}
 });
 
+export const adminAuthRequest = ({
+  url, method, body
+})=>{
+  try{
+    var accessToken = Cookies.get('token');
+    var response = _callApiWithToken(url, method, body,)
+  }catch(e){
+
+  }
+}
+
+export const getAccessToken = ()=>{
+  try {
+
+  }catch(e){
+    throw ErrorFactory.getFromHttpError(e, url,'web API');
+  }
+}
+
+const _callApiWithToken = async({
+  url: string,
+  method: Method,
+  dataToSend: any,
+  accessToken: string})=>{
+
+  try {
+
+      const response = await axios.request({
+          url,
+          method,
+          data: dataToSend,
+          headers: {
+              'Authorization': `Bearer ${accessToken}`,
+          },
+      });
+      return response.data;
+  } catch (e) {
+      throw ErrorFactory.getFromHttpError(e, url, 'web API');
+  }
+};

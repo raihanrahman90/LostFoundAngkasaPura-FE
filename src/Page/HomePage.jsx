@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="row my-2 mx-5  ">
-        <div className="col-md-6 text-center d-flex justify-content-center py-5  ">
+        <div className="col-md-6 text-center d-flex justify-content-center py-5">
           <div className="shadow-lg  mb-5 bg-body rounded py-5 w-75 ">
             <p className=" fw-bold fs-3">Laporkan Barang hilang</p>
             <p className=" fs-6 text-center">
@@ -63,7 +63,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="col-md-6 text-center py-5 d-flex justify-content-center  ">
+        <div className="col-md-6 text-center py-5 d-flex justify-content-center">
           <div className="shadow-lg  mb-5 bg-body rounded py-5 w-75">
             <p className=" fw-bold fs-3">Cari Barang Hilang</p>
             <p className="fs-6">
