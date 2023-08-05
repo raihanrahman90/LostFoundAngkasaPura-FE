@@ -16,7 +16,7 @@ import './App.css'
 function App() {
 
   return (
-    <>
+    <section className="vh-100 vw-100">
         <BrowserRouter>
             <Routes>
               {/* <Route path="/" element={<Login />} /> */}
@@ -34,7 +34,7 @@ function App() {
 
             </Routes>
         </BrowserRouter>
-      </>
+      </section>
   );
 }
 

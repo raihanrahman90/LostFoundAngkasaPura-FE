@@ -44,10 +44,10 @@ export const getAccessToken = ()=>{
 }
 
 const _callApiWithToken = async({
-  url: string,
-  method: Method,
-  dataToSend: any,
-  accessToken: string})=>{
+  url,
+  method,
+  dataToSend,
+  accessToken})=>{
 
   try {
 
