@@ -15,7 +15,7 @@ import HomePage from "./Page/User/HomePage";
 function App() {
 
   return (
-    <>
+    <div className="hv-100">
     <BrowserRouter>
         <Routes>
           {/* <Route path="/" element={<Login />} /> */}
@@ -36,7 +36,7 @@ function App() {
         </Routes>
     </BrowserRouter>
 
-      </>
+      </div>
   );
 }
 

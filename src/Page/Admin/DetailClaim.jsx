@@ -30,7 +30,7 @@ export default function Detail() {
   }, [from]);
 
   return (
-    <div className="bgDashboard">
+    <div className="bgDashboard container">
       <div className="row pt-5 pb-5">
         <div className="col-lg-2 col-md-3 col-sm-4 ">
           <Navbar />

@@ -7,7 +7,7 @@ import check_circle from "../../Asset/check_circle.png";
 
 export default function Dashboard() {
   return (
-    <div className="bg-secondary vh-100 vw-100 ">
+    <div className="bg-secondary">
       <div className="row  pt-5 pb-5">
         <div className="col-lg-2 col-md-3 col-sm-4">
           <Navbar />
