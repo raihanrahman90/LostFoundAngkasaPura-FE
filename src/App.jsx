@@ -1,8 +1,8 @@
 
-import FoundItem from "./Page/Admin/FoundItem";
+import FoundItem from "./Page/Admin/ItemFound/ItemFoundList";
 import LoginAdmin from "./Page/Admin/LoginAdmin";
 import Navbar from "./Page/Admin/Navbar";
-import AddItem from "./Page/Admin/AddItem";
+import AddItem from "./Page/Admin/ItemFound/ItemFoundAdd";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
 import ListClaim from "./Page/Admin/ListClaim";

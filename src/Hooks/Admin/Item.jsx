@@ -22,7 +22,7 @@ export const addItem = async ({
 };
 
 
-export const geListItem = async () => {
+export const getListItem = async () => {
     return await instance
     .get(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`)
     .then((res)=>{
