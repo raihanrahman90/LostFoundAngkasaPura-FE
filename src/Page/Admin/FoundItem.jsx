@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 export default function FoundItem() {
   const [data, setData] = useState([]);
+  const [datatable, setDatatable] = useState(data);
   const [kategori, setKategori] = useState("");
   const [tgl, setTgl] = useState("");
   const [valueKategori, setValueKategori] = useState([]);
@@ -51,26 +52,17 @@ export default function FoundItem() {
 
   }, []);
 
-  const handleFilter = () => {
-    let filteredData = data;
+  const fetchDataWithFilters = async (foundDate, category) => {
+    const url = `http://103.150.92.47:8081/Admin/Item-Found?foundDate=${tgl}&category=${kategori}`;
+    const token = Cookies.get("token");
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setData(res.data.data.data);
+  };
 
-    if(kategori === "" && tgl === "")return setData(data);
-  
-    if (kategori !== "") {
-      filteredData = filteredData.filter(item =>
-        item.category.toLowerCase().includes(kategori.toLowerCase())
-      );
-    }
-  
-    if (tgl !== "") {
-      filteredData = filteredData.filter(item =>
-        item.tanggalDitemukan && item.tanggalDitemukan.includes(tgl)
-      );
-    }
-  
-    setData(filteredData);
-  }
-  
 
   return (
     <div className="bgDashboard">
@@ -123,7 +115,7 @@ export default function FoundItem() {
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" onClick={handleFilter}>Save changes</button>
+                    <button type="button" className="btn btn-primary" onClick={fetchDataWithFilters}>Save changes</button>
                   </div>
                 </div>
               </div>

@@ -26,7 +26,7 @@ export default function Dashboard() {
               <div className="bg-primary px-5 rounded d-flex justify-content-center "  >
                 <img src={add_alert} alt="" />
                 <div>
-                  <h3>Customer Report</h3>
+                  <h3>Found Item</h3>
                   <h3></h3>
                 </div>
               </div>

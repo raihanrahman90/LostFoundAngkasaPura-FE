@@ -5,6 +5,8 @@ import Navbar from "./Page/Admin/Navbar";
 import AddItem from "./Page/Admin/AddItem";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
+import ListClaim from "./Page/Admin/ListClaim";
+import DetailClaim from "./Page/Admin/DetailClaim";
 
 
 // user
@@ -23,6 +25,10 @@ function App() {
           <Route path="/admin/AddItem" element={<AddItem />} />
           <Route path="/admin/Dashboard" element={<Dashboard />} />
           <Route path="/admin/CustomReport" element={<CustomReport />} />
+          <Route path="/admin/ListClaim" element={<ListClaim />} />
+          <Route path="/admin/DetailClaim" element={<DetailClaim />} />
+
+
 {/* user */}
           <Route path="/" element={<HomePage />} />
 
