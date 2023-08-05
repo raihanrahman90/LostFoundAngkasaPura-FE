@@ -1,0 +1,20 @@
+/* create baground gradasi */
+.bgdasboard {
+    background: linear-gradient(to right, #3DAAAF, #40CB92);
+    display: relative;
+}
+
+.title{
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 36px;
+    color: #FFFFFF;
+    padding-top: 5%;
+}
+
+.buttonTitle{
+    /* margin-bottom: 10% !important; */
+    margin-bottom: 6% !important;
+}
