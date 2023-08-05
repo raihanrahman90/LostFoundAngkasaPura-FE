@@ -150,7 +150,7 @@ export default function FoundItem() {
                 </button>
               </li>
               <li>
-              <div className="text-center text-white rounded bg-primary py-2">
+              <div className="text-center text-white rounded bg-primary px-3 py-2">
                           Page {currentPage} of {page}
                         </div>
               </li>
