@@ -20,7 +20,7 @@ export default function ListClaim() {
         }
       )
       .then((res) => {
-        console.log(res.data.data.data);
+        // console.log(res.data.data.data);
         setData(res.data.data.data);
       })
       .catch((err) => {

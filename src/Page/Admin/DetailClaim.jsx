@@ -21,7 +21,7 @@ export default function Detail() {
         },
       })
       .then((res) => {
-        console.log(res.data.data.data);
+        // console.log(res.data.data.data);
         setData(res.data.data.data);
       })
       .catch((err) => {
