@@ -53,7 +53,7 @@ export default function HomePage() {
       <div className="row my-2 mx-5  ">
         <div className="col-md-6 text-center d-flex justify-content-center py-5">
           <div className="shadow-lg  mb-5 bg-body rounded py-5 w-75 ">
-            <p className=" fw-bold fs-3">Laporkan Barang hilang</p>
+            <p className=" fw-bold fs-3">Laporkan Barang hilang jamal</p>
             <p className=" fs-6 text-center">
               Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
               berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
