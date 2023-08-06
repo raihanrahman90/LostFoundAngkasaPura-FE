@@ -108,5 +108,12 @@
     color: white;
 }
 .table{
-    min-height: 500px;
+    min-height: 450px;
+}
+#navbar{
+    height: 62px;
+}
+.admin-main{
+    min-height: 75%;
+    height: fit-content;
 }

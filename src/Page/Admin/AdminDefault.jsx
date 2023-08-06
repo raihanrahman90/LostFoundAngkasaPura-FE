@@ -11,9 +11,11 @@ export const AdminDefault = ({title, body}) =>{
         </div>
 
         <div
-          className="col-lg-10 col-md-9 col-sm-8 py-5 bg-white shadow px-5"
-        >
-          <div className="rounded shadow h-100 p-3">
+          className="col-lg-10 col-md-9 col-sm-8 bg-white shadow px-0">
+          <div className="shadow" id="navbar">
+            
+          </div>
+          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3">
             <h3>{title}</h3>
             {body}
           </div>

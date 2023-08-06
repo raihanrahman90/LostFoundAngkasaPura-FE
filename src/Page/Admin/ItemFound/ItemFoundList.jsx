@@ -77,11 +77,11 @@ export default function FoundItemList() {
       body={<>
         <div className="">
           <div className="d-flex justify-content-end pb-4 relative h-100">
-            <button className="mr-2 me-5 bg-primary text-white">
+            <button className="btn btn-primary text-white me-3">
               Filter
             </button>
             <Link
-              className="border border-0 bg-primary text-white px-3 pb-2 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none"
+              className="btn btn-primary text-white"
               to="/admin/AddItem"
             >
               Add New Item
