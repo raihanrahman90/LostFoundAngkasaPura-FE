@@ -11,6 +11,7 @@ import CustomReport from "./Page/Admin/CustomReport";
 // user
 import HomePage from "./Page/User/HomePage";
 import Headers from "./Page/User/Headers";
+import ListBarang from "./Page/User/List_Barang";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/admin/CustomReport" element={<CustomReport />} />
 {/* user */}
           <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/ListBarang" element={<ListBarang />} />
 
 
 
