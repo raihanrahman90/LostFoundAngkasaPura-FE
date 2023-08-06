@@ -81,7 +81,7 @@ export default function FoundItemList() {
             {/* ... (Modal button and content) */}
             
             {/* Add New Item Link */}
-            <button className="mr-2">
+            <button className="mr-2 me-5 bg-primary">
               Filter
             </button>
             <Link
@@ -92,7 +92,7 @@ export default function FoundItemList() {
             </Link>
           </div>
           <div className="table">
-            <table className="table table-bordered pt-5 rounded">
+            <table className="table table-bordered pt-5 rounded" >
               <thead style={{backgroundColor:"black"}}>
                 <tr>
                   <th>Nama Barang</th>
@@ -114,20 +114,24 @@ export default function FoundItemList() {
                 ))}
               </tbody>
             </table>
+            <div className="text-center">
+              Page {currentPage} of {totalPages}
+            </div>
           </div>
           {/* Pagination */}
           <nav aria-label="pagination">
                 <button
-                  className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
+                  className={`page-item ${currentPage === 1 ? 'disabled' : ''} bg-primary text-white`}
                   onClick={prevButton}
                   disabled={currentPage === 1}
                 >{"<"}
                 </button>
-                          Page {currentPage} of {totalPages}
+                          
                 <button
-                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}
+                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''} bg-primary float-end`}
                   onClick={nextButton}
                   disabled={!hasMore}
+                  
                 >
                   {">"}
                 </button>

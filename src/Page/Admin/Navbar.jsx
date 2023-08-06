@@ -5,6 +5,7 @@ import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
+import { RiAdminFill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 
 
@@ -20,7 +21,10 @@ export default function Navbar() {
   const listMenu = [
     {icon:<BsGraphDown style={{color: "black"}}/>, to:'/admin/dashboard', text:'Dashboard'},
     {icon:<BsSearch style={{color: "black"}}/>, to:'/admin/FoundItem', text:'Found Item'},
-    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListClaim', text:'List Claim'}
+    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListClaim', text:'List Claim'},
+    {icon:<RiAdminFill style={{color: "black"}}/>, to:'/admin/CreateAdmin', text:'Create Admin'},
+    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListAdmin', text:'List Admin'}
+
   ]
   return (
     <div className='bg-white mx-auto px-xl-2 px-lg-0 position-relative h-100 rounded pt-5 sidebar shadow'>
@@ -38,9 +42,9 @@ export default function Navbar() {
       </ul>
       
       {/* create button logout */}
-      <button className="btn btn-outline-primary border-0 text-dark my-5 sign-out w-100" onClick={logout}  >
-        <BiLogOut style={{color: "black"}} className=''/>
-        <span  className='menu_link '>
+      <button className="btn btn-outline-primary border-0 text-dark my-5 w-100 sign-out " onClick={logout}  >
+        <BiLogOut style={{color: "black"}}  className=''/>
+        <span  className='menu_link fw-bold '>
           Log out
         </span>
       </button>
