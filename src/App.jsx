@@ -7,6 +7,8 @@ import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
 import ListClaim from "./Page/Admin/ListClaim";
 import DetailClaim from "./Page/Admin/DetailClaim";
+import CreateAdmin from "./Page/Admin/CreateAdmin";
+import ListAdmin from "./Page/Admin/ListAdmin";
 // user
 import HomePage from "./Page/User/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -28,6 +30,10 @@ function App() {
               <Route path="/admin/CustomReport" element={<CustomReport />} />
               <Route path="/admin/ListClaim" element={<ListClaim />} />
               <Route path="/admin/DetailClaim" element={<DetailClaim />} />
+              <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
+              <Route path="/admin/ListAdmin" element={<ListAdmin />} />
+
+
     {/* user */}
               <Route path="/" element={<HomePage />} />
 

@@ -32,7 +32,7 @@ export default function ListClaim() {
     <AdminDefault
       title={"Detail Claim"}
       body={
-        <div className="container">
+        <div className="container mt-5">
           {data.map((item, index) => (
             <ListData
               key={index}

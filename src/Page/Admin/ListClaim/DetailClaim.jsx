@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { BsFillPersonFill } from "react-icons/bs";
+import { AdminDefault } from "./AdminDefault";
 
 export default function Detail() {
   const location = useLocation();
@@ -30,13 +31,11 @@ export default function Detail() {
   }, [from]);
 
   return (
-    <div className="bgDashboard container">
-      <div className="row pt-5 pb-5">
-        <div className="col-lg-2 col-md-3 col-sm-4 ">
-          <Navbar />
-        </div>
-
-        <div
+    <AdminDefault 
+    title={"Detail Claim"}
+    body={
+      <>
+       <div
           className="col-md-10 pt-5"
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
@@ -78,7 +77,11 @@ export default function Detail() {
             </div>
           ))}
         </div>
-      </div>
-    </div>
+      
+      </>
+    
+  }
+    />
+
   );
 }

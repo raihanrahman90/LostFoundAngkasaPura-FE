@@ -5,6 +5,7 @@ import Navbar from "./Page/Admin/Navbar";
 import AddItem from "./Page/Admin/AddItem";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
+import CreateAdmin from "./Page/Admin/CreateAdmin";
 
 
 // user
@@ -23,6 +24,8 @@ function App() {
           <Route path="/admin/AddItem" element={<AddItem />} />
           <Route path="/admin/Dashboard" element={<Dashboard />} />
           <Route path="/admin/CustomReport" element={<CustomReport />} />
+          <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
+
 {/* user */}
           <Route path="/" element={<HomePage />} />
 
