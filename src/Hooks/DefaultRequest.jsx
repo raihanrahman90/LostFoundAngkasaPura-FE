@@ -43,32 +43,24 @@ export const getAccessToken = ()=>{
   }
 }
 
-<<<<<<< HEAD
-// const _callApiWithToken = async({
-//   url: string,
-//   method: Method,
-//   dataToSend: any,
-//   accessToken: string})=>{
-=======
 const _callApiWithToken = async({
   url,
   method,
   dataToSend,
   accessToken})=>{
->>>>>>> 3ad9271ae55fdbe78bf8cd2307e6dd57d014aee5
 
-//   try {
+  try {
 
-//       const response = await axios.request({
-//           url,
-//           method,
-//           data: dataToSend,
-//           headers: {
-//               'Authorization': `Bearer ${accessToken}`,
-//           },
-//       });
-//       return response.data;
-//   } catch (e) {
-//       throw ErrorFactory.getFromHttpError(e, url, 'web API');
-//   }
-// };
+      const response = await axios.request({
+          url,
+          method,
+          data: dataToSend,
+          headers: {
+              'Authorization': `Bearer ${accessToken}`,
+          },
+      });
+      return response.data;
+  } catch (e) {
+      throw ErrorFactory.getFromHttpError(e, url, 'web API');
+  }
+};
