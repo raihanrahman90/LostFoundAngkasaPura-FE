@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { AdminDefault } from "./AdminDefault";
+import { AdminDefault } from "../AdminDefault";
 import Cookies from "js-cookie";
 
 export default function CreateAdmin() {

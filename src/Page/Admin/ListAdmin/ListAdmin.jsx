@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AdminDefault } from "./AdminDefault";
+import { AdminDefault } from "../AdminDefault";
 import axios from "axios";
 import Cookies from "js-cookie";
 

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
 import axios from "axios";
 import Cookies from "js-cookie";
 import ListData from "./ListData";
-import { AdminDefault } from "./AdminDefault";
+import { AdminDefault } from "../AdminDefault";
 
 export default function ListClaim() {
   const [data, setData] = useState([]);

@@ -5,10 +5,10 @@ import Navbar from "./Page/Admin/Navbar";
 import AddItem from "./Page/Admin/ItemFound/ItemFoundAdd";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
-import ListClaim from "./Page/Admin/ListClaim";
-import DetailClaim from "./Page/Admin/DetailClaim";
-import CreateAdmin from "./Page/Admin/CreateAdmin";
-import ListAdmin from "./Page/Admin/ListAdmin";
+import ListClaim from "./Page/Admin/ListClaim/ListClaim";
+import DetailClaim from "./Page/Admin/ListClaim/DetailClaim";
+import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
+import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 // user
 import HomePage from "./Page/User/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

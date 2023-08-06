@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { BsFillPersonFill } from "react-icons/bs";
-import { AdminDefault } from "./AdminDefault";
+import { AdminDefault } from "../AdminDefault";
 
 export default function Detail() {
   const location = useLocation();
