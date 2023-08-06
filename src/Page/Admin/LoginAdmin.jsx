@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
-
-import {defaultRequest}from '../../Hooks/DefaultRequest';
 import {login}from '../../Hooks/Admin/Admin';
+import {getAccessToken} from '../../Hooks/DefaultRequest';
 
 
 export default function LoginAdmin() {
@@ -27,6 +25,20 @@ export default function LoginAdmin() {
       navigate('/admin/dashboard');
     }
   };
+
+
+  useEffect(() =>{
+    const checkAccessToken = async()=>{
+      try{
+        let accessToken = await getAccessToken();
+        console.log(accessToken);
+        return accessToken;
+      }catch(e){
+
+      }
+    }
+    checkAccessToken().catch(console.error);
+  }, []);
 
   return (
     <section className="vh-100 vw-100 bg-primary">
@@ -53,12 +65,12 @@ export default function LoginAdmin() {
 
                   <div className="form-outline mb-4">
                     <input type="email" onChange={(e) => {setEmail(e.target.value)}} id="form2Example17" className="form-control form-control-lg" />
-                    <label className="form-label" for="form2Example17">Email address</label>
+                    <label className="form-label" >Email address</label>
                   </div>
 
                   <div className="form-outline mb-4">
                     <input type="password" onChange={(e) => {setPassword(e.target.value)}} id="form2Example27" className="form-control form-control-lg" />
-                    <label className="form-label" for="form2Example27">Password</label>
+                    <label className="form-label" >Password</label>
                   </div>
 
                   <div className="pt-1 mb-4">

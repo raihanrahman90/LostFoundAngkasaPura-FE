@@ -35,23 +35,23 @@ export const adminAuthRequest = ({
   }
 }
 
-export const getAccessToken = ()=>{
+export const getAccessToken = async ()=>{
   try {
-
+    var accessToken = await _callApiWithToken("admin/admin/access-token", 'get', '','')
+    return accessToken;
   }catch(e){
-    throw ErrorFactory.getFromHttpError(e, url,'web API');
+    return e;
   }
 }
 
-const _callApiWithToken = async({
+const _callApiWithToken = async(
   url,
   method,
   dataToSend,
-  accessToken})=>{
+  accessToken)=>{
 
   try {
-
-      const response = await axios.request({
+      const response = await defaultRequest.request({
           url,
           method,
           data: dataToSend,
@@ -61,6 +61,6 @@ const _callApiWithToken = async({
       });
       return response.data;
   } catch (e) {
-      throw ErrorFactory.getFromHttpError(e, url, 'web API');
+      throw new Error("terjadi kesalahan");
   }
 };
