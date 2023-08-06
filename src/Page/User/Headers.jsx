@@ -55,7 +55,7 @@ export default function Headers() {
             </ul>
             <form class="d-flex">
               <BsBell size={30} className="me-5 mt-1"  />
-              <button type="button" class="btn bg-danger text-light pe-5 ps-5 me-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
               Login
             </button>
 

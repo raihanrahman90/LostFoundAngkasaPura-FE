@@ -15,17 +15,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-<<<<<<< HEAD
-=======
-button {
-    background-color: #138FC7 !important;
-}
->>>>>>> origin/jamal
-
-a {
-    color: #7EAFD8 !important;
-}
-
 /* navbar */
 .logoNav{
     width: 80%;
@@ -35,9 +24,10 @@ a {
 }
 
 .menu_link{
-    color: rgb(0, 0, 0);
-    font-size: 20px;
+    color: var(--bs-dark);
+    font-size: 16px;
     padding-left: 10px;
+    font-weight: 400;
 }
 .menu_link_singout{
     color: rgb(5, 5, 5);
@@ -49,12 +39,16 @@ a {
 
 .menu_link_singout:hover{
     background-color: #138FC7;
-    border-radius: 10px;
+    border-radius: 2px;
 }
-
-li:hover{
+.sidebar li:hover{
     background-color: #138FC7;
-    border-radius: 10px;
+    border-radius: 3px;
+}
+.sidebar li:hover .menu_link, .sidebar li:hover svg{
+    background-color: #138FC7;
+    border-radius: 3px;
+    color: white!important;
 }
 
 .NavbarBG {
@@ -65,16 +59,6 @@ li:hover{
     border-radius: 30px;
 }
 
-.bgDashboard {
-<<<<<<< HEAD
-    background-color: #ecf0f1;
-=======
-    background-color: #138FC7;
->>>>>>> origin/jamal
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-}
 
 .table-container {
     margin: 20px !important; /* Adjust the margin value to control the spacing */
@@ -91,13 +75,41 @@ li:hover{
 
 .labelInput{
     font-size: 20px !important;
-<<<<<<< HEAD
 }
 .h-200px{
     height: 200px;
 }
 .w-36px{
     width: 36px;
-=======
->>>>>>> origin/jamal
+}
+.w-52px{
+    width: 52px;
+}
+.sidebar > button:hover{
+    background-color: #138FC7;
+}
+.sign-out{
+    position: absolute;
+    bottom: 50px;
+}
+.admin table{
+    border-bottom: 4px solid #f8f9fd;
+    border-top: 4px solid #f8f9fd;
+    margin-bottom: 10px;
+}
+.admin tr{
+    display: table-row;
+    line-height: 30px;
+}
+.admin td, .admin th{
+    border: none;
+}
+.admin th{
+    font-weight: bold;
+}
+.admin thead{
+    color: white;
+}
+.admin{
+    background-color: #138FC7;
 }

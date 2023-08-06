@@ -17,46 +17,34 @@ export default function Navbar() {
     Cookies.remove('token');
     navigate('/admin');
   };
-
+  const listMenu = [
+    {icon:<BsGraphDown style={{color: "black"}}/>, to:'/admin/dashboard', text:'Dashboard'},
+    {icon:<BsSearch style={{color: "black"}}/>, to:'/admin/FoundItem', text:'Found Item'},
+    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListClaim', text:'List Claim'}
+  ]
   return (
-    <div className='NavbarBG  mx-auto ps-5 '>
-      <div className='justify-content-center align-items-center mb-3'>
-        <img className='logoNav mb-5' src={logo} alt='Logo' />
-        <h5 className='ml-2 mb-0 text-black'>Customer Service</h5>
-      </div>
-      <ul style={{ listStyle: 'none', padding: '30px 0' }}>
-        <li className='py-3'>
-        <BsGraphDown style={{color: "black"}}/>
-          <Link  style={{ textDecoration: 'none' }} to='/admin/dashboard'>
-            <span className='menu_link '>
-            Dashboard
-            </span>
-          </Link>
-        </li>
-        <li className='py-3 px-3'>
-          <BsSearch style={{color: "black"}}/>
-          <Link style={{ textDecoration: 'none'}} to='/admin/FoundItem'>
-            <span className='menu_link '>
-            Found Item
-            </span>
-          </Link>
-        </li>
-
-        <li className='py-3 px-3'>
-        <BsTicketDetailedFill style={{color: "black"}}/>
-          <Link style={{ textDecoration: 'none'}} to='/admin/ListClaim'>
-            <span className='menu_link '>
-            List Claim
-            </span>
-          </Link>
-        </li>
+    <div className='bg-white mx-auto px-xl-2 px-lg-0 position-relative h-100 rounded pt-5 sidebar shadow'>
+      <ul style={{ listStyle: 'none', padding:'0px'}}>
+        {listMenu.map(element => {
+          return <li className='py-1 px-lg-3 px-md-1 text-dark my-3' style={{fontSize:'16px'}}>
+            <Link className="decoration-none w-100" to={element.to}>
+              {element.icon}
+              <span className='menu_link'>
+                {element.text}
+              </span>
+            </Link>
+          </li>
+        })}
       </ul>
       
       {/* create button logout */}
-      <div className='menu_link_singout'>
-      <BiLogOut style={{color: "black"}}/>
-        <button className="btn bg-transparent btn-outline-primary border-0 text-dark my-5 " onClick={logout}  ><span  className='menu_link '>Log out</span></button>
-      </div>
+      <button className="btn btn-outline-primary border-0 text-dark my-5 sign-out w-100" onClick={logout}  >
+        <BiLogOut style={{color: "black"}} className=''/>
+        <span  className='menu_link '>
+          Log out
+        </span>
+      </button>
+
     </div>
   );
 }

@@ -4,74 +4,57 @@ import { Chart } from "./Chart";
 import add_alert from "../../Asset/add_alert.png";
 import lab_profile from "../../Asset/lab_profile.png";
 import check_circle from "../../Asset/check_circle.png";
+import {AdminDefault} from './AdminDefault';
 
 export default function Dashboard() {
+
+  const data = [
+    {text:"Found Item", count:32, color:"bg-primary", icon:add_alert},
+    {text:"Customer Report", count:32, color:"bg-danger", icon:lab_profile},
+    {text:"Complete Case", count:32, color:"bg-success", icon:check_circle}
+  ]
   return (
-    <div className="bg-secondary">
-      <div className="row  pt-5 pb-5">
-        <div className="col-lg-2 col-md-3 col-sm-4">
-          <Navbar />
+    <AdminDefault 
+     title={"Dashboard"}
+     body={
+      <>
+        <div className="row pt-4 text-white">
+        {
+            data.map(data=>{
+              return <div className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center mb-2 col-12">
+                <div className={"px-5 py-3 rounded d-flex justify-content-center align-middle w-100 row "+data.color} >
+                  <div className="col-4 justify-content-center align-middle inline-block d-flex">
+                    <img src={data.icon} alt="" width={72} className="align-self-center"/>
+                  </div>
+                  <div className="col-8 py-2 d-flex">
+                    <div className="align-self-center">
+                      <h6>{data.text}</h6>
+                      <h4>{data.count}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            })
+          }
         </div>
-
-        <div
-          className="col-lg-10 col-md-9 col-sm-8 pt-5"
-          style={{ backgroundColor: "white", borderRadius: "30px" }}
-        >
-          <div className="d-flex justify-content-between">
-            <h1>Dashboard</h1>
-          </div>
-          <div className="row pt-4 text-white">
-            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center  mb-2">
-              <div className="bg-primary px-5 rounded d-flex justify-content-center "  >
-                <img src={add_alert} alt="" />
-                <div>
-                  <h3>Found Item</h3>
-                  <h3></h3>
-                </div>
-              </div>
+            <div className="d-flex justify-content-center">
+              <button className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold  rounded py-2">
+                Download Report
+              </button>
             </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center  mb-2">
-              <div className="bg-danger px-5 rounded d-flex justify-content-center "  >
-                <img src={lab_profile} alt="" />
-                <div>
-                  <h3>Customer Report</h3>
-                  <h3></h3>
-                </div>
-              </div>
+            <div
+              className="
+              d-flex
+              justify-content-center
+              align-items-center
+              mb-5
+              "
+              style={{ width: "100%", height: "600px" }}
+            >
+              <Chart />
             </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center  mb-2">
-              <div className="bg-success px-5 rounded d-flex justify-content-center " >
-                <img src={check_circle} alt="" />
-                <div>
-                  <h3>Complete Case</h3>
-                  <h3>30</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="d-flex justify-content-center">
-            <button className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold  rounded py-2">
-              Download Report
-            </button>
-          </div>
-          <div
-            className="
-            d-flex
-            justify-content-center
-            align-items-center
-            mb-5
-            "
-            style={{ width: "100%", height: "400px" }}
-          >
-            <Chart />
-          </div>
-
-          <div></div>
-        </div>
-      </div>
-    </div>
+        </>
+     }
+    />
   );
 }
