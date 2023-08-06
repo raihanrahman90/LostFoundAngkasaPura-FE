@@ -5,8 +5,7 @@ import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
-import { RiAdminFill } from "react-icons/ri";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiUser } from "react-icons/bi";
 
 
 
@@ -19,35 +18,34 @@ export default function Navbar() {
     navigate('/admin');
   };
   const listMenu = [
-    {icon:<BsGraphDown style={{color: "black"}}/>, to:'/admin/dashboard', text:'Dashboard'},
-    {icon:<BsSearch style={{color: "black"}}/>, to:'/admin/FoundItem', text:'Found Item'},
-    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListClaim', text:'List Claim'},
-    {icon:<RiAdminFill style={{color: "black"}}/>, to:'/admin/CreateAdmin', text:'Create Admin'},
-    {icon:<BsTicketDetailedFill style={{color: "black"}}/>, to:'/admin/ListAdmin', text:'List Admin'}
+    {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
+    {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
+    {icon:<BsTicketDetailedFill/>, to:'/admin/ListClaim', text:'List Claim'},
+    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'}
 
   ]
   return (
-    <div className='bg-white mx-auto px-xl-2 px-lg-0 position-relative h-100 rounded pt-5 sidebar shadow'>
+    <div className='bg-dark mx-auto px-xl-2 px-lg-0 position-relative h-100 pt-5 sidebar shadow'>
       <ul style={{ listStyle: 'none', padding:'0px'}}>
         {listMenu.map(element => {
-          return <li className='py-1 px-lg-3 px-md-1 text-dark my-3' style={{fontSize:'16px'}}>
-            <Link className="decoration-none w-100" to={element.to}>
+          return <li className='py-1 px-lg-3 px-md-1 text-white my-3 pe-xl-5 menu_link' style={{fontSize:'16px'}}>
+            <Link className="decoration-none w-100 ml-3" to={element.to}>
               {element.icon}
-              <span className='menu_link'>
+              <span className='ms-3'>
                 {element.text}
               </span>
             </Link>
           </li>
         })}
+        <li className="mt-auto">
+          <button className="decoration-none w-100 ml-3"> 
+              <span className=''>
+                Log out
+              </span>
+          </button>
+        </li>
       </ul>
       
-      {/* create button logout */}
-      <button className="btn btn-outline-primary border-0 text-dark my-5 w-100 sign-out " onClick={logout}  >
-        <BiLogOut style={{color: "black"}}  className=''/>
-        <span  className='menu_link fw-bold '>
-          Log out
-        </span>
-      </button>
 
     </div>
   );

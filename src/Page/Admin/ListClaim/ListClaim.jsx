@@ -29,8 +29,8 @@ export default function ListClaim() {
   }, []);
   return (
     <AdminDefault
-      title={"Detail Claim"}
-      body={
+      title={"List Claim"}
+      body={  
         <div className="container mt-5">
           {data.map((item, index) => (
             <ListData

@@ -40,7 +40,7 @@ export default function CreateAdmin() {
     <AdminDefault
       title={"Create Admin"}
       body={
-        <>
+        <form onSubmit={handleCreateAdmin}>
           <div
             className="col-md-10 pt-5"
             style={{ backgroundColor: "white", borderRadius: "30px" }}
@@ -58,6 +58,7 @@ export default function CreateAdmin() {
                   placeholder="Nama"
                   value={nama}
                   onChange={(e) => setNama(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -74,6 +75,7 @@ export default function CreateAdmin() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -90,8 +92,8 @@ export default function CreateAdmin() {
                   aria-label="Default select example"
                   value={access}
                   onChange={(e) => setAccess(e.target.value)}
+                  required
                 >
-                  <option value="">Open this select menu</option>
                   <option value="admin">Admin</option>
                   <option value="superadmin">Super Admin</option>
                 </select>
@@ -111,6 +113,7 @@ export default function CreateAdmin() {
                   placeholder="Unit"
                   value={unit}
                   onChange={(e) => setUnit(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -119,14 +122,13 @@ export default function CreateAdmin() {
               <div className="col-12">
                 <button
                   className="btn btn-primary text-white"
-                  onClick={handleCreateAdmin}
                 >
                   Create Admin
                 </button>
               </div>
             </div>
           </div>
-        </>
+        </form>
       }
     />
   );

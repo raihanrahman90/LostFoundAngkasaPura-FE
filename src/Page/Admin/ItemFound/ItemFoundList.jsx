@@ -75,12 +75,9 @@ export default function FoundItemList() {
     <AdminDefault
       title={"Found Item"}
       body={<>
-      <div className="d-flex justify-content-end pb-4 relative h-100">
-            {/* Filter Modal */}
-            {/* ... (Modal button and content) */}
-            
-            {/* Add New Item Link */}
-            <button className="mr-2 me-5 bg-primary">
+        <div className="">
+          <div className="d-flex justify-content-end pb-4 relative h-100">
+            <button className="mr-2 me-5 bg-primary text-white">
               Filter
             </button>
             <Link
@@ -113,21 +110,20 @@ export default function FoundItemList() {
                 ))}
               </tbody>
             </table>
-            <div className="text-center">
-              Page {currentPage} of {totalPages}
-            </div>
           </div>
           {/* Pagination */}
-          <nav aria-label="pagination">
+          <nav aria-label="pagination" className="d-flex">
                 <button
-                  className={`page-item ${currentPage === 1 ? 'disabled' : ''} bg-primary text-white`}
+                  className={`page-item ${currentPage === 1 ? 'disabled' : ''} text-secondary`}
                   onClick={prevButton}
                   disabled={currentPage === 1}
                 >{"<"}
                 </button>
-                          
+                <div className="text-center d-flex justify-content-center my-auto">
+                  Page {currentPage} of {totalPages}
+                </div>     
                 <button
-                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''} bg-primary float-end`}
+                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
                   onClick={nextButton}
                   disabled={!hasMore}
                   
@@ -135,6 +131,7 @@ export default function FoundItemList() {
                   {">"}
                 </button>
           </nav>
+          </div>
       </>}/>
   );
 }

@@ -11,33 +11,35 @@ export default function ListData({
   return (
     <div>
       <div className="border rounded p-3 mb-3 me-5 d-flex justify-content-between">
-        <div className="d-flex">
-          <p>
-            id : <br />
-            {id}
-          </p>
-          <p className="ms-5">
-            Nama Barang : <br />
-            {name}
-          </p>
-          <p className="ms-5">
-            Status : <br />
-            {status}
-          </p>
-          <p className="ms-5 ">
-            Tanggal Claim : <br />
-            {claimDate}
-          </p>
+        <div className="row">
+          <div className="col-4">
+            Nama Barang
+          </div>
+          <div className="col-8">
+            : {name}
+          </div>
+          <div className="col-4">
+            Status 
+          </div>
+          <div className="col-8">
+            : {status}
+          </div>
+          <div className="col-4">
+            Tanggal Claim  
+          </div>
+          <div className="col-8">
+            : {claimDate}
+          </div>
         </div>
-        <div>
-          <button className="border border-0 pb-2 bg-success text-white px-3 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none">
+        <div className='d-flex justify-content-center my-auto'>
+          <button className="btn btn-success me-1 text-white">
             Terima
           </button>
-          <button className="border border-0 pb-2 bg-danger text-white px-3 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none">
+          <button className="btn btn-danger me-1 text-white">
             Tolak
           </button>
           <Link
-            className="border border-0 pb-2 bg-secondary text-white px-3 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none"
+            className="btn btn-primary text-white"
             to="/admin/DetailClaim"
             state={{ from : id}}
           >

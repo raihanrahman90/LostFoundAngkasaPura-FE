@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AdminDefault } from "../AdminDefault";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link } from 'react-router-dom';
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
@@ -50,6 +51,9 @@ export default function ListAdmin() {
       body={
         <>
           <div className="mt-5">
+            <div className="w-100">
+              <Link to="/Admin/CreateAdmin" className="btn btn-primary text-white float-right">Add Admin</Link>
+            </div>
                 <div className="mt-2 rounded border">
                   <table className="table table-bordered pt-5 rounded">
                     <thead>
@@ -66,7 +70,7 @@ export default function ListAdmin() {
                           <td>{item.name}</td>
                           <td>{item.email}</td>
                           <td>{item.access}</td>
-                            <td><button className="bg-danger" onClick={() => {}} >Hapus</button></td>
+                            <td><button className="bg-danger text-white btn" onClick={() => {}} >Hapus</button></td>
                         </tr>
                       ))}
                     </tbody>

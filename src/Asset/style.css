@@ -23,12 +23,6 @@
     margin-right: auto;
 }
 
-.menu_link{
-    color: var(--bs-dark);
-    font-size: 16px;
-    padding-left: 10px;
-    font-weight: 400;
-}
 .menu_link_singout{
     color: rgb(5, 5, 5);
     font-size: 20px;
@@ -38,19 +32,25 @@
 }
 
 .menu_link_singout:hover{
-    background-color: #138FC7;
+    background-color: var(--bs-white);
     border-radius: 2px;
 }
+.menu_link{
+    color: var(--bs-secondary);
+}
+.menu_link a{
+    color: var(--bs-secondary);
+}
+.menu_link:hover{
+    color: var(--bs-dark);
+}
+.menu_link:hover a{
+    color: var(--bs-dark);
+}
 .sidebar li:hover{
-    background-color: #138FC7;
+    background-color: var(--bs-white);
     border-radius: 3px;
 }
-.sidebar li:hover .menu_link, .sidebar li:hover svg{
-    background-color: #138FC7;
-    border-radius: 3px;
-    color: white!important;
-}
-
 .NavbarBG {
     width: 100%; /* Set the width to 100% to take the full width */
     background-color: #ffffff; /* Primary color - You can change it to any color you want */
@@ -86,11 +86,8 @@
     width: 52px;
 }
 .sidebar > button:hover{
-    background-color: #138FC7;
-}
-.sign-out{
-    position: absolute;
-    bottom: 50px;
+    background-color: var(--bs-white);
+    color: var(--bs-dark);
 }
 .admin table{
     border-bottom: 4px solid #f8f9fd;
@@ -110,6 +107,6 @@
 .admin thead{
     color: white;
 }
-.admin{
-    background-color: #138FC7;
+.table{
+    min-height: 500px;
 }
