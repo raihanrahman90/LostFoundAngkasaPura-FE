@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,8 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
-
+import axios from "axios";
+import Cookies from "js-cookie";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,7 +23,21 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+
+
+
+
+export function Chart() {
+
+  
+  
+  const [datasets, setDatasets] = useState([]);
+  const [labels , setLabels] = useState([]);
+  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
+
+  console.log(datasets)
+
+  const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -34,34 +49,29 @@ export const options = {
     },
   },
 };
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-        label: 'Dataset 3',
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        borderColor: 'rgb(8, 143, 143)',
-        backgroundColor: 'rgba(8, 143, 143, 0.5)',
-      },
-  ],
+ 
+const data = {
+  labels : labels,
+  datasets: datasets,
 };
 
-export function Chart() {
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    axios
+      .get("http://103.150.92.47:8081/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setDatasets(res.data.data.datasets);
+        setLabels(res.data.data.labels);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return <Line options={options} data={data} />;
 }

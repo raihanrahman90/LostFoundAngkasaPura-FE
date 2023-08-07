@@ -1,17 +1,39 @@
-import React from "react";
-import Navbar from "./Navbar";
+import React, {useState, useEffect} from "react";
 import { Chart } from "./Chart";
 import add_alert from "../../Asset/add_alert.png";
 import lab_profile from "../../Asset/lab_profile.png";
 import check_circle from "../../Asset/check_circle.png";
 import {AdminDefault} from './AdminDefault';
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function Dashboard() {
 
+  const [datas, setDatas] = useState([]);
+  const [datasets, setDatasets] = useState([]);
+  const [labels , setLabels] = useState([]);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    axios
+      .get("http://103.150.92.47:8081/admin/dashboard", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.data);
+        setDatas(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const data = [
-    {text:"Found Item", count:32, color:"bg-primary", icon:add_alert},
-    {text:"Customer Report", count:32, color:"bg-danger", icon:lab_profile},
-    {text:"Complete Case", count:32, color:"bg-success", icon:check_circle}
+    {text:"Found Item", count:datas.foundCount, color:"bg-primary", icon:add_alert},
+    {text:"Customer Report", count:datas.closedCount, color:"bg-danger", icon:lab_profile},
+    {text:"Complete Case", count:datas.claimCount, color:"bg-success", icon:check_circle}
   ]
   return (
     <AdminDefault 
@@ -51,7 +73,7 @@ export default function Dashboard() {
               "
               style={{ width: "100%", height: "600px" }}
             >
-              <Chart />
+              <Chart  />
             </div>
         </>
      }

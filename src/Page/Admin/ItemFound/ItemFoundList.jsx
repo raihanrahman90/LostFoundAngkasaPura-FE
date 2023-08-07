@@ -43,7 +43,7 @@ export default function FoundItemList() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+      // console.log(res);
       console.log("isi total page "+res.data.data.pageTotal);
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);

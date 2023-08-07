@@ -10,6 +10,9 @@ export default function Detail() {
   const { from } = location.state;
 
   const [data, setData] = useState([]);
+  const [shopComment, setShowCommet] = useState([])
+  const [comment, setComment] = useState("")
+  const [image64, setImage64] = useState("")
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -28,6 +31,39 @@ export default function Detail() {
         console.log(err);
       });
   }, [from]);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    axios
+      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=ee47d4e0-c05c-4800-a6f9-258db3bfeeb3`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "image/jpeg",
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.data);
+        setShowCommet(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [from]);
+
+  // const handleSubmitComment = async (e) => {
+  //   e.preventDefault();
+
+
+
+  //   try {
+  //     const token = Cookies.get("token");
+  //     const comment = {
+  //       value: comment,
+
+  //     }
+  //     const respone = await axios.post(
+  // };
+    
 
   return (
     <AdminDefault 
@@ -68,10 +104,42 @@ export default function Detail() {
               </div>
               <hr color="black" className="mt-5" />
               <h5>Keterangan Tambahan</h5>
-              <div className="border rounded mb-5 w-50">
-                <BsFillPersonFill />
-                <span style={{ marginLeft: "10px" }}>user :</span>
-                <span style={{ marginLeft: "10px" }}>{item.proofDescription}</span>
+              <div>
+
+                <div className="border rounded mb-5 w-50">
+                  <BsFillPersonFill />
+                  <span style={{ marginLeft: "10px" }}>user :</span>
+                  <span style={{ marginLeft: "10px" }}>{item.proofDescription}</span>
+                </div>
+
+                <div className="">
+                  {shopComment.map((item, index) => {
+                    return (
+                      <div key={index} className=" border mb-5 d-flex w-50">
+                        <span>{item.value}</span>
+                        <div className="d-flex ps-5">
+                        <BsFillPersonFill />
+                        <span  >admin-{item.userName}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                </div>
+
+                <form className="d-flex" onSubmit={()=> {}}>
+            <input
+              type="text"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Comment"
+              className="w-50 form-control"
+            />
+            <input type="file" onChange={(e)=>{ setImage64(e.target.value)}} className="form-control ms-3 w-10" />
+            <button type="submit" className="btn btn-primary ms-3">
+              Submit
+            </button>
+          </form>
               </div>
             </div>
           ))}
