@@ -141,7 +141,7 @@ export default function FoundItemList() {
             </Link>
           </div>
           <div className="table">
-            <table className="table table-bordered pt-5 rounded" >
+            <table className="table-bordered pt-5 rounded w-100" >
               <thead style={{backgroundColor:"black"}}>
                 <tr>
                   <th>Nama Barang</th>

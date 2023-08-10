@@ -109,6 +109,10 @@
 }
 .table{
     min-height: 450px;
+    overflow-x: scroll;
+}
+.table td, .table th{
+    padding-left: 10px;
 }
 #navbar{
     height: 62px;
@@ -116,4 +120,71 @@
 .admin-main{
     min-height: 75%;
     height: fit-content;
+}
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--bs-dark);
+    outline: 0;
+    font-size: 1rem;
+    color: var(--bs-dark);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    font-size: 1rem;
+    cursor: text;
+    top: 20px;
+}
+  
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.8rem;
+    color: var(--bs-seconary);
+}
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--bs-primary);
+    font-weight:700;    
+}
+.form__field:focus{
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image-slice: 1;
+}
+.sidebar-mobile{
+    margin-top: 62px!important;
+    height: 100%;
+    background-color: var(--bs-dark);
+    transition: all 0.25s;
+    overflow-x: hidden;
+}
+.sidebar-mobile.closed{
+    width: 0px!important;
+    padding: 0px!important;
+}
+.sidebar-mobile.opened{
+    width: 300px;
 }

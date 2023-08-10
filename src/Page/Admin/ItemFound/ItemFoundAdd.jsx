@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../Navbar";
-import axios from "axios";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
@@ -51,70 +49,69 @@ export default function ItemFoundAdd() {
       title={"Add Item Found"}
       body={
         <form className="row  pt-5 pb-5" >
-        <div className="form-group pb-4">
-          <label className="pb-3 fw-bold" htmlFor="namaBarang">Nama Barang</label>
-          <input
-            onChange={(e) => setNamaBarang(e.target.value)}
-            type="text"
-            className="form-control "
-            id="namaBarang"
-            placeholder="Nama Barang"
-          />
-        </div>
+              <div className="form__group field col-12">
+                <input
+                  onChange={(e) => setNamaBarang(e.target.value)}
+                  type="text"
+                  className="form__field"
+                  id="namaBarang"
+                  placeholder="Nama Barang"
+                />
+                <label className="form__label" htmlFor="namaBarang">Nama Barang</label>
+              </div>
 
-        <div className="form-group pb-4">
-          <label className="pb-3 fw-bold" htmlFor="ciriBarang">Ciri Ciri Barang</label>
-          <input
-            onChange={(e) => setCiriBarang(e.target.value)}
-            type="text"
-            className="form-control"
-            id="ciriBarang"
-            placeholder="Ciri Ciri Barang"
-          />
-        </div>
+              <div className="form__group field col-12">
+                <input
+                  onChange={(e) => setCiriBarang(e.target.value)}
+                  type="text"
+                  className="form__field"
+                  id="ciriBarang"
+                  placeholder="Ciri Ciri Barang"
+                />
+                <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
+              </div>
 
-        <div className="form-group pb-4">
-          <label className="pb-3 fw-bold" htmlFor="kategori">Kategori</label>
-          <select
-            onChange={(e) => setKategori(e.target.value)}
-            className="form-select"
-            id="kategori"
-          >
-            <option value="Perhiasan">Perhiasan</option>
-            <option value="Tas">Tas</option>
-            <option value="Dompet">Dompet</option>
-            <option value="Koper">Koper</option>
-          </select>
-        </div>
+              <div className="form__group field col-6">
+                <select
+                  onChange={(e) => setKategori(e.target.value)}
+                  className="form__field"
+                  id="kategori"
+                >
+                  <option value="Perhiasan">Perhiasan</option>
+                  <option value="Tas">Tas</option>
+                  <option value="Dompet">Dompet</option>
+                  <option value="Koper">Koper</option>
+                </select>
+                <label className="form__label" htmlFor="kategori">Kategori</label>
+              </div>
 
-        <div className="form-group pb-4">
-          <label className="pb-3 fw-bold" htmlFor="tanggalDitemukan">Tanggal Ditemukan</label>
-          <input
-            onChange={(e) => setTanggalDitemukan(e.target.value)}
-            type="date"
-            className="form-control"
-            id="tanggalDitemukan"
-          />
-        </div>
+              <div className="form__group field col-6">
+                <input
+                  onChange={(e) => setTanggalDitemukan(e.target.value)}
+                  type="date"
+                  className="form__field"
+                  id="tanggalDitemukan"
+                />
+                <label className="form__label" htmlFor="tanggalDitemukan">Tanggal Ditemukan</label>
+              </div>
 
-        <div className="form-group pb-4">
-          <label className="pb-3 fw-bold" htmlFor="fotoBarang">Foto Barang</label>
-          <input
-            type="file"
-            onChange={handleFileInputChange}
-            className="form-control"
-            id="fotoBarang"
-          />
-          {selectedFile && (
-      <img
-        src={base64Image}
-        alt="Selected Image"
-        style={{ maxWidth: "300px", marginTop: "10px" }}
-      />
-    )}
+              <div className="form__group field">
+                <input
+                  type="file"
+                  onChange={handleFileInputChange}
+                  className="form__field"
+                  id="fotoBarang"
+                />
+                <label className="form__label" htmlFor="fotoBarang">Foto Barang</label>
+                {selectedFile && (
+            <img
+              src={base64Image}
+              alt="Selected Image"
+              style={{ maxWidth: "100px", marginTop: "10px" }}
+              />
+            )}
         </div>
-
-        <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 text-white" />
+          <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 text-white" />
         </form> 
       }/>
 
