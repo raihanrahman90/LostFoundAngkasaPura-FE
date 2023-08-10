@@ -12,10 +12,15 @@ export default function FoundItemList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [namaBarang, setNamaBarang] = useState("");
 
 
   const handleKategori = (e) => {
     setKategori(e.target.value);
+  }
+
+  const handleNamaBarang = (e) => {
+    setNamaBarang(e.target.value);
   }
 
   const handleTgl = (e) => {
@@ -43,7 +48,7 @@ export default function FoundItemList() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+      // console.log(res);
       console.log("isi total page "+res.data.data.pageTotal);
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);
@@ -64,6 +69,7 @@ export default function FoundItemList() {
     })
     .then((res) => {
       setValueKategori(res.data.data);
+      // console.log(res.data.data);
     })
     .catch((err) => {
       console.log(err);
@@ -71,15 +77,62 @@ export default function FoundItemList() {
     fetchData();
   }, [currentPage, tgl, kategori]);
 
+  const handleFilter = async () => {
+    const data = {
+      namaBarang: namaBarang,
+      kategori: kategori,
+      tgl: tgl
+    }
+
+    console.log(data);  
+  }
+
   return (
     <AdminDefault
       title={"Found Item"}
       body={<>
         <div className="">
           <div className="d-flex justify-content-end pb-4 relative h-100">
-            <button className="btn btn-primary text-white me-3">
+            {/* popup filter */}
+            <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Filter
             </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {/* Form filter */}
+                    <div className="mb-3">
+                      <label htmlFor="namaBarang" className="form-label">Nama Barang</label>
+                      <input type="text" className="form-control" id="namaBarang" onChange={handleNamaBarang} />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="kategori" className="form-label">Kategori</label>
+                      <select className="form-select" id="kategori"  onChange={handleKategori}>
+                        <option value="">Pilih Kategori</option>
+                        {valueKategori.map((item)=>{
+                          return <option value={item.category}>{item.category}</option>
+                        })}
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
+                      <input type="date" className="form-control" id="tgl"  onChange={handleTgl} />
+                    </div>
+                    {/* End of Form filter */}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/*  */}
             <Link
               className="btn btn-primary text-white"
               to="/admin/AddItem"

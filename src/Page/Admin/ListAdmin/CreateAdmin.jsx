@@ -8,9 +8,10 @@ export default function CreateAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [unit, setUnit] = useState("");
-  const [access, setAccess] = useState("");
+  const [access, setAccess] = useState("admin");
 
-  const handleCreateAdmin = async () => {
+  const handleCreateAdmin = async (e) => {
+    e.preventDefault();
     try {
         const data = {
             name: nama,
@@ -18,14 +19,15 @@ export default function CreateAdmin() {
             unit: unit,
             access: access,
         }
-        // console.log(data);
+        console.log(data);
         const token = Cookies.get("token");
         const response = await axios.post("http://103.150.92.47:8081/admin/admin", data, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 },
         });
-        // console.log(response);
+      alert("Berhasil membuat admin");
+        console.log(response);
       setNama("");
       setEmail("");
       setPassword("");
@@ -33,6 +35,7 @@ export default function CreateAdmin() {
       setAccess("");
     } catch (error) {
       console.error("Error creating admin:", error);
+      alert("Gagal membuat admin");
     }
   };
 
@@ -90,7 +93,6 @@ export default function CreateAdmin() {
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  value={access}
                   onChange={(e) => setAccess(e.target.value)}
                   required
                 >
