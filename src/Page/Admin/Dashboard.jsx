@@ -42,8 +42,8 @@ export default function Dashboard() {
       <>
         <div className="row pt-4 text-white">
         {
-            data.map(data=>{
-              return <div className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center mb-2 col-12">
+            data.map((data,index)=>{
+              return <div key={index} className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center mb-2 col-12">
                 <div className={"px-5 py-3 rounded d-flex justify-content-center align-middle w-100 row "+data.color} >
                   <div className="col-4 justify-content-center align-middle inline-block d-flex">
                     <img src={data.icon} alt="" width={72} className="align-self-center"/>

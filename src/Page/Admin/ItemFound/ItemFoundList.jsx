@@ -12,10 +12,15 @@ export default function FoundItemList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [namaBarang, setNamaBarang] = useState("");
 
 
   const handleKategori = (e) => {
     setKategori(e.target.value);
+  }
+
+  const handleNamaBarang = (e) => {
+    setNamaBarang(e.target.value);
   }
 
   const handleTgl = (e) => {
@@ -53,6 +58,15 @@ export default function FoundItemList() {
     }
   };
 
+  const hanldeFilter = async () => {
+    const listdata = {
+      namaBarang: namaBarang,
+      kategori: kategori,
+      tgl: tgl,
+    }
+    console.log(listdata);
+  }
+
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -77,9 +91,46 @@ export default function FoundItemList() {
       body={<>
         <div className="">
           <div className="d-flex justify-content-end pb-4 relative h-100">
-            <button className="mr-2 me-5 bg-primary text-white">
+            {/* popup filter */}
+            <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Filter
             </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {/* Form filter */}
+                    <div className="mb-3">
+                      <label htmlFor="namaBarang" className="form-label">Nama Barang</label>
+                      <input type="text" className="form-control" id="namaBarang" onChange={handleNamaBarang} />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="kategori" className="form-label">Kategori</label>
+                      <select className="form-select" id="kategori"  onChange={handleKategori}>
+                        <option value="">Pilih Kategori</option>
+                        {valueKategori.map((item, index) => (
+                          <option key={index} value={item}>{item}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
+                      <input type="date" className="form-control" id="tgl"  onChange={handleTgl} />
+                    </div>
+                    {/* End of Form filter */}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary bg-danger text-white" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={hanldeFilter}>Apply Filters</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/*  */}
             <Link
               className="border border-0 bg-primary text-white px-3 pb-2 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none"
               to="/admin/AddItem"

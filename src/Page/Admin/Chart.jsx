@@ -35,7 +35,7 @@ export function Chart() {
   const [labels , setLabels] = useState([]);
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
 
-  console.log(datasets)
+  // console.log(datasets)
 
   const options = {
   responsive: true,

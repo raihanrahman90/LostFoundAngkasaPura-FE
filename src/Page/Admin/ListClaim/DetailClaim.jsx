@@ -35,14 +35,14 @@ export default function Detail() {
   useEffect(() => {
     const token = Cookies.get("token");
     axios
-      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=ee47d4e0-c05c-4800-a6f9-258db3bfeeb3`, {
+      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=${from}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "image/jpeg",
         },
       })
       .then((res) => {
-        // console.log(res.data.data);
+        console.log(res.data.data);
         setShowCommet(res.data.data);
       })
       .catch((err) => {
