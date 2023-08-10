@@ -152,15 +152,21 @@ export default function FoundItemList() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {data.map((item, index) => {
+                  let status=<></>;
+                  if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;
+                  if(item.status==='Confirmed') status = <div className="badge bg-success">{item.status}</div>;
+                    
+                  return <>
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.category}</td>
                     <td>{item.foundDate}</td>
-                    <td><div className="badge bg-primary">{item.status}</div></td>
+                    <td>{status}</td>
                     <td>{item.description}</td>
-                  </tr>
-                ))}
+                  </tr></>
+                  }
+                )}
               </tbody>
             </table>
           </div>

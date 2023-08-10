@@ -1,17 +1,19 @@
-import {defaultAdminRequst} from './Admin'
+import {defaultAdminRequest} from './Admin'
 
 export const addItem = async ({
     name, description, category, foundDate, imageBase64
 })=>{
-    return await defaultAdminRequst(`/Admin/Item-Found`, 'post',{
+    return await defaultAdminRequest({url:'/Admin/Item-Found', method:'post',body:{
         name:name,
         description:description,
         category:category,
         foundDate:foundDate,
         imageBase64:imageBase64
-    })
+    }})
     .then((res)=>{
-        return res.data
+        console.log("ini isi di dailam add item");
+        console.log(res);
+        return res;
     }
     )
     .catch((error)=>{
@@ -22,7 +24,7 @@ export const addItem = async ({
 
 
 export const getListItem = async () => {
-    return await defaultAdminRequst(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`, 'get', {})
+    return await defaultAdminRequest(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`, 'get', {})
     .then((res)=>{
         console.log(res.data)
         return res.data

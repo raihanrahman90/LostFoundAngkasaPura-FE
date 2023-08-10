@@ -76,7 +76,7 @@ export const AdminDefault = ({title, body}) =>{
               <AiOutlineMenu/>
             </button>
           </div>
-          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3">
+          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3 pt-5">
             <h5 className="text-dark bold">{title}</h5>
             {body}
           </div>

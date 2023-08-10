@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
-
+import {LoadingPage} from '../../Loading'; 
+import { useNavigate } from "react-router-dom";
 export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
@@ -10,7 +11,8 @@ export default function ItemFoundAdd() {
   const [kategori, setKategori] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Image, setBase64Image] = useState("");
-
+  const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -28,7 +30,8 @@ export default function ItemFoundAdd() {
 
 
   const handleSubmit = async () => {
-
+    setSubmit(true);
+    console.log("ke sini kok");
     const result = await addItem(
       {
         name: namaBarang,
@@ -38,17 +41,19 @@ export default function ItemFoundAdd() {
         imageBase64: base64Image,
       }
     );
-    if(result){
-      console.log(result);
+    if(result && result.success){
+      navigate("/admin/FoundItem", {replace:true});
     }
 };
 
 
   return (
+    <>
+    {submit?<LoadingPage/>:<></>}
     <AdminDefault
       title={"Add Item Found"}
       body={
-        <form className="row  pt-5 pb-5" >
+        <form className="row  pt-5 pb-5" onSubmit={handleSubmit}>
               <div className="form__group field col-12">
                 <input
                   onChange={(e) => setNamaBarang(e.target.value)}
@@ -56,6 +61,7 @@ export default function ItemFoundAdd() {
                   className="form__field"
                   id="namaBarang"
                   placeholder="Nama Barang"
+                  required
                 />
                 <label className="form__label" htmlFor="namaBarang">Nama Barang</label>
               </div>
@@ -67,6 +73,7 @@ export default function ItemFoundAdd() {
                   className="form__field"
                   id="ciriBarang"
                   placeholder="Ciri Ciri Barang"
+                  required={true}
                 />
                 <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
               </div>
@@ -76,6 +83,7 @@ export default function ItemFoundAdd() {
                   onChange={(e) => setKategori(e.target.value)}
                   className="form__field"
                   id="kategori"
+                  required={true}
                 >
                   <option value="Perhiasan">Perhiasan</option>
                   <option value="Tas">Tas</option>
@@ -91,6 +99,7 @@ export default function ItemFoundAdd() {
                   type="date"
                   className="form__field"
                   id="tanggalDitemukan"
+                  required={true}
                 />
                 <label className="form__label" htmlFor="tanggalDitemukan">Tanggal Ditemukan</label>
               </div>
@@ -101,6 +110,7 @@ export default function ItemFoundAdd() {
                   onChange={handleFileInputChange}
                   className="form__field"
                   id="fotoBarang"
+                  required={true}
                 />
                 <label className="form__label" htmlFor="fotoBarang">Foto Barang</label>
                 {selectedFile && (
@@ -111,10 +121,10 @@ export default function ItemFoundAdd() {
               />
             )}
         </div>
-          <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 text-white" />
+          <button value="Submit" className="btn btn-primary float-end me-md-5 text-white">Submit</button>
         </form> 
       }/>
-
+    </>
           
   );
 }
