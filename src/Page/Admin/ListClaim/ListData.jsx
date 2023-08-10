@@ -10,6 +10,11 @@ export default function ListData({
   claimDate,
   itemFoundId,
 }) {
+
+  const datanavigate = {
+    id  : id,
+    itemFoundId : itemFoundId 
+  }
   const tolakHandle = async () => {
     console.log("ini id",id)
     try {
@@ -51,7 +56,8 @@ export default function ListData({
         }
       );
 
-      console.log('Tolak response:', response.data);
+      console.log('Claim Di teirma', response.data);
+      alert("Claim Di Terima")
 
     } catch (error) {
       console.error('Tolak error:', error);
@@ -80,7 +86,7 @@ export default function ListData({
           <Link
             className="btn btn-primary text-white"
             to={"/admin/DetailClaim"}
-            state={{ from: itemFoundId }}>
+            state={{ from: datanavigate,  }}>
           
             Detail
           </Link>

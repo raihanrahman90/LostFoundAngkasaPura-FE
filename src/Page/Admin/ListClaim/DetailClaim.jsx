@@ -8,6 +8,8 @@ import { AdminDefault } from "../AdminDefault";
 export default function Detail() {
   const location = useLocation();
   const { from } = location.state;
+  const itemFoundId = from.itemFoundId;
+  const idItemClaim = from.id;
   
   
 
@@ -16,12 +18,10 @@ export default function Detail() {
   const [comment, setComment] = useState("")
   const [image64, setImage64] = useState("")
 
-  // console.log("ini datanya",from)
-
   useEffect(() => {
     const token = Cookies.get("token");
     axios
-      .get(`http://103.150.92.47:8081/Admin/Item-Claim?itemFoundId=${from}`, {
+      .get(`http://103.150.92.47:8081/Admin/Item-Claim?itemFoundId=${itemFoundId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "image/jpeg",
@@ -39,7 +39,7 @@ export default function Detail() {
   useEffect(() => {
     const token = Cookies.get("token");
     axios
-      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=${from}`, {
+      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=${idItemClaim}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "image/jpeg",
@@ -54,20 +54,36 @@ export default function Detail() {
       });
   }, [from]);
 
-  // const handleSubmitComment = async (e) => {
-  //   e.preventDefault();
 
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
 
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
-  //   try {
-  //     const token = Cookies.get("token");
-  //     const comment = {
-  //       value: comment,
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+    const token = Cookies.get("token");
+    const data = {
+      itemClaimId: idItemClaim,
+      value : comment,
+      imageBase64 : image64 
+  };
+  const res = await axios.post(`http://103.150.92.47:8081/Admin/Item-Comment`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
 
-  //     }
-  //     const respone = await axios.post(
-  // };
-    
+  console.log(res)
+}
 
   return (
     <AdminDefault 
@@ -131,7 +147,7 @@ export default function Detail() {
 
                 </div>
 
-                <form className="d-flex" onSubmit={()=> {}}>
+            <form className="d-flex" onSubmit={handleSubmitComment}>
             <input
               type="text"
               value={comment}
@@ -139,7 +155,7 @@ export default function Detail() {
               placeholder="Comment"
               className="w-50 form-control"
             />
-            <input type="file" onChange={(e)=>{ setImage64(e.target.value)}} className="form-control ms-3 w-10" />
+            <input type="file" onChange={handleFileInputChange} className="form-control ms-3 w-10" />
             <button type="submit" className="btn btn-primary ms-3">
               Submit
             </button>
