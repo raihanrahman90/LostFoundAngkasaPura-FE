@@ -1,10 +1,9 @@
-import {authRequest, instance} from '../DefaultRequest'
+import {defaultAdminRequst} from './Admin'
 
 export const addItem = async ({
     name, description, category, foundDate, imageBase64
 })=>{
-    return await authRequest
-    .post(`/Admin/Item-Found`, {
+    return await defaultAdminRequst(`/Admin/Item-Found`, 'post',{
         name:name,
         description:description,
         category:category,
@@ -23,8 +22,7 @@ export const addItem = async ({
 
 
 export const getListItem = async () => {
-    return await instance
-    .get(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`)
+    return await defaultAdminRequst(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`, 'get', {})
     .then((res)=>{
         console.log(res.data)
         return res.data

@@ -38,7 +38,7 @@ export default function Navbar() {
           </li>
         })}
         <li className="mt-auto">
-          <button className="decoration-none w-100 ml-3"> 
+          <button className="decoration-none w-100 ml-3" onClick={logout}> 
               <span className=''>
                 Log out
               </span>

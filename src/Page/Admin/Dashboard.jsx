@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./Navbar";
 import { Chart } from "./Chart";
 import add_alert from "../../Asset/add_alert.png";
 import lab_profile from "../../Asset/lab_profile.png";
@@ -11,7 +10,8 @@ export default function Dashboard() {
   const data = [
     {text:"Found Item", count:32, color:"bg-primary", icon:add_alert},
     {text:"Customer Report", count:32, color:"bg-danger", icon:lab_profile},
-    {text:"Complete Case", count:32, color:"bg-success", icon:check_circle}
+    {text:"Complete Case", count:32, color:"bg-success", icon:check_circle},
+    {text:"Claim", count:32, color:"bg-warning", icon:check_circle}
   ]
   return (
     <AdminDefault 
@@ -21,8 +21,8 @@ export default function Dashboard() {
         <div className="row pt-4 text-white">
         {
             data.map(data=>{
-              return <div className="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center mb-2 col-12">
-                <div className={"px-5 py-3 rounded d-flex justify-content-center align-middle w-100 row "+data.color} >
+              return <div className="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-center mb-2 col-6">
+                <div className={"px-3 py-3 rounded d-flex justify-content-center align-middle w-100 row "+data.color} >
                   <div className="col-4 justify-content-center align-middle inline-block d-flex">
                     <img src={data.icon} alt="" width={72} className="align-self-center"/>
                   </div>

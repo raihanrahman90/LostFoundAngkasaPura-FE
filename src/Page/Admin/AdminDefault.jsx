@@ -16,7 +16,7 @@ export const AdminDefault = ({title, body}) =>{
             
           </div>
           <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3">
-            <h3>{title}</h3>
+            <h4>{title}</h4>
             {body}
           </div>
         </div>

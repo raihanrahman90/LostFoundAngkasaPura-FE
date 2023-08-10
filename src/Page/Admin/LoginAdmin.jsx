@@ -4,7 +4,7 @@ import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
-import {getAccessToken} from '../../Hooks/DefaultRequest';
+import {getAccessToken} from '../../Hooks/Admin/Admin';
 
 
 export default function LoginAdmin() {
@@ -34,7 +34,9 @@ export default function LoginAdmin() {
         console.log(accessToken);
         return accessToken;
       }catch(e){
-
+        if(e.message == 'Mohon login kembali'){
+          alert("Token expired")
+        }
       }
     }
     checkAccessToken().catch(console.error);

@@ -2,16 +2,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+axios.defaults.withCredentials = true
 export const defaultRequest = axios.create({
    baseURL: BASE_URL,
-  headers: {
+   headers: {
     "Content-Type": "application/json",
   },
 });
 
 export const authRequest = axios.create({
   baseURL: BASE_URL,
+  withCredentials:true,
   headers: {
     "Content-Type": "application/json",
     "Authorization": 'Bearer '+ Cookies.get('token')
@@ -19,32 +20,7 @@ export const authRequest = axios.create({
   },
 });
 
-export const instance = axios.create({
-  baseURL: BASE_URL,
-  headers: {"Authorization": 'Bearer '+ Cookies.get('token')}
-});
-
-export const adminAuthRequest = ({
-  url, method, body
-})=>{
-  try{
-    var accessToken = Cookies.get('token');
-    var response = _callApiWithToken(url, method, body,)
-  }catch(e){
-
-  }
-}
-
-export const getAccessToken = async ()=>{
-  try {
-    var accessToken = await _callApiWithToken("admin/admin/access-token", 'get', '','')
-    return accessToken;
-  }catch(e){
-    return e;
-  }
-}
-
-const _callApiWithToken = async(
+export const callApiWithToken = async(
   url,
   method,
   dataToSend,
@@ -55,12 +31,13 @@ const _callApiWithToken = async(
           url,
           method,
           data: dataToSend,
+          withCredentials:true,
           headers: {
               'Authorization': `Bearer ${accessToken}`,
           },
       });
       return response.data;
   } catch (e) {
-      throw new Error("terjadi kesalahan");
+      throw e.response.data;
   }
 };
