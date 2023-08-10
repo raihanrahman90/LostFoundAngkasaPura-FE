@@ -8,13 +8,14 @@ export default function ListData({
   name,
   status,
   claimDate,
+  itemFoundId,
 }) {
   const tolakHandle = async () => {
+    console.log("ini id",id)
     try {
       const token = Cookies.get('token');
-      console.log(id)
       const response = await axios.post(
-        `http://103.150.92.47:8081//Admin/Item-Claim/${id}/reject`,
+        `http://103.150.92.47:8081/Admin/Item-Claim/${id}/reject`,
         {
           rejectReason: 'JELEK BETUL EH FOTOMU',
         },
@@ -26,12 +27,39 @@ export default function ListData({
       );
 
       console.log('Tolak response:', response.data);
-      // Lakukan tindakan sesuai dengan respons jika perlu
+
     } catch (error) {
       console.error('Tolak error:', error);
-      // Lakukan tindakan sesuai dengan kesalahan jika perlu
+
     }
   };
+
+  const terimaHandle = async () => {
+    console.log("ini id",id)
+    try {
+      const token = Cookies.get('token');
+      const response = await axios.post(
+        `http://103.150.92.47:8081/Admin/Item-Claim/${id}/approve`,
+        {
+          claimLocation: "Gate 8",
+          claimDate: "2023-07-31T06:54:27.031Z"
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log('Tolak response:', response.data);
+
+    } catch (error) {
+      console.error('Tolak error:', error);
+
+    }
+  };
+
+  
 
   return (
     <div>
@@ -45,17 +73,15 @@ export default function ListData({
           <div className="col-8">: {claimDate}</div>
         </div>
         <div className="d-flex justify-content-center my-auto">
-          <button className="btn btn-success me-1 text-white">Terima</button>
+          <button className="btn btn-success me-1 text-white" onClick={terimaHandle}>Terima</button>
           <button onClick={tolakHandle} className="btn btn-danger me-1 text-white">
             Tolak
           </button>
           <Link
             className="btn btn-primary text-white"
-            to={{
-              pathname: '/admin/DetailClaim',
-              state: { from: id },
-            }}
-          >
+            to={"/admin/DetailClaim"}
+            state={{ from: itemFoundId }}>
+          
             Detail
           </Link>
         </div>

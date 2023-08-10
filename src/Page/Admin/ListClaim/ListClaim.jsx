@@ -35,7 +35,7 @@ export default function ListClaim() {
           {data.map((item, index) => (
             <ListData
               key={index}
-              id={item.itemFoundId}
+              id={item.id}
               name={item.name}
               status={item.status}
               claimDate={item.claimDate}

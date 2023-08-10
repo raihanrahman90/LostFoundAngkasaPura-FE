@@ -8,11 +8,15 @@ import { AdminDefault } from "../AdminDefault";
 export default function Detail() {
   const location = useLocation();
   const { from } = location.state;
+  
+  
 
   const [data, setData] = useState([]);
   const [shopComment, setShowCommet] = useState([])
   const [comment, setComment] = useState("")
   const [image64, setImage64] = useState("")
+
+  // console.log("ini datanya",from)
 
   useEffect(() => {
     const token = Cookies.get("token");

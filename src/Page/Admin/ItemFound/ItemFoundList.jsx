@@ -58,15 +58,6 @@ export default function FoundItemList() {
     }
   };
 
-  const hanldeFilter = async () => {
-    const listdata = {
-      namaBarang: namaBarang,
-      kategori: kategori,
-      tgl: tgl,
-    }
-    console.log(listdata);
-  }
-
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -78,12 +69,23 @@ export default function FoundItemList() {
     })
     .then((res) => {
       setValueKategori(res.data.data);
+      // console.log(res.data.data);
     })
     .catch((err) => {
       console.log(err);
     });
     fetchData();
   }, [currentPage, tgl, kategori]);
+
+  const handleFilter = async () => {
+    const data = {
+      namaBarang: namaBarang,
+      kategori: kategori,
+      tgl: tgl
+    }
+
+    console.log(data);  
+  }
 
   return (
     <AdminDefault
@@ -112,9 +114,9 @@ export default function FoundItemList() {
                       <label htmlFor="kategori" className="form-label">Kategori</label>
                       <select className="form-select" id="kategori"  onChange={handleKategori}>
                         <option value="">Pilih Kategori</option>
-                        {valueKategori.map((item, index) => (
-                          <option key={index} value={item}>{item}</option>
-                        ))}
+                        {valueKategori.map((item)=>{
+                          return <option value={item.category}>{item.category}</option>
+                        })}
                       </select>
                     </div>
                     <div className="mb-3">
@@ -124,8 +126,8 @@ export default function FoundItemList() {
                     {/* End of Form filter */}
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary bg-danger text-white" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={hanldeFilter}>Apply Filters</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
                   </div>
                 </div>
               </div>
