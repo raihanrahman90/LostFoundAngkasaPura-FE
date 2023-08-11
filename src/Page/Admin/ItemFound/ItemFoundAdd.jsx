@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
+import Loading from "../../Componen/Loading";
 
 export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
@@ -12,6 +13,7 @@ export default function ItemFoundAdd() {
   const [kategori, setKategori] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Image, setBase64Image] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
   const handleFileInputChange = (event) => {
@@ -30,7 +32,7 @@ export default function ItemFoundAdd() {
 
 
   const handleSubmit = async () => {
-
+    setLoading(true);
     const result = await addItem(
       {
         name: namaBarang,
@@ -40,8 +42,10 @@ export default function ItemFoundAdd() {
         imageBase64: base64Image,
       }
     );
+    console.log(result);
     if(result){
       console.log(result);
+      // setLoading(false);
     }
 };
 
@@ -50,6 +54,8 @@ export default function ItemFoundAdd() {
     <AdminDefault
       title={"Add Item Found"}
       body={
+        <>
+        {loading ? (<Loading />) : (
         <form className="row  pt-5 pb-5" >
         <div className="form-group pb-4">
           <label className="pb-3 fw-bold" htmlFor="namaBarang">Nama Barang</label>
@@ -116,6 +122,9 @@ export default function ItemFoundAdd() {
 
         <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 text-white" />
         </form> 
+        )}
+        </>
+
       }/>
 
           

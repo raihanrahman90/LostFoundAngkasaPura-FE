@@ -158,7 +158,15 @@ export default function FoundItemList() {
                     <td>{item.category}</td>
                     <td>{item.foundDate}</td>
                     <td><div className="badge bg-primary">{item.status}</div></td>
-                    <td>{item.description}</td>
+                    <td>
+                      <Link
+                        className="btn btn-primary text-white"
+                        to={`/admin/ViewDAta/`}
+                        state={{ from: item  }}
+                        >
+                      View
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

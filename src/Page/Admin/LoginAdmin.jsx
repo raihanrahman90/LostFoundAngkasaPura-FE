@@ -5,15 +5,20 @@ import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/DefaultRequest';
+import Loading from "../Componen/Loading";
+
 
 
 export default function LoginAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
 
+
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const data = await login({
       email: email,
@@ -22,7 +27,8 @@ export default function LoginAdmin() {
     if (data) {
       // console.log(data.data);
       Cookies.set('token', data.data);
-      navigate('/admin/dashboard');
+      setLoading(false);
+      navigate('/admin/Dashboard');
     }
   };
 
@@ -41,6 +47,8 @@ export default function LoginAdmin() {
   }, []);
 
   return (
+    <>
+    {loading ? (<Loading />) : (
     <section className="vh-100 vw-100 bg-primary">
   <div className="container py-5 h-100">
     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -77,7 +85,6 @@ export default function LoginAdmin() {
                     <button onClick={handleLogin} className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold mb-2 rounded p-3 w-100" type="button">Login</button>
                   </div>
                 </form>
-
               </div>
             </div>
           </div>
@@ -86,5 +93,8 @@ export default function LoginAdmin() {
     </div>
   </div>
 </section>
+    )}
+</>
+
   );
 }

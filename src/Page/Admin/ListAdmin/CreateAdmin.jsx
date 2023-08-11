@@ -3,6 +3,7 @@ import axios from "axios";
 import { AdminDefault } from "../AdminDefault";
 import Cookies from "js-cookie";
 
+
 export default function CreateAdmin() {
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export default function CreateAdmin() {
                 Authorization: `Bearer ${token}`,
                 },
         });
-      alert("Berhasil membuat admin");
+      // alert("Berhasil membuat admin");
         console.log(response);
       setNama("");
       setEmail("");
@@ -127,6 +128,7 @@ export default function CreateAdmin() {
                 >
                   Create Admin
                 </button>
+              
               </div>
             </div>
           </div>

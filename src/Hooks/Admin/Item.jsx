@@ -12,6 +12,7 @@ export const addItem = async ({
         imageBase64:imageBase64
     })
     .then((res)=>{
+        console.log(res.data)
         return res.data
     }
     )
