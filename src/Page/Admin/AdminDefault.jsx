@@ -5,11 +5,15 @@ import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
-import { BiLogOut, BiUser } from "react-icons/bi";
+import { BiUser } from "react-icons/bi";
+import {IoMdNotifications} from 'react-icons/io';
+import {CgProfile} from 'react-icons/cg';
 
 export const AdminDefault = ({title, body}) =>{
   
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   let navigate = useNavigate();
 
   const logout = () => {
@@ -74,6 +78,23 @@ export const AdminDefault = ({title, body}) =>{
           <div className="shadow d-flex justify-content-start py-2" id="navbar">
             <button className="item d-md-none d-block" onClick={()=>setShowSidebar(!showSidebar)}>
               <AiOutlineMenu/>
+            </button>
+            <button className="item align-self-end ms-auto me-3">
+              <IoMdNotifications/>
+              <span className="notif-count">3</span>
+            </button>
+            <div className="notif-dropdown">
+                <div className="notif-list">
+                  <p className="notif-title">
+                  testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                  </p>
+                  <p className="notif-subtitle">
+                    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                  </p>
+                </div>
+            </div>
+            <button className="item me-5">
+              <CgProfile/>
             </button>
           </div>
           <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3 pt-5">

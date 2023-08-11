@@ -32,8 +32,10 @@ export default function FoundItemList() {
   const prevButton = ()=>{
     setCurrentPage(currentPage-1);
   }
+  
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
-    let url = `http://103.150.92.47:8081/Admin/Item-Found?page=${currentPage}`;
+    let url = `${BASE_URL}/Admin/Item-Found?page=${currentPage}`;
     if(tgl.trim() != ""){
       url = `${url}&foundData=${tgl}`;
     }

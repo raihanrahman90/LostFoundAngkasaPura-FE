@@ -203,3 +203,36 @@
     width: 100px;
     height: 100px;
 }
+.notif-count{
+    position: absolute;
+    font-size: 10px;
+    background-color: var(--bs-danger);
+    margin-top: -10px;
+    padding:2px 5px;
+    border-radius: 3px;
+    color: white;
+}
+.notif-dropdown{
+    position: absolute;
+    right: 100px;
+    top: 75px;
+    background-color: white;
+    width: 200px;
+    min-height: 100px;
+    height: fit-content;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border-radius: 5px;
+    overflow-y: scroll;
+}
+.notif-dropdown .notif-list{
+    border-bottom: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+}
+.notif-list .notif-title{
+    display: block;
+}
+.notif-list .notif-subtitle{
+    font-size: 12px;
+}
