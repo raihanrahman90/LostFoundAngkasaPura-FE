@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../Navbar";
-import axios from "axios";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";

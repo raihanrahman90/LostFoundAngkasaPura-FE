@@ -1,7 +1,6 @@
 
 import FoundItem from "./Page/Admin/ItemFound/ItemFoundList";
 import LoginAdmin from "./Page/Admin/LoginAdmin";
-import Navbar from "./Page/Admin/Navbar";
 import AddItem from "./Page/Admin/ItemFound/ItemFoundAdd";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
@@ -25,7 +24,6 @@ function App() {
               {/* <Route path="/" element={<Login />} /> */}
               <Route path="/admin" element={<LoginAdmin />} />
               <Route path="/admin/FoundItem" element={<FoundItem />} />
-              <Route path="/admin/navbar" element={<Navbar />} />
               <Route path="/admin/AddItem" element={<AddItem />} />
               <Route path="/admin/Dashboard" element={<Dashboard />} />
               <Route path="/admin/CustomReport" element={<CustomReport />} />

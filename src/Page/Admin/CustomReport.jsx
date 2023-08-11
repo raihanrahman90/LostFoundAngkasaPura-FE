@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import "../../Asset/style.css";
@@ -57,7 +55,6 @@ export default function CustomReport() {
     <div className="bgDashboard">
       <div className="row  pt-5 pb-5">
         <div className="col-2 ">
-          <Navbar />
         </div>
 
         <div

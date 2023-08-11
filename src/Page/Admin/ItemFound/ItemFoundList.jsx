@@ -134,14 +134,14 @@ export default function FoundItemList() {
             </div>
             {/*  */}
             <Link
-              className="border border-0 bg-primary text-white px-3 pb-2 border-dark text-dark me-3 fw-bold pt-2 rounded text-decoration-none"
+              className="btn btn-primary text-white"
               to="/admin/AddItem"
             >
               Add New Item
             </Link>
           </div>
           <div className="table">
-            <table className="table table-bordered pt-5 rounded" >
+            <table className="table-bordered pt-5 rounded w-100" >
               <thead style={{backgroundColor:"black"}}>
                 <tr>
                   <th>Nama Barang</th>
@@ -152,23 +152,21 @@ export default function FoundItemList() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
+                {data.map((item, index) => {
+                  let status=<></>;
+                  if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;
+                  if(item.status==='Confirmed') status = <div className="badge bg-success">{item.status}</div>;
+                    
+                  return <>
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.category}</td>
                     <td>{item.foundDate}</td>
-                    <td><div className="badge bg-primary">{item.status}</div></td>
-                    <td>
-                      <Link
-                        className="btn btn-primary text-white"
-                        to={`/admin/ViewDAta/`}
-                        state={{ from: item  }}
-                        >
-                      View
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                    <td>{status}</td>
+                    <td>{item.description}</td>
+                  </tr></>
+                  }
+                )}
               </tbody>
             </table>
           </div>
