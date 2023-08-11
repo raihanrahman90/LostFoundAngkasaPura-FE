@@ -20,6 +20,9 @@ export const AdminDefault = ({title, body}) =>{
     Cookies.remove('token');
     navigate('/admin');
   };
+  const clickNotif=()=>{
+    setShowNotif(!showNotif);
+  }
   const listMenu = [
     {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
     {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
@@ -80,10 +83,10 @@ export const AdminDefault = ({title, body}) =>{
               <AiOutlineMenu/>
             </button>
             <button className="item align-self-end ms-auto me-3">
-              <IoMdNotifications/>
+              <IoMdNotifications onClick={clickNotif}/>
               <span className="notif-count">3</span>
             </button>
-            <div className="notif-dropdown">
+            <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
                 <div className="notif-list">
                   <p className="notif-title">
                   testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
@@ -97,7 +100,7 @@ export const AdminDefault = ({title, body}) =>{
               <CgProfile/>
             </button>
           </div>
-          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3 pt-5">
+          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3 pt-5 admin-content">
             <h5 className="text-dark bold">{title}</h5>
             {body}
           </div>

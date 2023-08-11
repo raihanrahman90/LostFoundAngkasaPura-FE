@@ -236,3 +236,13 @@
 .notif-list .notif-subtitle{
     font-size: 12px;
 }
+.admin-content{
+    height: 85%;
+    overflow-y: scroll;
+    max-height: 85%;
+}
+.admin-content img{
+    height: 200px;
+    width: auto;
+    max-width: 100%;
+}

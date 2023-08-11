@@ -28,7 +28,7 @@ function App() {
               <Route path="/admin/Dashboard" element={<Dashboard />} />
               <Route path="/admin/CustomReport" element={<CustomReport />} />
               <Route path="/admin/ListClaim" element={<ListClaim />} />
-              <Route path="/admin/DetailClaim" element={<DetailClaim />} />
+              <Route path="/admin/DetailClaim/:id" element={<DetailClaim />} />
               <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
               <Route path="/admin/ListAdmin" element={<ListAdmin />} />
               <Route path="/admin/ViewDAta" element={<ViewDAta />} />
