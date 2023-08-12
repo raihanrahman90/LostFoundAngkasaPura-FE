@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import axios from "axios";
 import { AdminDefault } from "../AdminDefault";
 import Cookies from "js-cookie";
+import Loading from "../../Componen/Loading";
+
 
 export default function CreateAdmin() {
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [unit, setUnit] = useState("");
-  const [access, setAccess] = useState("");
+  const [access, setAccess] = useState("admin");
+  const [loading, setLoading] = useState(false);
 
-  const handleCreateAdmin = async () => {
+  const handleCreateAdmin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     try {
         const data = {
             name: nama,
@@ -18,14 +23,16 @@ export default function CreateAdmin() {
             unit: unit,
             access: access,
         }
-        // console.log(data);
+        console.log(data);
         const token = Cookies.get("token");
         const response = await axios.post("http://103.150.92.47:8081/admin/admin", data, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 },
         });
-        // console.log(response);
+      // alert("Berhasil membuat admin");
+        console.log(response);
+        setLoading(false);
       setNama("");
       setEmail("");
       setPassword("");
@@ -33,13 +40,18 @@ export default function CreateAdmin() {
       setAccess("");
     } catch (error) {
       console.error("Error creating admin:", error);
+      alert("Gagal membuat admin");
     }
   };
 
   return (
+
     <AdminDefault
       title={"Create Admin"}
       body={
+        <>
+        {loading ? (<Loading />) : (
+
         <form onSubmit={handleCreateAdmin}>
           <div
             className="col-md-10 pt-5"
@@ -90,7 +102,6 @@ export default function CreateAdmin() {
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  value={access}
                   onChange={(e) => setAccess(e.target.value)}
                   required
                 >
@@ -125,10 +136,15 @@ export default function CreateAdmin() {
                 >
                   Create Admin
                 </button>
+              
               </div>
             </div>
           </div>
         </form>
+        )}
+
+        </>
+
       }
     />
   );
