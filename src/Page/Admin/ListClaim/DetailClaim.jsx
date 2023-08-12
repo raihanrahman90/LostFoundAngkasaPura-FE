@@ -154,12 +154,17 @@ const terimaHandle = async () => {
           {/* <h1 className="pb-5">Detail Claim</h1> */}
           {data.map((item, index) => (
             <div key={index}>
-          <div className="float-end top"> 
+          {data.status === "Confirmation" ? (
+            <div className="float-end top"> 
           <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button>
           <button onClick={tolakHandle} className="btn btn-danger px-5  me-1 text-white">
             Tolak
           </button>
           </div>
+          ) : (
+            null
+          )}
+          
               <div className="row">
                 <h1>Data Barang</h1>
                 <div className="col-3">
