@@ -9,14 +9,20 @@ import Loading from "../../Componen/Loading"
 
 const Detail = () => {
   const location = useLocation();
-  const [data, setData] = useState([]);
-  const [comment, setComment] = useState([])
-  const [showComment, setShowComment] = useState(false);
+  const { from } = location.state;
+  const [comment, setComment] = useState("")
+  const [showComment, setShowComment] = useState([]);
   const [image64, setImage64] = useState("")
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
   const routeParams = useParams();
   const itemFoundId = routeParams["id"];
+  const [namaTempat, setNamaTempat] = useState("");
+  const [tgl, setTgl] = useState("");
+  const [tolak, setTolak] = useState(false);
+  const idItemClaim = from.id;
+  
+
   useEffect(()=>{
 
   },[comment])
@@ -27,23 +33,7 @@ const Detail = () => {
     }
     fetchData();
   },[])
-  useEffect(() => {
-    const token = Cookies.get("token");
-    axios
-      .get(`http://103.150.92.47:8081/Admin/Item-Claim?itemFoundId=${itemFoundId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "image/jpeg",
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.data.data);
-        setData(res.data.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
   const getComment = async ()=>{
     const token = Cookies.get("token");
     axios
@@ -54,7 +44,7 @@ const Detail = () => {
         },
       })
       .then((res) => {
-        setShowCommet(res.data.data);
+        setShowComment(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -85,25 +75,35 @@ const Detail = () => {
       value : comment,
       imageBase64 : image64 
   };
+  console.log(data)
   const res = await axios.post(`http://103.150.92.47:8081/Admin/Item-Comment`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
+  getComment();
+  setComment("");
+  setImage64("");
+  setImage64("");
+
 
   console.log(res)
 }
 
 const tolakHandle = async () => {
-  // console.log("ini id",id)
+  if(tolak === ""){
+    alert("Data tidak boleh kosong")
+    return
+  }
+  console.log(tolak)
   setLoading(true)
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
       `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/reject`,
       {
-        rejectReason: 'JELEK BETUL EH FOTOMU',
+        rejectReason: tolak,
       },
       {
         headers: {
@@ -122,14 +122,19 @@ const tolakHandle = async () => {
 };
 
 const terimaHandle = async () => {
+  if(namaTempat === "" || tgl === ""){
+    alert("Data tidak boleh kosong")
+    return
+  }
+  console.log(namaTempat, tgl)
   setLoading(true)
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
       `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/approve`,
       {
-        claimLocation: "Gate 8",
-        claimDate: "2023-07-31T06:54:27.031Z"
+        claimLocation: namaTempat,
+        claimDate: tgl
       },
       {
         headers: {
@@ -139,7 +144,6 @@ const terimaHandle = async () => {
     );
 
     console.log('Claim Di teirma', response.data);
-    // alert("Claim Di Terima")
     setLoading(false)
 
   } catch (error) {
@@ -202,7 +206,7 @@ const terimaHandle = async () => {
               </div>
             </div>
             <div className="col-12">
-                {comment.map((item, index) => {
+                {showComment.map((item, index) => {
                   return (
                     <div key={index} className=" border mb-5 d-flex w-50">
                       <span>{item.value}</span>
@@ -214,53 +218,101 @@ const terimaHandle = async () => {
                   );
                 })}
               </div>
+
+            <div>
+              <form onSubmit={handleSubmitComment}>
+                <div className="mb-3">
+                  <label htmlFor="comment" className="form-label">
+                    Comment
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="comment"
+                    rows="3"
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </div>
+
+                <div>
+                  <input type="file" 
+                  className="form-control"
+                  onChange={handleFileInputChange} />
+                </div>
+                <button 
+                className="bg-primary text-white float-end"
+                type="submit"
+                >
+                  Submit
+                </button>
+                </form>
+            </div>
+
           </div>
           {item.status === "Confirmation" ? (
             <div className="float-end top"> 
-            <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button>
-            <button onClick={tolakHandle} className="btn btn-danger px-5  me-1 text-white">
+            {/* <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button> */}
+            {/* start tombol terima */}
+            <button type="button" class="btn btn-success me-1 text-white me-5 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
+              Terima
+            </button>
+            <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="TerimaLabel">Terima Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {/* Form filter */}
+                    <div className="mb-3">
+                      <label htmlFor="namaBarang" className="form-label">Nama Tempat</label>
+                      <input required type="text" className="form-control" id="namaBarang" onChange={(e)=>{setNamaTempat(e.target.value)}} />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
+                      <input required type="date" className="form-control" id="tgl"  onChange={(e)=>{setTgl(e.target.value)}} />
+                    </div>
+                    {/* End of Form filter */}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={terimaHandle}>Terima</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* end tombol terima */}
+            {/* start tombol tolak */}
+
+            <button type="button" class="btn btn-danger px-5  me-1 text-white" data-bs-toggle="modal" data-bs-target="#Tolak">
               Tolak
             </button>
+            <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="TolakLabel">Tolak Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {/* Form filter */}
+                    <div className="mb-3">
+                      <label htmlFor="namaBarang" className="form-label">rejectReason</label>
+                      <input required type="text" className="form-control" id="namaBarang" onChange={(e)=>{setTolak(e.target.value)}} />
+                    </div>
+                    {/* End of Form filter */}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={tolakHandle}>Tolak</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* end tombol tolak */}
             </div>):(null)}
           </>}
-            {/*
-              <div>
-
-                <div className="border rounded mb-5 w-50">
-                  <BsFillPersonFill />
-                  <span style={{ marginLeft: "10px" }}>user :</span>
-                  <span style={{ marginLeft: "10px" }}>{item.proofDescription}</span>
-                </div>
-
-                <div className="">
-                  {shopComment.map((item, index) => {
-                    return (
-                      <div key={index} className=" border mb-5 d-flex w-50">
-                        <span>{item.value}</span>
-                        <div className="d-flex ps-5">
-                        <BsFillPersonFill />
-                        <span  >admin-{item.userName}</span>
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                </div>
-
-            <form className="d-flex" onSubmit={handleSubmitComment}>
-            <input
-              type="text"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="Comment"
-              className="w-50 form-control"
-            />
-            <input type="file" onChange={handleFileInputChange} className="form-control ms-3 w-10" />
-            <button type="submit" className="btn btn-primary ms-3">
-              Submit
-            </button>
-          </form>
-                </div>*/}
+            
         </>
       }
     />
