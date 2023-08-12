@@ -43,12 +43,12 @@
 }
 
 .card-category {
-    background-color: #40CB92;
+    background-color: #66B82E;
     color: #FFFFFF;
     border-radius: 5px;
     padding: 0 10 0 10;
     text-align: center;
-    width: 50%;
+
 }
 
 .listBarang{
@@ -62,4 +62,9 @@
 .btn-hapus{
     border: #138FC7 1px solid !important;
     color: #138FC7 !important;
+}
+
+.detail {
+    text-align: justify;
+    font-size: 16px;
 }

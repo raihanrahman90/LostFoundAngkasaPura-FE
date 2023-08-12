@@ -145,7 +145,7 @@ export default function ListBarang() {
                                             <div className="col-md-6 card mx-3 my-3 rounded" style={{width: "17rem"}}>
                                                 <img src={item.img} className='p-5' alt="" />
                                                 <div className="card-body">
-                                                    <p className="card-category">{item.kategoti}</p>
+                                                    <p className="card-category" style={{width:"50%"}}>{item.kategoti}</p>
                                                     <h5 className="card-title">{item.namaBarang}</h5>
                                                     <p className="card-text">{item.keterangan}</p>
                                                     <a href="#" className="btn btn-primary w-100 text-white fw-bold">Klaim Barang</a>
