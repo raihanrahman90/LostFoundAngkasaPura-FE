@@ -14,10 +14,11 @@ export default function ListAdmin() {
     fetchData(); // Fetch data when component mounts
   }, [currentPage]);
 
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
     try {
       const token = Cookies.get("token");
-      const response = await axios.get("http://103.150.92.47:8081/admin/admin", {
+      const response = await axios.get(`${BASE_URL}/admin/admin`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +34,7 @@ export default function ListAdmin() {
     try {
       const token = Cookies.get("token");
       console.log(id);
-      const response = await axios.delete(`http://103.150.92.47:8081/admin/admin/${id}`, {
+      const response = await axios.delete(`${BASE_URL}/admin/admin/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

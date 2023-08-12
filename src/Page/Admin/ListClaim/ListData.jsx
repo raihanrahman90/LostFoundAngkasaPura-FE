@@ -10,6 +10,8 @@ export default function ListData({
   claimDate,
   itemFoundId,
 }) {
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  
 
   const datanavigate = {
     id  : id,
@@ -20,7 +22,7 @@ export default function ListData({
     try {
       const token = Cookies.get('token');
       const response = await axios.post(
-        `http://103.150.92.47:8081/Admin/Item-Claim/${id}/reject`,
+        `${BASE_URL}/Admin/Item-Claim/${id}/reject`,
         {
           rejectReason: 'JELEK BETUL EH FOTOMU',
         },
@@ -44,7 +46,7 @@ export default function ListData({
     try {
       const token = Cookies.get('token');
       const response = await axios.post(
-        `http://103.150.92.47:8081/Admin/Item-Claim/${id}/approve`,
+        `${BASE_URL}/Admin/Item-Claim/${id}/approve`,
         {
           claimLocation: "Gate 8",
           claimDate: "2023-07-31T06:54:27.031Z"

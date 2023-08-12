@@ -28,6 +28,7 @@ export function Chart() {
   const [labels, setLabels] = useState([]);
   const [startDate, setStartDate] = useState("2023-01-01");
   const [endDate, setEndDate] = useState("2023-12-31");
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const options = {
     responsive: true,
@@ -51,7 +52,7 @@ export function Chart() {
     const token = Cookies.get("token");
     axios
       .get(
-        "http://103.150.92.47:8081/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31",
+        `${BASE_URL}/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +73,7 @@ export function Chart() {
     const token = Cookies.get("token");
     axios
       .get(
-        `http://103.150.92.47:8081/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
+        `${BASE_URL}/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

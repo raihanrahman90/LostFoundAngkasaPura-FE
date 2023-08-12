@@ -13,11 +13,12 @@ export default function Dashboard() {
   const [datas, setDatas] = useState([]);
   const [datasets, setDatasets] = useState([]);
   const [labels , setLabels] = useState([]);
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const token = Cookies.get("token");
     axios
-      .get("http://103.150.92.47:8081/admin/dashboard", {
+      .get(`${BASE_URL}/admin/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
