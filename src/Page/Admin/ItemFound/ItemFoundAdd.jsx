@@ -31,6 +31,10 @@ export default function ItemFoundAdd() {
 
 
   const handleSubmit = async () => {
+    if(namaBarang === "" || ciriBarang === "" || tanggalDitemukan === "" || kategori === "" || base64Image === ""){
+      alert("Data tidak boleh kosong");
+      return;
+    }else{
     setLoading(true);
     const result = await addItem(
       {
@@ -42,13 +46,18 @@ export default function ItemFoundAdd() {
       }
     );
     console.log(result);
+    setLoading(false);
     if(result){
       navigate("/admin/FoundItem")
     }
+  }
+
 };
 
 
   return (
+    <>
+    {loading ? (<Loading />) : (
     <AdminDefault
       title={"Add Item Found"}
       body={
@@ -62,6 +71,7 @@ export default function ItemFoundAdd() {
             className="form__field"
             id="namaBarang"
             placeholder="Nama Barang"
+            required
           />
           <label className="form__label" htmlFor="namaBarang">Nama Barang</label>
         </div>
@@ -73,12 +83,14 @@ export default function ItemFoundAdd() {
             className="form__field"
             id="ciriBarang"
             placeholder="Ciri Ciri Barang"
+            required
           />
           <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
         </div>
 
         <div className="form__group col-6">
           <select
+          required
             onChange={(e) => setKategori(e.target.value)}
             className="form__field"
             id="kategori"
@@ -97,6 +109,7 @@ export default function ItemFoundAdd() {
             type="date"
             className="form__field"
             id="tanggalDitemukan"
+            required
           />
           <label className="form__label" htmlFor="tanggalDitemukan">Tanggal Ditemukan</label>
         </div>
@@ -107,6 +120,7 @@ export default function ItemFoundAdd() {
             onChange={handleFileInputChange}
             className="form__field"
             id="fotoBarang"
+            required
           />
           <label className="form__label" htmlFor="fotoBarang">Foto Barang</label>
           {selectedFile && (
@@ -119,11 +133,13 @@ export default function ItemFoundAdd() {
         </div>
 
         <input value="Submit" className="btn btn-primary float-end me-md-5 text-white" />
-        </form> 
-        )}
+        </form> )}
         </>
 
-      }/>
+}/>
+)}
+    </>
+
 
           
   );

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AdminDefault } from "../AdminDefault";
 import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
+import Loading from "../../Componen/Loading"
 
 const Detail = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const Detail = () => {
   const [comment, setComment] = useState("")
   const [image64, setImage64] = useState("")
   const [item, setItem] = useState();
+  const [loading, setLoading] = useState(false);
   const routeParams = useParams();
   useEffect(()=>{
 
@@ -91,7 +93,64 @@ const Detail = () => {
   console.log(res)
 }
 
+const tolakHandle = async () => {
+  // console.log("ini id",id)
+  setLoading(true)
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/reject`,
+      {
+        rejectReason: 'JELEK BETUL EH FOTOMU',
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('Tolak response:', response.data);
+    setLoading(false)
+
+  } catch (error) {
+    console.error('Tolak error:', error);
+
+  }
+};
+
+const terimaHandle = async () => {
+  // console.log("ini id",idItemClaim)
+  setLoading(true)
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/approve`,
+      {
+        claimLocation: "Gate 8",
+        claimDate: "2023-07-31T06:54:27.031Z"
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('Claim Di teirma', response.data);
+    // alert("Claim Di Terima")
+    setLoading(false)
+
+  } catch (error) {
+    console.error('Tolak error:', error);
+
+  }
+};
+
+
   return (
+    <>
+    {loading ? (<Loading />) : (
     <AdminDefault 
     title={"Detail Claim"}
     body={
@@ -162,6 +221,8 @@ const Detail = () => {
       }
     />
 
+  )}
+  </>
   );
 }
 export default Detail;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { AdminDefault } from "../AdminDefault";
 import Cookies from "js-cookie";
+import Loading from "../../Componen/Loading";
 
 
 export default function CreateAdmin() {
@@ -10,9 +11,11 @@ export default function CreateAdmin() {
   const [password, setPassword] = useState("");
   const [unit, setUnit] = useState("");
   const [access, setAccess] = useState("admin");
+  const [loading, setLoading] = useState(false);
 
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
         const data = {
             name: nama,
@@ -29,6 +32,7 @@ export default function CreateAdmin() {
         });
       // alert("Berhasil membuat admin");
         console.log(response);
+        setLoading(false);
       setNama("");
       setEmail("");
       setPassword("");
@@ -41,9 +45,13 @@ export default function CreateAdmin() {
   };
 
   return (
+
     <AdminDefault
       title={"Create Admin"}
       body={
+        <>
+        {loading ? (<Loading />) : (
+
         <form onSubmit={handleCreateAdmin}>
           <div
             className="col-md-10 pt-5"
@@ -133,6 +141,10 @@ export default function CreateAdmin() {
             </div>
           </div>
         </form>
+        )}
+
+        </>
+
       }
     />
   );
