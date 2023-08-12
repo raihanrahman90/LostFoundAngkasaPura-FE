@@ -12,6 +12,7 @@ export default function ListClaim() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [status, setStatus] = useState(null);
   let navigate = useNavigate();
   const nextButton = async ()=>{
     setCurrentPage(currentPage+1);
@@ -19,11 +20,18 @@ export default function ListClaim() {
   const prevButton = ()=>{
     setCurrentPage(currentPage-1);
   }
+  const handleFilter = ()=>{
+
+  }
+  
+  const handleStatus = (e) => {
+    setStatus(e.target.value);
+  }
   useEffect(() => {
     const token = Cookies.get("token");
     const getListData = async()=>{
       try{
-        let listData = await getListClaim({page:currentPage});
+        let listData = await getListClaim({page:currentPage,status:status});
         setData(listData.data.data);
       }catch(e){
         if(e.error ===401){
@@ -32,12 +40,40 @@ export default function ListClaim() {
       }
     }
     getListData();
-  }, []);
+  }, [status]);
   return (
     <AdminDefault
       title={"List Claim"}
       body={ 
         <div className="">
+          <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Filter
+          </button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <form class="modal-content" onSubmit={handleFilter}>
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div className="mb-3">
+                    <label htmlFor="kategori" className="form-label">Status</label>
+                    <select className="form-select" id="status" onChange={handleStatus}>
+                      <option value="Confirmation" selected>Confirmation</option>
+                      <option value="Approved">Approved</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
+                  </div>
+                  {/* End of Form filter */}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply Filters</button>
+                </div>
+              </form>
+            </div>
+          </div>
           <div className="table">
             <table className="table-bordered pt-5 rounded w-100" >
               <thead style={{backgroundColor:"black"}}>

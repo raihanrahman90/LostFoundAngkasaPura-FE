@@ -108,7 +108,7 @@ export function Chart() {
               <label htmlFor="" className="w-100">
                 End
                 <input
-                  type="date"
+                  type="month"
                   className="w-100 px-5 py-2 rounded mb-3"
                   onChange={(e) => {
                     setEndDate(e.target.value);

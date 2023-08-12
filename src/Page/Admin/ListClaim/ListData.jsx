@@ -70,13 +70,19 @@ export default function ListData({
     <tr>
       <td>{name}</td>
       <td>{claimDate}</td>
-      <td>{status}</td>
+      <td>{
+        (status=="Rejected"?
+          <span className='badge bg-secondary'>Rejected</span>:
+        status=="Approved"?
+          <span className='badge bg-success'>Approved</span>:
+        status=="Confirmation"?
+          <span className='badge bg-warning'>Confirmation</span>:<></>)
+      }</td>
       <td>
         <Link
           className="btn btn-primary text-white"
           to={"/admin/DetailClaim/"+id}
           state={{ from: datanavigate,  }}>
-        
           Detail
         </Link>
       </td>

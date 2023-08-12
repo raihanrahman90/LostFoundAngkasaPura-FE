@@ -10,12 +10,13 @@ import Loading from "../../Componen/Loading"
 const Detail = () => {
   const location = useLocation();
   const [data, setData] = useState([]);
-  const [shopComment, setShowCommet] = useState([])
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState([])
+  const [showComment, setShowComment] = useState(false);
   const [image64, setImage64] = useState("")
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
   const routeParams = useParams();
+  const itemFoundId = routeParams["id"];
   useEffect(()=>{
 
   },[comment])
@@ -26,7 +27,6 @@ const Detail = () => {
     }
     fetchData();
   },[])
-/*
   useEffect(() => {
     const token = Cookies.get("token");
     axios
@@ -43,9 +43,8 @@ const Detail = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [from]);
-
-  useEffect(() => {
+  }, []);
+  const getComment = async ()=>{
     const token = Cookies.get("token");
     axios
       .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=${idItemClaim}`, {
@@ -60,8 +59,11 @@ const Detail = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [from]);
-*/
+  }
+
+  useEffect(() => {
+    getComment();
+  }, []);
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -120,7 +122,6 @@ const tolakHandle = async () => {
 };
 
 const terimaHandle = async () => {
-  // console.log("ini id",idItemClaim)
   setLoading(true)
   try {
     const token = Cookies.get('token');
@@ -157,7 +158,7 @@ const terimaHandle = async () => {
       <>
           {item==null?<></>:<>
           
-          <div className="row table overflow-hidden min-h-80"> 
+          <div className={"row table overflow-hidden min-h-80 "}> 
             <div className="col-md-6">
               <div className="row">
                 <div className="col-12">
@@ -199,8 +200,9 @@ const terimaHandle = async () => {
                   <img src={item.proofImage}/>
                 </div>
               </div>
-              <div className="">
-                {shopComment.map((item, index) => {
+            </div>
+            <div className="col-12">
+                {comment.map((item, index) => {
                   return (
                     <div key={index} className=" border mb-5 d-flex w-50">
                       <span>{item.value}</span>
@@ -212,7 +214,6 @@ const terimaHandle = async () => {
                   );
                 })}
               </div>
-            </div>
           </div>
           {item.status === "Confirmation" ? (
             <div className="float-end top"> 

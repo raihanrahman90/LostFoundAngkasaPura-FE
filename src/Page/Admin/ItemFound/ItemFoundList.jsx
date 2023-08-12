@@ -37,7 +37,7 @@ export default function FoundItemList() {
   const fetchData= async () => {
     let url = `${BASE_URL}/Admin/Item-Found?page=${currentPage}`;
     if(tgl.trim() != ""){
-      url = `${url}&foundData=${tgl}`;
+      url = `${url}&foundDate=${tgl}`;
     }
     if(kategori.trim() != ""){
       url = `${url}&category=${kategori}`;
