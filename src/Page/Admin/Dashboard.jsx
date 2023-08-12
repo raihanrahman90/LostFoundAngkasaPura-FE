@@ -43,6 +43,7 @@ export default function Dashboard() {
      body={
       <>
         <div className="row pt-4 text-white">
+          <div className="col-12 row">
         {
             data.map((data,index)=>{
               return <div key={index} className="col-lg-3 col-md-6 col-sm-6 col-12 d-flex justify-content-center mb-2 ">
@@ -59,24 +60,21 @@ export default function Dashboard() {
                 </div>
               </div>
             })
-          }
-        </div>
-            <div className="d-flex justify-content-center">
-              <button className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold  rounded py-2">
-                Download Report
-              </button>
-            </div>
+          }</div>
             <div
               className="
               d-flex
               justify-content-center
               align-items-center
               mb-5
+              col-12
               "
               style={{ width: "100%", height: "600px" }}
             >
               <Chart  />
             </div>
+            
+        </div>
         </>
      }
     />

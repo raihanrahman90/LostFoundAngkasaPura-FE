@@ -100,7 +100,7 @@ export const AdminDefault = ({title, body}) =>{
               <CgProfile/>
             </button>
           </div>
-          <div className="rounded shadow px-5 my-3 mx-3 admin-main py-3 pt-5 admin-content">
+          <div className="rounded shadow px-1 px-md-5 my-3 mx-3 admin-main py-3 pt-5 admin-content">
             <h5 className="text-dark bold">{title}</h5>
             {body}
           </div>

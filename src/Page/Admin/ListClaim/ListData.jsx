@@ -72,10 +72,6 @@ export default function ListData({
       <td>{claimDate}</td>
       <td>{status}</td>
       <td>
-        <button className="btn btn-success me-1 text-white" onClick={terimaHandle}>Terima</button>
-        <button onClick={tolakHandle} className="btn btn-danger me-1 text-white">
-          Tolak
-        </button>
         <Link
           className="btn btn-primary text-white"
           to={"/admin/DetailClaim/"+id}

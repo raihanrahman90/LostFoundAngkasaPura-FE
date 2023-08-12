@@ -155,28 +155,72 @@ const terimaHandle = async () => {
     title={"Detail Claim"}
     body={
       <>
-       <div
-          className="col-md-10 pt-5"
-          style={{ backgroundColor: "white", borderRadius: "30px" }}
-        >
           {item==null?<></>:<>
-            <div className="row">
-              <div className="col-3">Nama Barang</div>
-              <div className="col-9">{item.name}</div>
+          
+          <div className="row table overflow-hidden min-h-80"> 
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-12">
+                  <h6>Detail Barang</h6>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3">Nama Barang</div>
+                <div className="col-9">{item.name}</div>
+              </div>
+              <div className="row">
+                <div className="col-3">Status</div>
+                <div className="col-9">{item.status}</div>
+              </div>
+              <div className="row">
+                <div className="col-3">Gambar</div>
+                <div className="col-9"><img src={item.image} alt="image item" /></div>
+              </div>
             </div>
-            <div className="row">
-              <div className="col-3">Status</div>
-              <div className="col-9">{item.status}</div>
+            <div className="col-md-6">
+              <h6>Keterangan Klaim</h6>
+              <div className="row">
+                <div className="col-3">
+                  Nomor Identitas
+                </div>
+                <div className="col-9">
+                  {item.identityNumber}
+                </div>
+                <div className="col-3">
+                  Deskripsi
+                </div>
+                <div className="col-9">
+                  {item.proofDescription}
+                </div>
+                <div className="col-3">
+                  Deskripsi Gambar
+                </div>
+                <div className="col-9">
+                  <img src={item.proofImage}/>
+                </div>
+              </div>
+              <div className="">
+                {shopComment.map((item, index) => {
+                  return (
+                    <div key={index} className=" border mb-5 d-flex w-50">
+                      <span>{item.value}</span>
+                      <div className="d-flex ps-5">
+                      <BsFillPersonFill />
+                      <span  >admin-{item.userName}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div className="row">
-              <div className="col-3">Gambar</div>
-              <div className="col-9"><img src={item.image} alt="image item" /></div>
-            </div>
-            <hr color="black" className="mt-5" />
-            <h5>Keterangan Tambahan</h5>
-            <div className="row">
-              <div className=""></div>
-            </div>
+          </div>
+          {item.status === "Confirmation" ? (
+            <div className="float-end top"> 
+            <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button>
+            <button onClick={tolakHandle} className="btn btn-danger px-5  me-1 text-white">
+              Tolak
+            </button>
+            </div>):(null)}
           </>}
             {/*
               <div>
@@ -216,7 +260,6 @@ const terimaHandle = async () => {
             </button>
           </form>
                 </div>*/}
-            </div>
         </>
       }
     />
