@@ -129,7 +129,7 @@ export default function FoundItemList() {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
                   </div>
                 </div>
               </div>
