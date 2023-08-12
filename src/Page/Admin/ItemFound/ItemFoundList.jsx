@@ -33,7 +33,7 @@ export default function FoundItemList() {
     setCurrentPage(currentPage-1);
   }
   
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BASE_URL = "http://103.150.92.47:8081"  ;
   const fetchData= async () => {
     let url = `${BASE_URL}/Admin/Item-Found?page=${currentPage}`;
     if(tgl.trim() != ""){
@@ -129,7 +129,7 @@ export default function FoundItemList() {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
                   </div>
                 </div>
               </div>
@@ -165,7 +165,16 @@ export default function FoundItemList() {
                     <td>{item.category}</td>
                     <td>{item.foundDate}</td>
                     <td>{status}</td>
-                    <td>{item.description}</td>
+                    <td>
+                      <Link
+                        className="btn btn-primary text-white"
+                        to={"/admin/ViewData/"}
+                        state={{from: item}}
+                      >
+                        View
+                      </Link>
+                    </td>
+                    {/* <td>{item.description}</td> */}
                   </tr></>
                   }
                 )}

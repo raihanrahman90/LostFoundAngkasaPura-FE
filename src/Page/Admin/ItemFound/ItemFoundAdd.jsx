@@ -9,7 +9,7 @@ export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
   const [tanggalDitemukan, setTanggalDitemukan] = useState("");
-  const [kategori, setKategori] = useState("");
+  const [kategori, setKategori] = useState("perhiasan");
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Image, setBase64Image] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,8 @@ export default function ItemFoundAdd() {
 
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if(namaBarang === "" || ciriBarang === "" || tanggalDitemukan === "" || kategori === "" || base64Image === ""){
       alert("Data tidak boleh kosong");
       return;
@@ -132,7 +133,7 @@ export default function ItemFoundAdd() {
     )}
         </div>
 
-        <input value="Submit" className="btn btn-primary float-end me-md-5 text-white" />
+        <input type="Submit" className="btn btn-primary float-end me-md-5 text-white" />
         </form> )}
         </>
 

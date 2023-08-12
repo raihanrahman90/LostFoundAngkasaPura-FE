@@ -26,9 +26,8 @@ export default function LoginAdmin() {
       password: password,
     });
     if (data) {
-      // console.log(data.data);
-      Cookies.set('token', data.data);
       setLoading(false);
+      Cookies.set('token', data.data);
       navigate('/admin/Dashboard');
     }
   };
@@ -38,7 +37,7 @@ export default function LoginAdmin() {
     const checkAccessToken = async()=>{
       try{
         let accessToken = await getAccessToken();
-        console.log(accessToken);
+        // console.log(accessToken);
         return accessToken;
       }catch(e){
         if(e.message == 'Mohon login kembali'){

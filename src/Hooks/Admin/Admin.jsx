@@ -10,6 +10,7 @@ export const login = async ({
         password:password
     })
     .then((res)=>{
+        // console.log("ini datanya",res.data);
         return res.data
     })
     .catch((error)=>{
