@@ -1,12 +1,17 @@
 import * as React from "react"
 const SvgComponent = (props) => (
+  <div className="bg-dark w-100 h-100" style={{paddingTop: "20%"}}>
+
   <svg
+    className="bg-white"
     xmlns="http://www.w3.org/2000/svg"
     width={200}
     height={200}
     preserveAspectRatio="xMidYMid"
     style={{
       margin: "auto",
+      // marginTop: "20%",
+      borderRadius: "50%",
       background: "#f1f2f3",
       display: "block",
       shapeRendering: "auto",
@@ -55,5 +60,7 @@ const SvgComponent = (props) => (
       />
     </path>
   </svg>
+  </div>
+
 )
 export default SvgComponent

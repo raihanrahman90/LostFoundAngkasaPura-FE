@@ -4,19 +4,19 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AdminDefault } from "../AdminDefault";
+import Loading from "../../Componen/Loading"
 
 export default function Detail() {
   const location = useLocation();
   const { from } = location.state;
   const itemFoundId = from.itemFoundId;
   const idItemClaim = from.id;
-  
-  
 
   const [data, setData] = useState([]);
   const [shopComment, setShowCommet] = useState([])
   const [comment, setComment] = useState("")
   const [image64, setImage64] = useState("")
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -46,7 +46,7 @@ export default function Detail() {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setShowCommet(res.data.data);
       })
       .catch((err) => {
@@ -85,7 +85,64 @@ export default function Detail() {
   console.log(res)
 }
 
+const tolakHandle = async () => {
+  // console.log("ini id",id)
+  setLoading(true)
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/reject`,
+      {
+        rejectReason: 'JELEK BETUL EH FOTOMU',
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('Tolak response:', response.data);
+    setLoading(false)
+
+  } catch (error) {
+    console.error('Tolak error:', error);
+
+  }
+};
+
+const terimaHandle = async () => {
+  // console.log("ini id",idItemClaim)
+  setLoading(true)
+  try {
+    const token = Cookies.get('token');
+    const response = await axios.post(
+      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/approve`,
+      {
+        claimLocation: "Gate 8",
+        claimDate: "2023-07-31T06:54:27.031Z"
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('Claim Di teirma', response.data);
+    // alert("Claim Di Terima")
+    setLoading(false)
+
+  } catch (error) {
+    console.error('Tolak error:', error);
+
+  }
+};
+
+
   return (
+    <>
+    {loading ? (<Loading />) : (
     <AdminDefault 
     title={"Detail Claim"}
     body={
@@ -94,12 +151,18 @@ export default function Detail() {
           className="col-md-10 pt-5"
           style={{ backgroundColor: "white", borderRadius: "30px" }}
         >
-          <h1 className="pb-5">Detail Claim</h1>
+          {/* <h1 className="pb-5">Detail Claim</h1> */}
           {data.map((item, index) => (
             <div key={index}>
+          <div className="float-end top"> 
+          <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button>
+          <button onClick={tolakHandle} className="btn btn-danger px-5  me-1 text-white">
+            Tolak
+          </button>
+          </div>
               <div className="row">
+                <h1>Data Barang</h1>
                 <div className="col-3">
-                  <h5>Data Barang</h5>
                   <p><strong>Nama Barang:</strong></p>
                   <p><strong>Status:</strong></p>
                   <label htmlFor=""><strong>Gambar</strong></label>
@@ -164,11 +227,15 @@ export default function Detail() {
             </div>
           ))}
         </div>
+
       
       </>
     
   }
-    />
+  />
+  
+  )}
+  </>
 
   );
 }

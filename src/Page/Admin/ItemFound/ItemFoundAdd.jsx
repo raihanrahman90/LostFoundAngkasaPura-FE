@@ -30,6 +30,10 @@ export default function ItemFoundAdd() {
 
 
   const handleSubmit = async () => {
+    if(namaBarang === "" || ciriBarang === "" || tanggalDitemukan === "" || kategori === "" || base64Image === ""){
+      alert("Data tidak boleh kosong");
+      return;
+    }else{
     setLoading(true);
     const result = await addItem(
       {
@@ -41,19 +45,22 @@ export default function ItemFoundAdd() {
       }
     );
     console.log(result);
+    setLoading(false);
     if(result){
       console.log(result);
-      // setLoading(false);
     }
+  }
+
 };
 
 
   return (
+    <>
+    {loading ? (<Loading />) : (
     <AdminDefault
       title={"Add Item Found"}
       body={
         <>
-        {loading ? (<Loading />) : (
         <form className="row  pt-5 pb-5" >
         <div className="form-group pb-4">
           <label className="pb-3 fw-bold" htmlFor="namaBarang">Nama Barang</label>
@@ -63,6 +70,7 @@ export default function ItemFoundAdd() {
             className="form-control "
             id="namaBarang"
             placeholder="Nama Barang"
+            required
           />
         </div>
 
@@ -74,12 +82,14 @@ export default function ItemFoundAdd() {
             className="form-control"
             id="ciriBarang"
             placeholder="Ciri Ciri Barang"
+            required
           />
         </div>
 
         <div className="form-group pb-4">
           <label className="pb-3 fw-bold" htmlFor="kategori">Kategori</label>
           <select
+          required
             onChange={(e) => setKategori(e.target.value)}
             className="form-select"
             id="kategori"
@@ -98,6 +108,7 @@ export default function ItemFoundAdd() {
             type="date"
             className="form-control"
             id="tanggalDitemukan"
+            required
           />
         </div>
 
@@ -108,6 +119,7 @@ export default function ItemFoundAdd() {
             onChange={handleFileInputChange}
             className="form-control"
             id="fotoBarang"
+            required
           />
           {selectedFile && (
       <img
@@ -120,10 +132,12 @@ export default function ItemFoundAdd() {
 
         <input value="Submit" onClick={handleSubmit} className="btn btn-primary float-end me-md-5 text-white" />
         </form> 
-        )}
         </>
 
-      }/>
+}/>
+)}
+    </>
+
 
           
   );
