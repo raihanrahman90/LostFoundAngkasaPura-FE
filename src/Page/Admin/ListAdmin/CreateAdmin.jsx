@@ -13,6 +13,7 @@ export default function CreateAdmin() {
   const [access, setAccess] = useState("admin");
   const [loading, setLoading] = useState(false);
 
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -25,7 +26,7 @@ export default function CreateAdmin() {
         }
         console.log(data);
         const token = Cookies.get("token");
-        const response = await axios.post("http://103.150.92.47:8081/admin/admin", data, {
+        const response = await axios.post(`${BASE_URL}/admin/admin`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 },

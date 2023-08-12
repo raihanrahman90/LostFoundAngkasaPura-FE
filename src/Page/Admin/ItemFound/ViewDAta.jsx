@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 export default function ViewData() {
   const location = useLocation();
   const { from } = location.state;
-  console.log(from);
+  // console.log(from);
   return (
     <AdminDefault
       title="View Data"

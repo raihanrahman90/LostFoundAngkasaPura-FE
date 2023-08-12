@@ -10,6 +10,7 @@ export default function CustomReport() {
 
   const [noHp, setNoHp] = useState("");
   const [email, setEmail] = useState("");
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleNoHp = (e) => {
     setNoHp(e.target.value);
@@ -36,7 +37,7 @@ export default function CustomReport() {
 
    useEffect(() => {
     const token = Cookies.get("token");
-    axios.get("http://103.150.92.47:8081/Admin/Item-Found", {
+    axios.get(`${BASE_URL}/Admin/Item-Found`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

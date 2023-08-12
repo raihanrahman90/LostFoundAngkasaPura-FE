@@ -21,6 +21,8 @@ const Detail = () => {
   const [tgl, setTgl] = useState("");
   const [tolak, setTolak] = useState(false);
   const idItemClaim = from.id;
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   
 
   useEffect(()=>{
@@ -37,7 +39,7 @@ const Detail = () => {
   const getComment = async ()=>{
     const token = Cookies.get("token");
     axios
-      .get(`http://103.150.92.47:8081/Admin/Item-Comment?itemClaimId=${idItemClaim}`, {
+      .get(`${BASE_URL}/Admin/Item-Comment?itemClaimId=${idItemClaim}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "image/jpeg",
@@ -76,7 +78,7 @@ const Detail = () => {
       imageBase64 : image64 
   };
   console.log(data)
-  const res = await axios.post(`http://103.150.92.47:8081/Admin/Item-Comment`, data, {
+  const res = await axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -101,7 +103,7 @@ const tolakHandle = async () => {
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
-      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/reject`,
+      `${BASE_URL}/Admin/Item-Claim/${idItemClaim}/reject`,
       {
         rejectReason: tolak,
       },
@@ -131,7 +133,7 @@ const terimaHandle = async () => {
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
-      `http://103.150.92.47:8081/Admin/Item-Claim/${idItemClaim}/approve`,
+      `${BASE_URL}/Admin/Item-Claim/${idItemClaim}/approve`,
       {
         claimLocation: namaTempat,
         claimDate: tgl

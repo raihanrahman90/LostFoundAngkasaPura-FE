@@ -33,7 +33,7 @@ export default function FoundItemList() {
     setCurrentPage(currentPage-1);
   }
   
-  const BASE_URL = "http://103.150.92.47:8081"  ;
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
     let url = `${BASE_URL}/Admin/Item-Found?page=${currentPage}`;
     if(tgl.trim() != ""){
@@ -60,11 +60,10 @@ export default function FoundItemList() {
     }
   };
 
-
   useEffect(() => {
     const token = Cookies.get("token");
 
-    axios.get("http://103.150.92.47:8081/Admin/Item-Found/Category", {
+    axios.get(`${BASE_URL}/Admin/Item-Found/Category`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
