@@ -8,7 +8,7 @@ import ListClaim from "./Page/Admin/ListClaim/ListClaim";
 import DetailClaim from "./Page/Admin/ListClaim/DetailClaim";
 import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
 import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
-import ViewDAta from "./Page/Admin/ItemFound/ViewDAta";
+import ViewData from "./Page/Admin/ItemFound/ViewData";
 // user
 import HomePage from "./Page/User/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -31,14 +31,9 @@ function App() {
               <Route path="/admin/DetailClaim/:id" element={<DetailClaim />} />
               <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
               <Route path="/admin/ListAdmin" element={<ListAdmin />} />
-              <Route path="/admin/ViewDAta" element={<ViewDAta />} />
-
-
-
+              <Route path="/admin/ViewData/:id" element={<ViewData />} />
     {/* user */}
               <Route path="/" element={<HomePage />} />
-
-
             </Routes>
         </BrowserRouter>
       </section>

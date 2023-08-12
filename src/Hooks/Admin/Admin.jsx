@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
-import { useNavigate } from 'react-router-dom';
 export const login = async ({
     email, password
 })=>{

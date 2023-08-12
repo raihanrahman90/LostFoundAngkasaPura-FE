@@ -21,7 +21,22 @@ export const AdminDefault = ({title, body}) =>{
     navigate('/admin');
   };
   const clickNotif=()=>{
-    setShowNotif(!showNotif);
+    if(showNotif){
+      setShowNotif(false);
+    }
+    if(!showNotif){
+      setShowNotif(true);
+      setShowProfile(false);
+    }
+  }
+  const clickProfile=()=>{
+    if(showProfile){
+      setShowProfile(false);
+    }
+    if(!showProfile){
+      setShowProfile(true);
+      setShowNotif(false);
+    }
   }
   const listMenu = [
     {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
@@ -82,23 +97,35 @@ export const AdminDefault = ({title, body}) =>{
             <button className="item d-md-none d-block" onClick={()=>setShowSidebar(!showSidebar)}>
               <AiOutlineMenu/>
             </button>
-            <button className="item align-self-end ms-auto me-3">
-              <IoMdNotifications onClick={clickNotif}/>
+            <button className="item align-self-end ms-auto me-3" onClick={clickNotif}>
+              <IoMdNotifications />
               <span className="notif-count">3</span>
             </button>
             <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
                 <div className="notif-list">
                   <p className="notif-title">
-                  testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                   </p>
                   <p className="notif-subtitle">
                     testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
                   </p>
                 </div>
             </div>
-            <button className="item me-5">
+            <button className="item me-5" onClick={clickProfile}>
               <CgProfile/>
             </button>
+            <div className={"notif-dropdown "+(showProfile?"":"d-none")}>
+            <div className="notif-list">
+                  <p className="notif-title">
+                  Setting
+                  </p>
+                </div>
+                <div className="notif-list">
+                  <p className="notif-title">
+                  Logout
+                  </p>
+                </div>
+            </div>
           </div>
           <div className="rounded shadow px-1 px-md-5 my-3 mx-3 admin-main py-3 pt-5 admin-content">
             <h5 className="text-dark bold">{title}</h5>

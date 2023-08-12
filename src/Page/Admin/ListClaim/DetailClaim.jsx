@@ -231,7 +231,7 @@ const terimaHandle = async () => {
                     className="form-control"
                     id="comment"
                     rows="3"
-                    onChange={(e) => setComment(e.target.value)}
+                    onChange={(e) => setComment(e.target.value)} required
                   ></textarea>
                 </div>
 

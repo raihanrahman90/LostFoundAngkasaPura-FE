@@ -2,7 +2,7 @@ import React from "react";
 import { AdminDefault } from "../AdminDefault";
 import { useLocation } from "react-router-dom";
 
-export default function ViewDAta() {
+export default function ViewData() {
   const location = useLocation();
   const { from } = location.state;
   // console.log(from);
