@@ -11,6 +11,7 @@ import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
 import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 // user
 import HomePage from "./Page/User/HomePage";
+import ListBarang from "./Page/User/List-Barang";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 
@@ -36,6 +37,7 @@ function App() {
 
     {/* user */}
               <Route path="/" element={<HomePage />} />
+              <Route path="/ListBarang" element={<ListBarang />} />
 
 
             </Routes>

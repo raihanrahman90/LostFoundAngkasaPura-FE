@@ -10,6 +10,7 @@ import CreateAdmin from "./Page/Admin/CreateAdmin";
 
 // user
 import HomePage from "./Page/User/HomePage";
+import ListBarang from "./Page/User/List-Barang";
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
 
 {/* user */}
           <Route path="/" element={<HomePage />} />
-
+          <Route path="/ListBarang" element={<ListBarang />} />
 
         </Routes>
     </BrowserRouter>

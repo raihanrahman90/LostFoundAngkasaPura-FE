@@ -34,3 +34,32 @@
     margin-top: -100px!important;
     z-index: 99px;
 }
+
+.cardTitle{
+    display: absolute;
+    margin-left: 25vw;
+    width: 50%; 
+    margin-bottom: 5%;
+}
+
+.card-category {
+    background-color: #40CB92;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 10 0 10;
+    text-align: center;
+    width: 50%;
+}
+
+.listBarang{
+    margin-top: 10% !important;
+}
+
+.btn-filter{
+    color: white !important;
+}
+
+.btn-hapus{
+    border: #138FC7 1px solid !important;
+    color: #138FC7 !important;
+}
