@@ -16,7 +16,7 @@ export default function DetailBarang() {
     useEffect(()=>{
         getDetailFoundItem(itemFoundId)
         .then((e)=>{
-            setData(e.data);
+            setData(e);
         });
     },[])
 
