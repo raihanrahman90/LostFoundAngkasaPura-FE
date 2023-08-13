@@ -24,7 +24,7 @@ export default function DetailBarang() {
         <div className="" style={{backgroundColor:"white"}}>
             <Headers />
 
-            <div className="container pb-3 mt-3 py-5">
+            <div className="container pb-3 mt-3 py-5" id="title">
                 <h2 className="fw-bold">Informasi Barang Hilang</h2>
             </div>
 

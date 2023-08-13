@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { AdminDefault } from "../AdminDefault";
@@ -15,7 +15,7 @@ export default function FoundItemList() {
   const [hasMore, setHasMore] = useState(true);
   const [namaBarang, setNamaBarang] = useState("");
   const [status, setStatus] = useState("");
-
+  const navigate = useNavigate();
 
   const handleKategori = (e) => {
     setKategori(e.target.value);
@@ -88,12 +88,14 @@ export default function FoundItemList() {
       // console.log(res.data.data);
     })
     .catch((err) => {
-      console.log(err);
+      if(err.response.status==401){
+        navigate("/admin");
+      };
     });
   })
   useEffect(() => {
     fetchData();
-  }, [currentPage, tgl, kategori, namaBarang, status]);
+  }, [currentPage, tglStart, tglEnd, kategori, namaBarang, status]);
 
 
   return (

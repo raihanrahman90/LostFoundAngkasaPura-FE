@@ -12,7 +12,7 @@ export const Card = ({id,image, name, description})=>{
                 <h5 className="card-title">{name}</h5>
                 <p className="card-text">{description}</p>
                 <Link
-                to={"/Barang/"+id}
+                to={"/Barang/"+id+"#title"}
                 className="btn btn-primary w-100 text-white fw-bold"
                 >
                 Klaim Barang
