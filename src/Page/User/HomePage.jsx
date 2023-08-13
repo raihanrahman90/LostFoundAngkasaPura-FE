@@ -1,36 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Headers from "./Headers";
 import "../../Asset/style.css";
 import Logo from "../../Asset/logo.png";
 import Footer from "./Footer";
+import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
 
 export default function HomePage() {
-  const barang = [
-    {
-      id: 1,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 2,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 3,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 4,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-  ];
+  const [barang, setBarang] = useState([]);
+  useEffect(()=>{
+    getListFoundItem(1, 4, null,null,null)
+    .then((e)=>{
+      setBarang(e.data.data);
+    })
+  })
   return (
     <div>
       <Headers />
@@ -77,29 +59,33 @@ export default function HomePage() {
           <h1 className=" text-center text-white pb-5 fw-bold pt-3">
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
-          <div className="d-flex justify-content-center row">
-            {barang.map((item) => {
-              return (
-                <div
-                  className="col-md-6 mb-3 card mx-3 rounded"
-                  style={{ width: "18rem" }}
-                >
-                  <img src={item.img} className="p-5" alt="" />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.kategoti}</h5>
-                    <p className="card-text">{item.keterangan}</p>
-                    <a
-                      href="#"
-                      className="btn btn-primary w-100 text-white fw-bold"
-                    >
-                      Klaim Barang
-                    </a>
+          <div className="container">
+            <div className="row g-5">
+              {barang.map((item) => {
+                return (
+                  <div
+                    className="col-md-3 mb-3"
+                  >
+                    <div className="card rounded px-0 overflow-hidden">
+                      <div className="card-image-container">
+                        <img src={item.image} className="card-image" alt="" />
+                      </div>
+                      <div className="card-body">
+                        <h5 className="card-title">{item.name}</h5>
+                        <p className="card-text">{item.description}</p>
+                        <a
+                          href="#"
+                          className="btn btn-primary w-100 text-white fw-bold"
+                        >
+                          Klaim Barang
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-
           <div className="pb-5">
             <button className="bg-warning text-white border-0 d-flex justify-content-center mt-3 rounded py-2 px-4 mx-auto">
               lihat semua

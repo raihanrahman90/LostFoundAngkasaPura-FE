@@ -46,7 +46,7 @@ export default function ListClaim() {
       title={"List Claim"}
       body={ 
         <div className="">
-          <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button type="button" class="mr-2 me-5 bg-primary text-white ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Filter
           </button>
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,7 +60,8 @@ export default function ListClaim() {
                   <div className="mb-3">
                     <label htmlFor="kategori" className="form-label">Status</label>
                     <select className="form-select" id="status" onChange={handleStatus}>
-                      <option value="Confirmation" selected>Confirmation</option>
+                      <option value="" selected>-</option>
+                      <option value="Confirmation">Confirmation</option>
                       <option value="Approved">Approved</option>
                       <option value="Rejected">Rejected</option>
                     </select>
@@ -69,7 +70,6 @@ export default function ListClaim() {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Apply Filters</button>
                 </div>
               </form>
             </div>

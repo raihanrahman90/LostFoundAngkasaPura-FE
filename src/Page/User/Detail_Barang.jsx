@@ -6,15 +6,6 @@ import Logo from '../../Asset/logo.png';
 import "../../Asset/style.css";
 import {AiOutlineClockCircle} from 'react-icons/ai';
 import {IoLocationOutline} from 'react-icons/io5';
-import {
-    Form,
-    FormControl,
-    InputGroup,
-    Container,
-    Row,
-    Col,
-    Button
-  } from "react-bootstrap";
 
 export default function DetailBarang() {
     return (

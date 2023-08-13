@@ -13,6 +13,7 @@ export default function FoundItemList() {
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [namaBarang, setNamaBarang] = useState("");
+  const [status, setStatus] = useState("");
 
 
   const handleKategori = (e) => {
@@ -21,10 +22,12 @@ export default function FoundItemList() {
 
   const handleNamaBarang = (e) => {
     setNamaBarang(e.target.value);
+    setCurrentPage(1);
   }
 
   const handleTgl = (e) => {
     setTgl(e.target.value);
+    setCurrentPage(1);
   }
   const nextButton = async ()=>{
     setCurrentPage(currentPage+1);
@@ -32,15 +35,25 @@ export default function FoundItemList() {
   const prevButton = ()=>{
     setCurrentPage(currentPage-1);
   }
+  const handleStatus = (e)=>{
+    setStatus(e.target.value);
+    setCurrentPage(1);
+  }
   
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
     let url = `${BASE_URL}/Admin/Item-Found?page=${currentPage}`;
+    if(namaBarang.trim() != ""){
+      url = `${url}&name=${namaBarang}`;
+    }
     if(tgl.trim() != ""){
       url = `${url}&foundDate=${tgl}`;
     }
     if(kategori.trim() != ""){
       url = `${url}&category=${kategori}`;
+    }
+    if(status.trim()!=""){
+      url = `${url}&status=${status}`;
     }
 
     const token = Cookies.get("token");
@@ -51,7 +64,6 @@ export default function FoundItemList() {
         },
       });
       // console.log(res);
-      console.log("isi total page "+res.data.data.pageTotal);
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
@@ -59,10 +71,8 @@ export default function FoundItemList() {
       console.error('Error fetching data:', error);
     }
   };
-
-  useEffect(() => {
+  useEffect(()=>{
     const token = Cookies.get("token");
-
     axios.get(`${BASE_URL}/Admin/Item-Found/Category`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -75,25 +85,18 @@ export default function FoundItemList() {
     .catch((err) => {
       console.log(err);
     });
+  })
+  useEffect(() => {
     fetchData();
-  }, [currentPage, tgl, kategori]);
+  }, [currentPage, tgl, kategori, namaBarang, status]);
 
-  const handleFilter = async () => {
-    const data = {
-      namaBarang: namaBarang,
-      kategori: kategori,
-      tgl: tgl
-    }
-
-    console.log(data);  
-  }
 
   return (
     <AdminDefault
       title={"Found Item"}
       body={<>
         <div className="">
-          <div className="d-flex justify-content-end pb-4 relative h-100">
+          <div className="d-flex justify-content-start pb-4 relative h-100">
             {/* popup filter */}
             <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Filter
@@ -114,10 +117,19 @@ export default function FoundItemList() {
                     <div className="mb-3">
                       <label htmlFor="kategori" className="form-label">Kategori</label>
                       <select className="form-select" id="kategori"  onChange={handleKategori}>
-                        <option value="">Pilih Kategori</option>
+                        <option value="">--</option>
                         {valueKategori.map((item)=>{
                           return <option value={item.category}>{item.category}</option>
                         })}
+                      </select>
+                    </div>
+                    
+                    <div className="mb-3">
+                      <label htmlFor="status" className="form-label">Status</label>
+                      <select className="form-select" id="status"  onChange={handleStatus}>
+                        <option value="">--</option>
+                        <option value="Found">Found</option>
+                        <option value="Confirmed">Confirmed</option>
                       </select>
                     </div>
                     <div className="mb-3">
@@ -128,7 +140,6 @@ export default function FoundItemList() {
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={handleFilter}>Apply Filters</button>
                   </div>
                 </div>
               </div>

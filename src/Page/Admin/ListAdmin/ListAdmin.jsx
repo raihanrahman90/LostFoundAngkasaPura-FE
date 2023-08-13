@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { AdminDefault } from "../AdminDefault";
+import { getListAdmin } from "../../../Hooks/Admin/Admin"; 
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
   }, [currentPage]);
 
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
-    try {
-      const token = Cookies.get("token");
-      const response = await axios.get(`${BASE_URL}/admin/admin`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setData(response.data.data.data);
-      setTotalPages(res.data.data.pageTotal);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    try{
+      const response = await getListAdmin({page:currentPage, name:null,email:null,access:null}); 
+      console.log(response);
+      setData(response.data.data);
+      setTotalPages(response.data.pageTotal);
+      setHasMore(response.data.isHasMore);
+    }catch(e){
+      if(e.statusCode===401) navigate("admin");
     }
   };
 

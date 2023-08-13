@@ -36,8 +36,8 @@ function App() {
               <Route path="/admin/ViewData/:id" element={<ViewData />} />
     {/* user */}
               <Route path="/" element={<HomePage />} />
-              <Route path="/ListBarang" element={<ListBarang />} />
-              <Route path="/DetailBarang" element={<DetailBarang />} />
+              <Route path="/Barang" element={<ListBarang />} />
+              <Route path="/Barang/:id" element={<DetailBarang />} />
 
             </Routes>
         </BrowserRouter>
