@@ -13,6 +13,8 @@ import ViewData from "./Page/Admin/ItemFound/ViewData";
 import HomePage from "./Page/User/HomePage";
 import ListBarang from "./Page/User/ListBarang";
 import DetailBarang from "./Page/User/DetailBarang";
+import Report from "./Page/User/Report";
+import NotFound from "./Page/User/NotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 
@@ -38,7 +40,8 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/Barang" element={<ListBarang />} />
               <Route path="/Barang/:id" element={<DetailBarang />} />
-
+              <Route path="/report" element={<Report/>}/>
+              <Route path="/not-found" element = {<NotFound/>}/>
             </Routes>
         </BrowserRouter>
       </section>

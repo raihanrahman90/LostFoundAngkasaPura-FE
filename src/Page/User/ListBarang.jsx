@@ -12,12 +12,16 @@ import {
     Row,
     Col
   } from "react-bootstrap";
+import { Card } from "../Componen/Card";
 
 export default function ListBarang() {
 
     const [dataKategori, setKategori] = useState("");
     const [dataName, setName] = useState("");
     const [barang, setBarang] = useState([]);
+    const [page, setPage] = useState(1);
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
     const handleKategori = (e) => {
         setKategori(e.target.value);
     };
@@ -27,7 +31,10 @@ export default function ListBarang() {
     }
 
     useEffect(()=>{
-        getListFoundItem(page, 9, dataName, dataKategori, foundDateStart, foundDateEnd)
+        getListFoundItem(page, 9, dataName, dataKategori, startDate, endDate)
+        .then((e)=>{
+            setBarang(e.data.data)
+        })
     })
 
     return (
@@ -118,17 +125,7 @@ export default function ListBarang() {
                             <div className='d-flex row'>
                                 {barang.map((item) => {
                                     return(
-                                        <>
-                                            <div className="col-md-6 card mx-3 my-3 rounded" style={{width: "17rem"}}>
-                                                <img src={item.img} className='p-5' alt="" />
-                                                <div className="card-body">
-                                                    <p className="card-category" style={{width:"50%"}}>{item.kategoti}</p>
-                                                    <h5 className="card-title">{item.namaBarang}</h5>
-                                                    <p className="card-text">{item.keterangan}</p>
-                                                    <a href="#" className="btn btn-primary w-100 text-white fw-bold">Klaim Barang</a>
-                                                </div>
-                                            </div>
-                                        </>
+                                        <Card id={item.id} name={item.name} description={item.description} image={item.image}/>
                                     )
                                 })
                                 }

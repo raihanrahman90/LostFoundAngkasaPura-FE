@@ -55,7 +55,7 @@ export default function Headers() {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item ms-5">
-                <Link class="nav-link active fw-bold" aria-current="page" href="#">
+                <Link class="nav-link active fw-bold" aria-current="page" to="/">
                   Beranda
                 </Link>
               </li>

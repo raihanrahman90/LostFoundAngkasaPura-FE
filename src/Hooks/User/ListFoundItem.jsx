@@ -10,3 +10,8 @@ export const getListFoundItem= (page, size, name, category,foundDateStart, found
     if(foundDateEnd) url = url+"&foundDateEnd="+foundDateEnd;
     return defaultUserRequest(url, 'get', "");
 }
+
+export const getDetailFoundItem= (id)=>{
+    var url = '/Item-Found/'+id;
+    return defaultUserRequest(url, 'get', "");
+}

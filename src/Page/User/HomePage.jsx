@@ -4,6 +4,8 @@ import "../../Asset/style.css";
 import Logo from "../../Asset/logo.png";
 import Footer from "./Footer";
 import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
+import { Link } from "react-router-dom";
+import { Card } from "../Componen/Card";
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
@@ -40,11 +42,11 @@ export default function HomePage() {
                 Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
                 berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
                 pada list barang setelah 1x24 jam, silahkan klik{" "}
-                <a href="#">disini</a>.
+                <Link to="/report">disini</Link>.
               </p>
           </div>
           <div className="col-md-6">
-            <p className=" fw-bold fs-3">Cari Barang Hilang</p>
+            <p className="fw-bold fs-3">Cari Barang Hilang</p>
             <p className="fs-6">
               Semua informasi barang yang hilang yang telah ditemukan tersedia
               di dalam web ini. Cari barang anda yang hilang di website ini dan
@@ -54,7 +56,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="listBarang  ">
+      <div className="">
         <div className="bgdasboard   ">
           <h1 className=" text-center text-white pb-5 fw-bold pt-3">
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
@@ -63,33 +65,15 @@ export default function HomePage() {
             <div className="row g-5">
               {barang.map((item) => {
                 return (
-                  <div
-                    className="col-md-3 mb-3"
-                  >
-                    <div className="card rounded px-0 overflow-hidden">
-                      <div className="card-image-container">
-                        <img src={item.image} className="card-image" alt="" />
-                      </div>
-                      <div className="card-body">
-                        <h5 className="card-title">{item.name}</h5>
-                        <p className="card-text">{item.description}</p>
-                        <a
-                          href="#"
-                          className="btn btn-primary w-100 text-white fw-bold"
-                        >
-                          Klaim Barang
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  <Card id={item.id} image={item.image} description={item.description} name={item.name}/>
                 );
               })}
             </div>
           </div>
-          <div className="pb-5">
-            <button className="bg-warning text-white border-0 d-flex justify-content-center mt-3 rounded py-2 px-4 mx-auto">
+          <div className="pb-5 text-center">
+            <Link className="btn bg-warning text-white" to="/Barang">
               lihat semua
-            </button>
+            </Link>
           </div>
         </div>
       </div>

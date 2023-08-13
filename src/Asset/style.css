@@ -259,6 +259,6 @@
     height: auto;
 }
 .card-image-container{
-    height: 300px;
+    max-height: 250px;
     width: 100%;
 }
