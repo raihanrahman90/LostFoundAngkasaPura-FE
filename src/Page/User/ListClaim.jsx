@@ -100,7 +100,7 @@ export default function ListBarangUser() {
                 )
             })}
 
-            <div className="bg-dark">
+            <div className="bg-dark mt-5">
                 <Footer />
             </div>
         </div>

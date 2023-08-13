@@ -103,3 +103,7 @@
 .claim-text {
     text-align: justify;
 }
+
+.card {
+    border-radius: 20px;
+}
