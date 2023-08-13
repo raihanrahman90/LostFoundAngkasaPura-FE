@@ -11,8 +11,8 @@ import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 import ViewData from "./Page/Admin/ItemFound/ViewData";
 // user
 import HomePage from "./Page/User/HomePage";
-import ListBarang from "./Page/User/List-Barang";
-import DetailBarang from "./Page/User/Detail_Barang";
+import ListBarang from "./Page/User/ListBarang";
+import DetailBarang from "./Page/User/DetailBarang";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 

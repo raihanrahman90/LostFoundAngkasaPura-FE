@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
-import Logo from '../../Asset/logo.png';
 import "../../Asset/style.css";
-import { AiOutlineSearch } from "react-icons/ai";
+import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
 import {
     Form,
     FormControl,
@@ -16,42 +15,20 @@ import {
 
 export default function ListBarang() {
 
-    const barang = 
-    [
-        {
-        id : 1,
-        img: Logo,
-        namaBarang : "Barang 1",
-        kategoti : "Perhiasan",
-        keterangan : "ditemukan tempat duduk bording pesawat",
-        },
-        {
-        id : 2,
-        img: Logo,
-        namaBarang : "Barang 2",
-        kategoti : "Koper",
-        keterangan : "ditemukan tempat duduk bording pesawat",
-        },{
-        id : 3,
-        img: Logo,
-        namaBarang : "Barang 3",
-        kategoti : "Dompet",
-        keterangan : "ditemukan tempat duduk bording pesawat",
-        },
-        {
-        id : 4,
-        img: Logo,
-        namaBarang : "Barang 4",
-        kategoti : "Elektronik",
-        keterangan : "ditemukan tempat duduk bording pesawat",
-        }
-    ]
-
     const [dataKategori, setKategori] = useState("");
-
+    const [dataName, setName] = useState("");
+    const [barang, setBarang] = useState([]);
     const handleKategori = (e) => {
         setKategori(e.target.value);
     };
+
+    const handleName = (e)=>{
+        setName(e.target.value);
+    }
+
+    useEffect(()=>{
+        getListFoundItem(page, 9, dataName, dataKategori, foundDateStart, foundDateEnd)
+    })
 
     return (
         <div style={{backgroundColor:"white"}}>
@@ -79,7 +56,7 @@ export default function ListBarang() {
                         <Col md={6}>
                             <Form className="d-flex justify-content-center">
                                 <InputGroup>
-                                    <FormControl type="search" placeholder="Search" />
+                                    <FormControl type="search" placeholder="Search" onChange={handleName}/>
                                 </InputGroup>
                             </Form>
                         </Col>

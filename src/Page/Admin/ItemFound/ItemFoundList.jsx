@@ -7,7 +7,8 @@ import { AdminDefault } from "../AdminDefault";
 export default function FoundItemList() {
   const [data, setData] = useState([]);
   const [kategori, setKategori] = useState("");
-  const [tgl, setTgl] = useState("");
+  const [tglStart, setTglStart] = useState("");
+  const [tglEnd, setTglEnd] = useState("");
   const [valueKategori, setValueKategori] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -25,8 +26,12 @@ export default function FoundItemList() {
     setCurrentPage(1);
   }
 
-  const handleTgl = (e) => {
-    setTgl(e.target.value);
+  const handleTglStart = (e) => {
+    setTglStart(e.target.value);
+    setCurrentPage(1);
+  }
+  const handleTglEnd = (e) => {
+    setTglEnd(e.target.value);
     setCurrentPage(1);
   }
   const nextButton = async ()=>{
@@ -46,8 +51,8 @@ export default function FoundItemList() {
     if(namaBarang.trim() != ""){
       url = `${url}&name=${namaBarang}`;
     }
-    if(tgl.trim() != ""){
-      url = `${url}&foundDate=${tgl}`;
+    if(tglStart.trim() != ""){
+      url = `${url}&foundDateStart=${tglStart}`;
     }
     if(kategori.trim() != ""){
       url = `${url}&category=${kategori}`;
@@ -134,7 +139,8 @@ export default function FoundItemList() {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
-                      <input type="date" className="form-control" id="tgl"  onChange={handleTgl} />
+                      <input type="date" className="form-control" id="tgl"  onChange={handleTglStart} />
+                      <input type="date" className="form-control" id="tgl"  onChange={handleTglEnd} />
                     </div>
                     {/* End of Form filter */}
                   </div>
