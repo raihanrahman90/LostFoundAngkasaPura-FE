@@ -10,11 +10,12 @@ import { Card } from "../Componen/Card";
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
   useEffect(()=>{
-    getListFoundItem(1, 4, null,null,null)
-    .then((e)=>{
-      setBarang(e.data.data);
-    })
-  })
+    const fetchData= async()=>{
+      var res = await getListFoundItem(1, 4, null,null,null);
+      setBarang(res.data.data);
+    }
+    fetchData();
+  },[])
   return (
     <div>
       <Headers />

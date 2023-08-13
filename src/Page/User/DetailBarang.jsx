@@ -12,13 +12,13 @@ import { useParams } from "react-router-dom";
 export default function DetailBarang() {
     const routeParams = useParams();
     const itemFoundId = routeParams["id"];
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     useEffect(()=>{
         getDetailFoundItem(itemFoundId)
         .then((e)=>{
             setData(e.data);
         });
-    })
+    },[])
 
     return (
         <div className="" style={{backgroundColor:"white"}}>
