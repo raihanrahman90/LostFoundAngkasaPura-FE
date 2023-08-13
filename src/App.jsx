@@ -11,6 +11,8 @@ import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 import ViewData from "./Page/Admin/ItemFound/ViewData";
 // user
 import HomePage from "./Page/User/HomePage";
+import ListBarang from "./Page/User/List-Barang";
+import DetailBarang from "./Page/User/Detail_Barang";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 
@@ -34,6 +36,9 @@ function App() {
               <Route path="/admin/ViewData/:id" element={<ViewData />} />
     {/* user */}
               <Route path="/" element={<HomePage />} />
+              <Route path="/ListBarang" element={<ListBarang />} />
+              <Route path="/DetailBarang" element={<DetailBarang />} />
+
             </Routes>
         </BrowserRouter>
       </section>
