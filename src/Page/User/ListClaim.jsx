@@ -126,7 +126,7 @@ export default function ListClaimUser() {
                 )
             })}
 
-            <div className="bg-dark">
+            <div className="bg-dark mt-5">
                 <Footer />
             </div>
         </div>
