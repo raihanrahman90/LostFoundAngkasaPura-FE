@@ -4,36 +4,45 @@ import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
 import Logo from "../../Asset/logo.png";
-import {
-    Form,
-    FormControl,
-    InputGroup,
-    Container,
-    Row,
-    Col
-  } from "react-bootstrap";
-import { Card } from "../Componen/Card";
+import { Link, useParams } from "react-router-dom";
+import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
 
 export default function ClaimBarang() {
-
+    var routeParams = useParams();
+    const itemFoundId = routeParams["id"];
+    const [data, setData] = useState([]);
+    useEffect(()=>{
+        getDetailFoundItem(itemFoundId)
+        .then((e)=>{
+            setData(e);
+        });
+    },[])
     return (
         <div style={{backgroundColor:"white"}}>
             <Headers />
 
             <div className="container py-5">
-                <h2 className="fw-bold">
-                    Pengajuan Konfirmasi Barang
-                </h2>
+                <div className="row justify-content-center">
+                    <h2 className="fw-bold col-md-10 ">
+                        Pengajuan Konfirmasi Barang
+                    </h2>
+                </div>
             </div>
 
             <div className="container pb-5">
-                <div className="col-sm-12">
-                    <div className="card">
-                        <div className="row card-body">
-                            <img className="col-sm-3" src={Logo} alt="sans"/>
-                            <div className="col-sm-9">
-                                <h4 className="card-title fw-bold">Jam Tangan Rolex KW</h4>
-                                <p className="card-text detail py-4" style={{color:"#808080"}}>Merek: Rolex, Nomor Model: 0104, Warna : abu-abu, ditemukan di gerbang 6 dai tempat tunggu boarding pass. terdapat goresan inisial ALWA di bawah jam tangan. barang tersebut ditemukan oleh cleaning service.</p>
+                <div className="row justify-content-center">
+                    <div className="col-sm-10">
+                        <div className="card">
+                            <div className="row card-body">
+                                <div className="col-sm-3">
+                                    <img className="w-100" src={data.image} alt="sans"/>
+                                </div>
+                                <div className="col-sm-9">
+                                    <h4 className="card-title fw-bold">{data.name}</h4>
+                                    <p className="card-text detail py-4" style={{color:"#808080"}}>
+                                        {data.description}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

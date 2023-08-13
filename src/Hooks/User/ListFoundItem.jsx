@@ -15,3 +15,8 @@ export const getDetailFoundItem= (id)=>{
     var url = '/Item-Found/'+id;
     return defaultUserRequest(url, 'get', "");
 }
+
+export const getCategory = async ()=>{
+    var url = '/Item-Found/category';
+    return await defaultUserRequest(url, "get", "");
+}

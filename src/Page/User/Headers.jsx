@@ -3,28 +3,51 @@ import Logo from "../../Asset/logo.png";
 import { BsBell } from "react-icons/bs";
 import '../../Asset/user.css'
 import { Link, useNavigate } from 'react-router-dom';
-import {login} from '../../Hooks/User/Default';
+import {login, logout} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
+import { checkAccessToken } from "../../Hooks/User/Default";
 
 export default function Headers() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState();
+  const [isLogin, setIsLogin] = useState(false);
   let navigate = useNavigate()
-  
+  useEffect(()=>{
+    checkAccessToken()
+    .then((e)=>{
+      setIsLogin(true);
+    })
+    .catch((e)=>{
+      setIsLogin(false);
+    })
+  },[isLogin])
+  const handleLogout = async()=>{
+    logout()
+    .then((e)=>{
+      setIsLogin(false);
+      Cookies.remove("token");
+      window.location.reload();
+    })
+    .catch((e)=>{
+      alert(e);
+    })
+  }
 
  const handleLogin = async (e) => { 
-  console.log("sampai sini");
-  console.log("sampai sini");
+  e.preventDefault();
   login({email:email, password:password})
   .then((e)=>{
     console.log(e);
-    if(e.statusCode == 200){
+    if(e.status == 200){
+      console.log()
       setErrorLogin(null);
-      Cookies.set("token", e.data);
-      navigate("/");
-      console.log("sampai sini");
+      Cookies.set("token", e.data.data);
+      setIsLogin(true);
+      setEmail("");
+      setPassword("");
+      window.location.reload();
     }else{
       setErrorLogin(e.message);
     }
@@ -55,26 +78,33 @@ export default function Headers() {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item ms-5">
-                <Link class="nav-link active fw-bold" aria-current="page" to="/">
+                <Link class="nav-link active fw-bold text-primary" aria-current="page" to="/">
                   Beranda
                 </Link>
               </li>
               <li class="nav-item ms-5">
-                <Link class="nav-link fw-bold" href="#">
-                  List Claim
-                </Link>
-              </li>
-              <li class="nav-item ms-5">
-                <Link class="nav-link fw-bold" to="/Barang">
+                <Link class="nav-link fw-bold text-primary" to="/Barang">
                   List Barang
                 </Link>
               </li>
+              {isLogin?<li class="nav-item ms-5">
+                <Link class="nav-link fw-bold text-primary" href="#">
+                  List Claim
+                </Link>
+              </li>:<></>}
+              
             </ul>
             <div class="d-flex">
-              <BsBell size={30} className="me-5 mt-1"  />
-              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Login
-            </button>
+              {isLogin?
+              <>
+                <BsBell size={30} className="me-5 mt-1"  />
+                <button className="btn bg-danger text-white pe-5 ps-5 me-5" onClick={handleLogout}> Logout </button>
+              </>:
+              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Login
+              </button>}
+              
+              
 
             {/* <!-- Modal --> */}
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

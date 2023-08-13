@@ -14,11 +14,11 @@ import {
   } from "react-bootstrap";
 import { Card } from "../Componen/Card";
 
-export default function ListBarangUser() {
+export default function ListClaimUser() {
 
     const barang = [
         {
-            nama_barang : "Jam Tangan Rolex KW",
+            nama_barang : "Jam Tangan Rolex KW Jam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KW",
             waktu_pengajuan : "23 Juli 2023",
             status : "Confirmed",
             tempat_pengambilan : "Gerbang 6",
@@ -71,26 +71,52 @@ export default function ListBarangUser() {
                                 <div className="card">
                                     <div className="row card-body">
                                         <img className="col-sm-3" src={Logo} alt="sans"/>
-                                        <div className="col-sm-3">
-                                            <p className="card-title claim-text">Nama barang </p>
-                                            <p className="card-title">Waktu pengajuan </p>
-                                            <p className="card-title">Status  </p>
-                                            <p className="card-title">Tempat pengambilan </p>
-                                            <p className="card-title">Waktu pengambilan </p>
-                                        </div>
-                                        <div className="col-sm-1 p-0">
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                        </div>
-                                        <div className="col-sm-5">
-                                            <p className="card-title">{item.nama_barang}</p>
-                                            <p className="card-title">{item.waktu_pengajuan}</p>
-                                            <p className={`${handleStatus(item.status)}`}>{item.status}</p>
-                                            <p className="card-title">{item.tempat_pengambilan}</p>
-                                            <p className="card-title">{item.waktu_pengambilan}</p>
+                                        <div className="col-sm-8">
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title claim-text">Nama barang </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.nama_barang}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Waktu pengajuan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.waktu_pengajuan}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Status  </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: 
+                                                        <span className={`px-2 py-1 ms-2 ${handleStatus(item.status)}`}>
+                                                            {item.status}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Tempat pengambilan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.tempat_pengambilan}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Waktu pengambilan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.waktu_pengambilan}</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

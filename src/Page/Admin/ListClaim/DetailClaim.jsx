@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -22,7 +22,7 @@ const Detail = () => {
   const [tolak, setTolak] = useState(false);
   const idItemClaim = from.id;
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+  const navigate = useNavigate();
   
 
   useEffect(()=>{
@@ -30,8 +30,15 @@ const Detail = () => {
   },[comment])
   useEffect(()=>{
     const fetchData = async()=>{
-      let data = await getDetailClaim({id:routeParams["id"]});
-      setItem(data.data);
+      getDetailClaim({id:routeParams["id"]})
+      .then((e)=>{
+        setItem(e.data);
+      })
+      .catch((err)=>{
+        if(err.response.status ==401){
+          navigate("/admin");
+        }
+      });
     }
     fetchData();
   },[])

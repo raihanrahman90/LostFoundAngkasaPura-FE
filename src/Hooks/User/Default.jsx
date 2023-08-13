@@ -41,3 +41,10 @@ export const getAccessToken = async ()=>{
         return e;
     }
 }
+
+export const checkAccessToken = async ()=>{
+    return await defaultUserRequest("auth/access-token/check", "get", "");
+}
+export const logout = async ()=>{
+    return await defaultUserRequest("auth/logout", "get", "");
+}

@@ -62,10 +62,10 @@ export default function HomePage() {
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
           <div className="container">
-            <div className="row g-5">
+            <div className="row g-5 p-0">
               {barang.map((item) => {
                 return (
-                  <Card key={item.id} id={item.id} image={item.image} description={item.description} name={item.name}/>
+                    <Card key={item.id} id={item.id} image={item.image} description={item.description} name={item.name}/>
                 );
               })}
             </div>

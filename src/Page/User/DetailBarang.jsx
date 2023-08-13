@@ -7,7 +7,7 @@ import "../../Asset/style.css";
 import {AiOutlineClockCircle} from 'react-icons/ai';
 import {IoLocationOutline} from 'react-icons/io5';
 import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function DetailBarang() {
     const routeParams = useParams();
@@ -55,7 +55,9 @@ export default function DetailBarang() {
                                 Gerbang 6
                             </span>
     </div>*/}
-                        <a href="#" className="btn btn-primary w-100 text-white p-3">Konfirmasi Barang</a>
+                        <Link to={"/Barang/"+itemFoundId+"/Claim"} className="btn btn-primary w-100 text-white p-3">
+                            Konfirmasi Barang
+                        </Link>
                     </div>
                 </div>
             </div>
