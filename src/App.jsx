@@ -15,6 +15,7 @@ import ListBarang from "./Page/User/ListBarang";
 import DetailBarang from "./Page/User/DetailBarang";
 import ClaimBarang from "./Page/User/ClaimBarang";
 import ListBarangUser from "./Page/User/ListClaim";
+import DetailClaimBarang from "./Page/User/DetailClaimBarang";
 import Report from "./Page/User/Report";
 import NotFound from "./Page/User/NotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -46,6 +47,7 @@ function App() {
               <Route path="/not-found" element = {<NotFound/>}/>
               <Route path="/ClaimBarang" element={<ClaimBarang/>}/>
               <Route path="/ListBarangUser" element={<ListBarangUser/>}/>
+              <Route path="/ListBarangUser/:id" element={<DetailClaimBarang/>}/>
             </Routes>
         </BrowserRouter>
       </section>

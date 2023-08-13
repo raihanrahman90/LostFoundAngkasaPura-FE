@@ -107,3 +107,9 @@
 .card {
     border-radius: 20px;
 }
+
+.data-diri {
+    background-color: #EDEDED;
+    border-radius: 12px;
+    padding: 10px;
+}
