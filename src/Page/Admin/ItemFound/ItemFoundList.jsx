@@ -184,7 +184,7 @@ export default function FoundItemList() {
                     <td>
                       <Link
                         className="btn btn-primary text-white"
-                        to={"/admin/ViewData/" + item.id}
+                        to={"/admin/ItemFound/" + item.id}
                         // state={{from: item}}
                       >
                         View

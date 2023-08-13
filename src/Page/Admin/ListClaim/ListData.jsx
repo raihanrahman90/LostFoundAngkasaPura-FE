@@ -83,7 +83,7 @@ export default function ListData({
       <td>
         <Link
           className="btn btn-primary text-white"
-          to={"/admin/DetailClaim/"+id}
+          to={"/admin/ItemClaim/"+id}
           state={{ from: datanavigate,  }}>
           Detail
         </Link>

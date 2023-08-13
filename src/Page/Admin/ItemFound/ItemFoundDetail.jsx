@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export default function ViewData() {
+export default function ItemFoundDetail() {
   // const location = useLocation();
   const routeParams = useParams();
   const itemFoundId = routeParams["id"];
