@@ -9,6 +9,9 @@ export default function ListAdmin() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [categoryAdmin, setCategoryAdmin] = useState("Admin");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
@@ -24,7 +27,7 @@ export default function ListAdmin() {
         },
       });
       setData(response.data.data.data);
-      setTotalPages(res.data.data.pageTotal);
+      setTotalPages(response.data.data.pageTotal);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -61,15 +64,65 @@ export default function ListAdmin() {
   const prevButton = ()=>{
     setCurrentPage(currentPage-1);
   }
+
+  // /admin/admin?name=raihan&email=09&access=SuperAdmin
+  
+  const handleAdmin = async () => {
+    console.log(name, email, categoryAdmin)
+    try{
+      const token = Cookies.get("token");
+      const response = await axios.get(`${BASE_URL}/admin/admin?name=${name}&email=${email}&access=${categoryAdmin}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log(response.data.data.data);
+      setData(response.data.data.data);
+      setTotalPages(response.data.data.pageTotal);
+    }catch(e){
+      console.log(e);
+    }
+  }
   return (
     <AdminDefault
       title={"List Admin"}
       body={
         <>
           <div className="mt-5">
+            <div className="d-flex justify-content-between">
+
             <div className="w-100">
               <Link to="/Admin/CreateAdmin" className="btn btn-primary text-white float-right">Add Admin</Link>
             </div>
+            <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Filter
+          </button>
+            </div>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <form class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div className="mb-3">
+                    <input type="text" className="form-control mb-3" id="Name" placeholder="Name" onChange={(e)=>{setName(e.target.value)}} />
+                    <input type="email" className="form-control mb-3" id="email" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} />
+                    <select className="form-select" id="status" onChange={(e)=> {setCategoryAdmin(e.target.value)}}>
+                      <option value="Admin">Admin</option>
+                      <option value="SuperAdmin">Super Admin</option>
+                    </select>
+                  </div>
+                  {/* End of Form filter */}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" onClick={handleAdmin}  class="btn btn-primary text-white" data-bs-dismiss="modal">Apply Filters</button>
+                </div>
+              </form>
+            </div>
+          </div>
             <div className="mt-2 table">
               <table className="w-100 table-bordered pt-5 rounded">
                 <thead>
