@@ -41,15 +41,11 @@ export default function ListAdmin() {
       alert("Berhasil menghapus admin");
       fetchData();
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-      alert("Gagal menghapus admin");
+      if(err.response.status==401){
+        navigate("/admin");
+      }else{
+        alert(err.response.data);
+      };
     }
   };
   

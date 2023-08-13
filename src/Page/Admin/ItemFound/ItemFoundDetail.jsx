@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AdminDefault } from "../AdminDefault";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 
@@ -10,7 +10,7 @@ export default function ItemFoundDetail() {
   const itemFoundId = routeParams["id"];
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [data, setData] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
     const res = axios.get(`${BASE_URL}/Admin/Item-Found/${itemFoundId}`, {
@@ -22,7 +22,9 @@ export default function ItemFoundDetail() {
       console.log(res.data.data);
       setData(res.data.data);
     }).catch((err) => {
-      console.log(err);
+      if(err.response.status==401){
+        navigate("/admin");
+      };
     });
   }, []);
 
