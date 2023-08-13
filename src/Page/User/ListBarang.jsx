@@ -33,7 +33,7 @@ export default function ListBarang() {
     useEffect(()=>{
         getListFoundItem(page, 9, dataName, dataKategori, startDate, endDate)
         .then((e)=>{
-            setBarang(e.data.data)
+            setBarang(e.data)
         })
     })
 

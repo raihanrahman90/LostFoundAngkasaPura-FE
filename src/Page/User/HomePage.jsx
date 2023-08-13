@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Headers from "./Headers";
 import "../../Asset/style.css";
-import Logo from "../../Asset/logo.png";
 import Footer from "./Footer";
 import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ export default function HomePage() {
   useEffect(()=>{
     const fetchData= async()=>{
       var res = await getListFoundItem(1, 4, null,null,null);
-      setBarang(res.data.data);
+      setBarang(res.data);
     }
     fetchData();
   },[])
@@ -66,7 +65,7 @@ export default function HomePage() {
             <div className="row g-5">
               {barang.map((item) => {
                 return (
-                  <Card id={item.id} image={item.image} description={item.description} name={item.name}/>
+                  <Card key={item.id} id={item.id} image={item.image} description={item.description} name={item.name}/>
                 );
               })}
             </div>
