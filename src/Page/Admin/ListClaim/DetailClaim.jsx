@@ -214,13 +214,17 @@ const terimaHandle = async () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 ms-2">
+            <div className="col-12 ms-2 card">
+              {showComment.length > 0?
+              <div>
+                
+                <h6>Keterangan Tambahan</h6>  
+              </div>:<></>}
                 {showComment.map((item, index) => {
                   return (
-                    <div key={index} className=" border mb-5 pb-5  w-50">
+                    <div key={index} className=" border mb-2  w-50">
                       <div className=" ">
-                      <BsFillPersonFill />
-                      <span >admin-{item.userName}</span>
+                      <span className="fw-bold text-dark">From: {item.userName} ({item.userStatus})</span>
                       <p className="ps-5">{item.value}</p>
                       </div>
                       <div className="float-end   me-2 rounded">
@@ -243,8 +247,8 @@ const terimaHandle = async () => {
             <div >
               <form onSubmit={handleSubmitComment}>
                 <div className="mb-3">
-                  <label htmlFor="comment" className="form-label">
-                    Comment
+                  <label htmlFor="comment" className="form-label fw-bold text-dark">
+                    Keterangan Tambahan
                   </label>
                   <textarea
                     className="form-control"
