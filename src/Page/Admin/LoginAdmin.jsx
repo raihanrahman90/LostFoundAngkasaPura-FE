@@ -14,6 +14,7 @@ export default function LoginAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
   let navigate = useNavigate();
 
 
@@ -24,16 +25,29 @@ export default function LoginAdmin() {
     const data = await login({
       email: email,
       password: password,
-    });
-    if (data) {
+    })
+    .then((data)=>{
+      console.log(data)
+      if (data) {
+        setLoading(false);
+        Cookies.set('token', data.data);
+        //navigate('/admin/Dashboard');
+      }
+    })
+    .catch((e)=>{
+      setMessage(e.response.data.data)
       setLoading(false);
-      Cookies.set('token', data.data);
-      navigate('/admin/Dashboard');
-    }
+    });
+    
   };
 
 
   useEffect(() =>{
+    var params = new URLSearchParams();
+    var messageParam = params.get("message");
+    if(messageParam){
+      setMessage(messageParam);
+    }
     const checkAccessToken = async()=>{
       try{
         let accessToken = await getAccessToken();
@@ -66,6 +80,9 @@ export default function LoginAdmin() {
                     <img src={logo} className='mx-auto w-25' alt="" />
                   </div>
                   <div className='mx-5 col-8'>
+                    {message?<div className='alert bg-danger text-white'>
+                      {message}
+                    </div>:<></>}
                     <div className="form-outline mb-4">
                       <input type="email" onChange={(e) => {setEmail(e.target.value)}} id="form2Example17" className="form-control form-control-lg" placeholder="Email" required />
                     </div>

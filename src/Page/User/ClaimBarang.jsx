@@ -4,14 +4,19 @@ import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
 import Logo from "../../Asset/logo.png";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
-
+import { checkAccessToken } from "../../Hooks/User/Default";
+import { createClaim } from "../../Hooks/User/ItemClaim";
 export default function ClaimBarang() {
     var routeParams = useParams();
+    var navigate = useNavigate();
     const itemFoundId = routeParams["id"];
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [informasiTambahan, setInformasiTambahan] = useState();
+    const [identityNumber, setIdentityNumber] = useState();
     const [base64Image, setBase64Image] = useState("");
     
     useEffect(()=>{
@@ -19,6 +24,10 @@ export default function ClaimBarang() {
         .then((e)=>{
             setData(e.data);
         });
+        checkAccessToken()
+        .catch((e)=>{
+            navigate("/Login");
+        })
     },[])
 
     const handleFileInputChange = (event) => {
@@ -34,9 +43,29 @@ export default function ClaimBarang() {
         }
       };
     
-    const handleSubmit = ()=>{
-
+    const handleInformasiTambahan = (e)=>{
+        setInformasiTambahan(e.target.value);
     }
+    const handleIdentityNumber = (e)=>{
+        setIdentityNumber(e.target.value);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        createClaim(
+        {
+            itemFoundId: itemFoundId,
+            identityNumber: identityNumber,
+            identityType: "NIK",
+            proofDescription:informasiTambahan,
+            proofImageBase64: base64Image,
+        }
+        ).then((e)=>{
+            navigate("/Claim/"+e.data.id);
+        });
+        setLoading(false);
+    };
 
     return (
         <div style={{backgroundColor:"white"}}>
@@ -72,30 +101,24 @@ export default function ClaimBarang() {
 
             <div className="row pb-5">
                 <div className="container col-sm-6">
-                    <form className="" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <h2 >
                             Data Diri
                         </h2>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="Nama (Sesuai KTP)" required/>
-                        </div>
-                        <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="No. KTP" required/>
-                        </div>
-                        <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="No. Telepon" required/>
+                            <input type="text" className="form-control" id="" placeholder="No. KTP" required onChange={handleIdentityNumber}/>
                         </div>
                         <h2 className="pt-4 pb-2">
                             Bukti Kepemilikan
                         </h2>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="Informasi Tambahan" required/>
+                            <input type="text" className="form-control" id="" placeholder="Informasi Tambahan" required onChange={handleInformasiTambahan}/>
                         </div>
                         <div className="col-md-12 py-2">
-                            <input className="form-control" type="file" id="formFile" required/>
+                            <input className="form-control" type="file" id="formFile" required onChange={handleFileInputChange}/>
                         </div>
                         <div className="col-12">
-                            <a href="#" className="btn btn-primary w-100 text-white px-3 mt-2">Konfirmasi Barang</a>
+                            <button type="submit" className="btn btn-primary w-100 text-white px-3 mt-2">Konfirmasi Barang</button>
                         </div>
                     </form> 
                 </div>

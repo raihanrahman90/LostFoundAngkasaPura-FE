@@ -11,6 +11,14 @@ export const getDetailFoundClaim= (id)=>{
     return defaultUserRequest(url, 'get', "");
 }
 
-export const createClaim=()=>{
-    
+export const createClaim=({itemFoundId, identityNumber, identityType, proofDescription, proofImageBase64})=>{
+    var url = '/Item-Claim';
+    var body = {
+        itemFoundId:itemFoundId, 
+        identityNumber:identityNumber, 
+        identityType:identityType,
+        proofDescription:proofDescription,
+        proofImageBase64:proofImageBase64
+    }
+    return defaultUserRequest(url, 'post', body);
 }

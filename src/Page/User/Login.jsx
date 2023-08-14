@@ -2,17 +2,20 @@ import React, { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import Loading from "../Componen/Loading";
-
+import * as qs from 'querystring';
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
 
-export default function Login() {
+export default function LoginUser() {
+  const paramRouter = useParams();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState();
   let navigate = useNavigate();
 
 
@@ -38,6 +41,14 @@ export default function Login() {
   
 
   useEffect(() =>{
+    var params = new URLSearchParams(location.search);
+    var messageParam = params.get("message");
+    console.log("test 1")
+    console.log(messageParam)
+    if(messageParam){
+      console.log("tes");
+      setMessage(messageParam);
+    }
     const checkAccessToken = async()=>{
       try{
         let accessToken = await getAccessToken();
@@ -69,7 +80,10 @@ export default function Login() {
                     <i className="fas fa-cubes fa-2x me-3" style={{color: "#ff6219"}}></i>
                     <img src={logo} className='mx-auto w-25' alt="" />
                   </div>
-                  <div className='mx-5 col-8'>
+                  <div className='mx-5 col-12 col-md-8'>
+                    {message?<div className='alert bg-danger text-white'>
+                      {message}
+                    </div>:<></>}
                     <div className="form-outline mb-4">
                       <input type="email" onChange={(e) => {setEmail(e.target.value)}} id="form2Example17" className="form-control form-control-lg" placeholder="Email" required />
                     </div>

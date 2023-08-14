@@ -43,7 +43,7 @@ export default function Headers() {
     .then((e)=>{
       setIsLogin(false);
       Cookies.remove("token");
-      window.location.reload();
+      navigate("/")
     })
     .catch((e)=>{
       alert(e);
@@ -56,7 +56,6 @@ export default function Headers() {
   .then((e)=>{
     console.log(e);
     if(e.status == 200){
-      console.log()
       setErrorLogin(null);
       Cookies.set("token", e.data.data);
       setIsLogin(true);
@@ -73,6 +72,7 @@ export default function Headers() {
 }
 
   return (
+    <>
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid py-3">
@@ -91,10 +91,22 @@ export default function Headers() {
             <span class="navbar-toggler-icon"></span>
           </button>
           {isLogin?
+          <>
           <button className="item align-self-end ms-auto me-1 notif me-3 d-inline d-md-none" onClick={clickNotif}>
-          <IoMdNotifications />
-          <span className="notif-count">3</span>
-        </button>:<></>}
+            <IoMdNotifications />
+            <span className="notif-count">3</span>
+          </button>
+          <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
+            <div className="notif-list">
+              <p className="notif-title">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+              </p>
+              <p className="notif-subtitle">
+                testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+              </p>
+            </div>
+          </div></>
+          :<></>}
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item ms-5">
@@ -122,16 +134,6 @@ export default function Headers() {
                   <IoMdNotifications />
                   <span className="notif-count">3</span>
                 </button>
-                <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
-                  <div className="notif-list">
-                    <p className="notif-title">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    </p>
-                    <p className="notif-subtitle">
-                      testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-                    </p>
-                  </div>
-                </div>
                 <button className="btn bg-danger text-white pe-5 ps-5 me-5 ms-5" onClick={handleLogout}> Logout </button>
               </>:
               <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -184,5 +186,19 @@ export default function Headers() {
         </div>
       </nav>
     </div>
+    {isLogin?
+          <>
+          <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
+            <div className="notif-list">
+              <p className="notif-title">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+              </p>
+              <p className="notif-subtitle">
+                testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+              </p>
+            </div>
+          </div></>
+          :<></>}
+    </>
   );
 }

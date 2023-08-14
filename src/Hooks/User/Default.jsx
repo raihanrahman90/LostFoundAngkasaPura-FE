@@ -24,8 +24,9 @@ export const defaultUserRequest = async(
         return res;
     }catch(e){
         try{
-            await getAccessToken();
+            var accessToken = await getAccessToken();
             var res = await callApiWithToken(url, method, body, accessToken);
+            Cookies.set("token", accessToken);
             return res;
         }catch(e){
             throw e

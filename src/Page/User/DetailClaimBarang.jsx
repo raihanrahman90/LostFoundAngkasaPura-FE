@@ -13,19 +13,21 @@ import {
     Col
   } from "react-bootstrap";
 import { Card } from "../Componen/Card";
+import { Link, useParams } from "react-router-dom";
+import { getDetailFoundClaim } from "../../Hooks/User/ItemClaim";
 
 export default function DetailClaimBarang() {
 
-    const barang = [
-        {
-            nama_barang : "Jam Tangan Rolex KW",
-            waktu_pengajuan : "23 Juli 2023",
-            status : "Confirmed",
-            tempat_pengambilan : "Gerbang 6",
-            waktu_pengambilan : "30 Juli 2023, 14.00 WITA"
-        },
-    ]
-
+    const [barang, setBarang] = useState([]);
+    var routeParams = useParams();
+    var foundClaimId = routeParams["id"];
+    useEffect(()=>{
+        console.log(foundClaimId);
+        getDetailFoundClaim(foundClaimId)
+        .then((e)=>{
+            console.log(e);
+        })
+    },[]);
     const handleStatus = (status) => {
         switch (status) {
             case "Confirmed":
@@ -55,28 +57,59 @@ export default function DetailClaimBarang() {
                         <div className="container pb-5">
                             <div className="col-sm-12">
                                 <div className="card">
-                                    <div className="row card-body">
-                                        <img className="col-sm-3" src={Logo} alt="sans"/>
-                                        <div className="col-sm-3">
-                                            <p className="card-title claim-text">Nama barang </p>
-                                            <p className="card-title">Waktu pengajuan </p>
-                                            <p className="card-title">Status  </p>
-                                            <p className="card-title">Tempat pengambilan </p>
-                                            <p className="card-title">Waktu pengambilan </p>
-                                        </div>
-                                        <div className="col-sm-1 p-0">
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                            <p className="card-title">: </p>
-                                        </div>
-                                        <div className="col-sm-5">
-                                            <p className="card-title">{item.nama_barang}</p>
-                                            <p className="card-title">{item.waktu_pengajuan}</p>
-                                            <p className={`${handleStatus(item.status)}`}>{item.status}</p>
-                                            <p className="card-title">{item.tempat_pengambilan}</p>
-                                            <p className="card-title">{item.waktu_pengambilan}</p>
+                                <div className="row card-body">
+                                        <img className="col-sm-3" src={item.image} alt="sans"/>
+                                        <div className="col-sm-9">
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title claim-text">Nama barang </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.name}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Waktu pengajuan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.foundDate}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Status  </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: 
+                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(item.status)}`}>
+                                                            {item.status}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Tempat pengambilan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.tempat_pengambilan}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-4">
+                                                    <p className="card-title">Waktu pengambilan </p>
+                                                </div>
+                                                <div className="col-8">
+                                                    <p className="card-title">: {item.waktu_pengambilan}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-12 justify-content-end d-flex">
+                                                    <Link className="btn bg-primary text-white" to={"/Claim/"+item.id+"#title"}>Detail Claim</Link>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

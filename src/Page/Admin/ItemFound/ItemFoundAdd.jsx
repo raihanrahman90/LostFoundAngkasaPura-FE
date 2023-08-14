@@ -36,31 +36,29 @@ export default function ItemFoundAdd() {
       alert("Data tidak boleh kosong");
       return;
     }else{
-    setLoading(true);
-    try{
-      const result = await addItem(
-        {
-          name: namaBarang,
-          description: ciriBarang,
-          category: kategori,
-          foundDate: tanggalDitemukan,
-          imageBase64: base64Image,
+      setLoading(true);
+      try{
+        const result = await addItem(
+          {
+            name: namaBarang,
+            description: ciriBarang,
+            category: kategori,
+            foundDate: tanggalDitemukan,
+            imageBase64: base64Image,
+          }
+        );
+        console.log(result);
+        setLoading(false);
+        if(result){
+          navigate("/admin/FoundItem")
         }
-      );
-      console.log(result);
-      setLoading(false);
-      if(result){
-        navigate("/admin/FoundItem")
+      }catch(err){
+        if(err.response.status==401){
+          navigate("/admin");
+        };
       }
-    }catch(err){
-      if(err.response.status==401){
-        navigate("/admin");
-      };
     }
-    
-  }
-
-};
+  };
 
 
   return (

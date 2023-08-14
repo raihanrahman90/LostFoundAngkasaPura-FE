@@ -8,13 +8,6 @@ export const login = async ({
     .post(`/admin/Admin/login`, {
         email:email,
         password:password
-    })
-    .then((res)=>{
-        // console.log("ini datanya",res.data);
-        return res.data
-    })
-    .catch((error)=>{
-        console.error(new Error("TOLOOOOOOONG"));
     });
 };
 

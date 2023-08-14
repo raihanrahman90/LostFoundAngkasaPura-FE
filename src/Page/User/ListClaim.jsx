@@ -3,11 +3,11 @@ import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { listItemClaim } from "../../Hooks/User/ItemClaim";
-
+import { checkAccessToken } from "../../Hooks/User/Default";
 export default function ListClaimUser() {
-
+    const navigate = useNavigate();
     const [barang, setBarang] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
@@ -16,6 +16,9 @@ export default function ListClaimUser() {
         .then((e)=>{
             setBarang(e.data.data);
             setTotalPage(e.data.totalPage);
+        })
+        .catch((e)=>{
+            navigate("/Login?message=Mohon login terlebih dahulu")
         })
     },[page])
 

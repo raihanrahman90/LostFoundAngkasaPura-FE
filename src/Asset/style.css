@@ -223,6 +223,7 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
     border-radius: 5px;
     overflow-y: scroll;
+    color: var(--bs-dark);
 }
 .notif-dropdown .notif-list{
     border-bottom: black;
@@ -233,6 +234,7 @@
 }
 .notif-list .notif-title{
     display: block;
+    font-weight: bold;
 }
 .notif-list .notif-subtitle{
     font-size: 12px;
@@ -261,10 +263,19 @@
 .card-image-container{
     overflow-y: hidden;
 }
+
 @media only screen and (max-width:768px){
     .card-image-container{
         height: 150px;
         width: 100%;
+    }
+    .notif-dropdown{
+        margin-left: auto;
+        margin-right: auto;
+        left: 20px;
+        width: 80%;
+        height: 80%;
+        z-index: 99;
     }
 }
 @media only screen and (min-width:768px){
