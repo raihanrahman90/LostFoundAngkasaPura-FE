@@ -3,7 +3,8 @@ import axios from "axios";
 import { AdminDefault } from "../AdminDefault";
 import Cookies from "js-cookie";
 import Loading from "../../Componen/Loading";
-
+import { createAdmin } from "../../../Hooks/Admin/Admin";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAdmin() {
   const [nama, setNama] = useState("");
@@ -12,7 +13,7 @@ export default function CreateAdmin() {
   const [unit, setUnit] = useState("");
   const [access, setAccess] = useState("admin");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
@@ -24,22 +25,11 @@ export default function CreateAdmin() {
             unit: unit,
             access: access,
         }
-        console.log(data);
-        const token = Cookies.get("token");
-        const response = await axios.post(`${BASE_URL}/admin/admin`, data, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                },
-        });
-      // alert("Berhasil membuat admin");
-        console.log(response);
-        setLoading(false);
-      setNama("");
-      setEmail("");
-      setPassword("");
-      setUnit("");
-      setAccess("");
-    } catch (error) {
+        const response = await createAdmin({body:data});
+        if(response.statusCode ==200){
+          navigate("/admin/ListAdmin")
+        }
+      } catch (error) {
       console.error("Error creating admin:", error);
       alert("Gagal membuat admin");
     }

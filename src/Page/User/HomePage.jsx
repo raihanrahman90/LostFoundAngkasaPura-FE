@@ -1,36 +1,24 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import Headers from "./Headers";
 import "../../Asset/style.css";
-import Logo from "../../Asset/logo.png";
 import Footer from "./Footer";
+import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
+import { Link } from "react-router-dom";
+import { Card } from "../Componen/Card";
 
 export default function HomePage() {
-  const barang = [
-    {
-      id: 1,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 2,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 3,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-    {
-      id: 4,
-      img: Logo,
-      kategoti: "Elektronik",
-      keterangan: "ditemukan tempat duduk bording pesawat",
-    },
-  ];
+  const [barang, setBarang] = useState([]);
+
+  useEffect(()=>{
+    const fetchData= async()=>{
+      var res = await getListFoundItem(1, 4, null,null,null);
+      setBarang(res.data.data);
+    }
+    fetchData();
+  },[])
+
+  
+
   return (
     <div>
       <Headers />
@@ -58,11 +46,11 @@ export default function HomePage() {
                 Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
                 berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
                 pada list barang setelah 1x24 jam, silahkan klik{" "}
-                <a href="#">disini</a>.
+                <Link to="/report">disini</Link>.
               </p>
           </div>
           <div className="col-md-6">
-            <p className=" fw-bold fs-3">Cari Barang Hilang</p>
+            <p className="fw-bold fs-3">Cari Barang Hilang</p>
             <p className="fs-6">
               Semua informasi barang yang hilang yang telah ditemukan tersedia
               di dalam web ini. Cari barang anda yang hilang di website ini dan
@@ -72,38 +60,24 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="listBarang  ">
+      <div className="">
         <div className="bgdasboard   ">
           <h1 className=" text-center text-white pb-5 fw-bold pt-3">
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
-          <div className="d-flex justify-content-center row">
-            {barang.map((item) => {
-              return (
-                <div
-                  className="col-md-6 mb-3 card mx-3 rounded"
-                  style={{ width: "18rem" }}
-                >
-                  <img src={item.img} className="p-5" alt="" />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.kategoti}</h5>
-                    <p className="card-text">{item.keterangan}</p>
-                    <a
-                      href="#"
-                      className="btn btn-primary w-100 text-white fw-bold"
-                    >
-                      Klaim Barang
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="container">
+            <div className="row g-5 p-0">
+              {barang.map((item) => {
+                return (
+                    <Card key={item.id} id={item.id} image={item.image} description={item.description} name={item.name}/>
+                );
+              })}
+            </div>
           </div>
-
-          <div className="pb-5">
-            <button className="bg-warning text-white border-0 d-flex justify-content-center mt-3 rounded py-2 px-4 mx-auto">
+          <div className="pb-5 text-center">
+            <Link className="btn bg-warning text-white" to="/Barang">
               lihat semua
-            </button>
+            </Link>
           </div>
         </div>
       </div>

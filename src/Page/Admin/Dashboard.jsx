@@ -7,6 +7,7 @@ import {GoReport} from 'react-icons/go';
 import {AiOutlineCheckCircle,AiOutlineMail,AiOutlineSearch} from 'react-icons/ai';
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
 
@@ -14,7 +15,7 @@ export default function Dashboard() {
   const [datasets, setDatasets] = useState([]);
   const [labels , setLabels] = useState([]);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+  var navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
     axios
@@ -28,7 +29,9 @@ export default function Dashboard() {
         setDatas(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
+        if(err.response.status==401){
+          navigate("/admin");
+        };
       });
   }, []);
 

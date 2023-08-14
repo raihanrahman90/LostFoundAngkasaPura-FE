@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { AdminDefault } from "../AdminDefault";
+import { getListAdmin } from "../../../Hooks/Admin/Admin"; 
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
@@ -13,6 +14,7 @@ export default function ListAdmin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
   }, [currentPage]);
@@ -30,6 +32,14 @@ export default function ListAdmin() {
       setTotalPages(response.data.data.pageTotal);
     } catch (error) {
       console.error("Error fetching data:", error);
+    try{
+      const response = await getListAdmin({page:currentPage, name:null,email:null,access:null}); 
+      console.log(response);
+      setData(response.data.data);
+      setTotalPages(response.data.pageTotal);
+      setHasMore(response.data.isHasMore);
+    }catch(e){
+      if(e.statusCode===401) navigate("admin");
     }
   };
 
@@ -46,15 +56,11 @@ export default function ListAdmin() {
       alert("Berhasil menghapus admin");
       fetchData();
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-      alert("Gagal menghapus admin");
+      if(err.response.status==401){
+        navigate("/admin");
+      }else{
+        alert(err.response.data);
+      };
     }
   };
   
@@ -169,4 +175,5 @@ export default function ListAdmin() {
       }
     />
   );
+}
 }

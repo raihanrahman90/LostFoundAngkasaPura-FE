@@ -254,3 +254,28 @@
 .min-h-80{
     min-height: 80%;
 }
+.card-image{
+    width: 100%;
+    height: auto;
+}
+.card-image-container{
+    overflow-y: hidden;
+}
+@media only screen and (max-width:768px){
+    .card-image-container{
+        height: 150px;
+        width: 100%;
+    }
+}
+@media only screen and (min-width:768px){
+    .card-image-container{
+        height: 300px;
+        width: 100%;
+    }
+}
+@media only screen and (min-width:992px){
+    .card-image-container{
+        height: 250px;
+        width: 100%;
+    }
+}
