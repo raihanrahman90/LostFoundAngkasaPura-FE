@@ -2,6 +2,7 @@ import React,{useState, useEffect} from "react";
 import Logo from "../../Asset/logo.png";
 import { BsBell } from "react-icons/bs";
 import '../../Asset/user.css'
+import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
 import {login, logout} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
