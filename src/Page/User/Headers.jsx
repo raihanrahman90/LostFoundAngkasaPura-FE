@@ -8,6 +8,7 @@ import {login, logout} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
+import { countNotification, getListNotification } from "../../Hooks/User/Notification";
 
 export default function Headers() {
 
@@ -16,7 +17,8 @@ export default function Headers() {
   const [errorLogin, setErrorLogin] = useState();
   const [isLogin, setIsLogin] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
-
+  const [countNotification, setCountNotification] = useState(0);
+  const [listNotification, setListNotification] = useState([]);
   const clickNotif=()=>{
     if(showNotif){
       setShowNotif(false);
@@ -106,7 +108,7 @@ export default function Headers() {
                 </Link>
               </li>
               {isLogin?<li class="nav-item ms-5">
-                <Link class="nav-link fw-bold text-primary" href="#">
+                <Link class="nav-link fw-bold text-primary" to="/Claim">
                   List Claim
                 </Link>
               </li>:<></>}

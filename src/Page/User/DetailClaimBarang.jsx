@@ -43,7 +43,7 @@ export default function DetailClaimBarang() {
         <div style={{backgroundColor:"white"}}>
             <Headers />
 
-            <div className="container py-5">
+            <div className="container py-5" id="title">
                 <h2 className="fw-bold">
                     Daftar Pengajuan Klaim Barang
                 </h2>
@@ -116,10 +116,17 @@ export default function DetailClaimBarang() {
 
             <div className="row pb-5">
                 <div className="container col-sm-6">
-                    <form className="">
-                        <h2 className="">
-                            Tanya Jawab
-                        </h2>
+                    <h2 className="">
+                        Tanya Jawab
+                    </h2>
+                    <form className="row">
+                    <div className="col-12">
+                    </div>
+                    <div className="col-12 d-flex justify-content-end">
+                        <button className="bg-primary text-white btn px-5">
+                            Kirim
+                        </button>
+                    </div>
                     </form> 
                 </div>
             </div>

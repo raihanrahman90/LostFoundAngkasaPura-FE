@@ -11,12 +11,33 @@ export default function ClaimBarang() {
     var routeParams = useParams();
     const itemFoundId = routeParams["id"];
     const [data, setData] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [base64Image, setBase64Image] = useState("");
+    
     useEffect(()=>{
         getDetailFoundItem(itemFoundId)
         .then((e)=>{
-            setData(e);
+            setData(e.data);
         });
     },[])
+
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setBase64Image(reader.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+    
+    const handleSubmit = ()=>{
+
+    }
+
     return (
         <div style={{backgroundColor:"white"}}>
             <Headers />
@@ -51,29 +72,31 @@ export default function ClaimBarang() {
 
             <div className="row pb-5">
                 <div className="container col-sm-6">
-                    <form className="">
+                    <form className="" onSubmit={handleSubmit}>
                         <h2 >
                             Data Diri
                         </h2>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="Nama (Sesuai KTP)"/>
+                            <input type="text" className="form-control" id="" placeholder="Nama (Sesuai KTP)" required/>
                         </div>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="No. KTP"/>
+                            <input type="text" className="form-control" id="" placeholder="No. KTP" required/>
                         </div>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="No. Telepon"/>
+                            <input type="text" className="form-control" id="" placeholder="No. Telepon" required/>
                         </div>
                         <h2 className="pt-4 pb-2">
                             Bukti Kepemilikan
                         </h2>
                         <div className="col-md-12 py-2">
-                            <input type="text" className="form-control" id="" placeholder="Informasi Tambahan"/>
+                            <input type="text" className="form-control" id="" placeholder="Informasi Tambahan" required/>
                         </div>
                         <div className="col-md-12 py-2">
-                            <input className="form-control" type="file" id="formFile" />
+                            <input className="form-control" type="file" id="formFile" required/>
                         </div>
-                        <a href="#" className="btn btn-primary w-100 text-white p-3 mt-2">Konfirmasi Barang</a>
+                        <div className="col-12">
+                            <a href="#" className="btn btn-primary w-100 text-white px-3 mt-2">Konfirmasi Barang</a>
+                        </div>
                     </form> 
                 </div>
             </div>

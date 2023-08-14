@@ -3,51 +3,32 @@ import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
-import Logo from "../../Asset/logo.png";
-import {
-    Form,
-    FormControl,
-    InputGroup,
-    Container,
-    Row,
-    Col
-  } from "react-bootstrap";
-import { Card } from "../Componen/Card";
+import { Link } from "react-router-dom";
+import { listItemClaim } from "../../Hooks/User/ItemClaim";
 
 export default function ListClaimUser() {
 
-    const barang = [
-        {
-            nama_barang : "Jam Tangan Rolex KW Jam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KWJam Tangan Rolex KW",
-            waktu_pengajuan : "23 Juli 2023",
-            status : "Confirmed",
-            tempat_pengambilan : "Gerbang 6",
-            waktu_pengambilan : "30 Juli 2023, 14.00 WITA"
-        },
-        {
-            nama_barang : "Jam Tangan Rolex KW",
-            waktu_pengajuan : "23 Juli 2023",
-            status : "Confirmation",
-            tempat_pengambilan : "-",
-            waktu_pengambilan : "-"
-        },
-        {
-            nama_barang : "Jam Tangan Rolex KW",
-            waktu_pengajuan : "23 Juli 2023",
-            status : "Reject",
-            tempat_pengambilan : "-",
-            waktu_pengambilan : "-"
-        },
-    ]
+    const [barang, setBarang] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    useEffect(()=>{
+        listItemClaim(page)
+        .then((e)=>{
+            setBarang(e.data.data);
+            setTotalPage(e.data.totalPage);
+        })
+    },[page])
 
     const handleStatus = (status) => {
         switch (status) {
             case "Confirmed":
-                return "confirmedStyle";
+                return "bg-primary";
             case "Confirmation":
-                return "confirmationStyle";
-            case "Reject":
-                return "rejectStyle";
+                return "bg-dark";
+            case "Rejected":
+                return "bg-danger";
+            case "Approved":
+                return "bg-success";
             default:
                 return "";
         }
@@ -70,14 +51,14 @@ export default function ListClaimUser() {
                             <div className="col-sm-12">
                                 <div className="card">
                                     <div className="row card-body">
-                                        <img className="col-sm-3" src={Logo} alt="sans"/>
-                                        <div className="col-sm-8">
+                                        <img className="col-sm-3" src={item.image} alt="sans"/>
+                                        <div className="col-sm-9">
                                             <div className="row">
                                                 <div className="col-4">
                                                     <p className="card-title claim-text">Nama barang </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.nama_barang}</p>
+                                                    <p className="card-title">: {item.name}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -85,7 +66,7 @@ export default function ListClaimUser() {
                                                     <p className="card-title">Waktu pengajuan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.waktu_pengajuan}</p>
+                                                    <p className="card-title">: {item.foundDate}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -94,7 +75,7 @@ export default function ListClaimUser() {
                                                 </div>
                                                 <div className="col-8">
                                                     <p className="card-title">: 
-                                                        <span className={`px-2 py-1 ms-2 ${handleStatus(item.status)}`}>
+                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(item.status)}`}>
                                                             {item.status}
                                                         </span>
                                                     </p>
@@ -115,6 +96,11 @@ export default function ListClaimUser() {
                                                 </div>
                                                 <div className="col-8">
                                                     <p className="card-title">: {item.waktu_pengambilan}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-12 justify-content-end d-flex">
+                                                    <Link className="btn bg-primary text-white" to={"/Claim/"+item.id+"#title"}>Detail Claim</Link>
                                                 </div>
                                             </div>
                                         </div>

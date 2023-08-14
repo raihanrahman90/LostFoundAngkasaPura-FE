@@ -40,14 +40,14 @@ export default function ListBarang() {
     useEffect(()=>{
         getListFoundItem(page, 9, dataName, kategori, startDate, endDate)
         .then((e)=>{
-            setBarang(e.data)
+            setBarang(e.data.data)
         })
     },[kategori, startDate, endDate])
 
     useEffect(()=>{
         getCategory()
         .then((e)=>{
-            setDataCategory(e);
+            setDataCategory(e.data);
         })
     }, [])
 
