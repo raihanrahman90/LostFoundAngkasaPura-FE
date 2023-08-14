@@ -41,7 +41,7 @@ export const AdminDefault = ({title, body}) =>{
   const listMenu = [
     {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
     {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-    {icon:<BsTicketDetailedFill/>, to:'/admin/ListClaim', text:'List Claim'},
+    {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
     {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'}
   ]
   return (
