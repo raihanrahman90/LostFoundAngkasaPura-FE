@@ -26,7 +26,7 @@ export const defaultUserRequest = async(
         try{
             await getAccessToken();
             var res = await callApiWithToken(url, method, body, accessToken);
-            return res.data;
+            return res;
         }catch(e){
             throw e
         }

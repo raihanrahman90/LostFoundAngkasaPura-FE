@@ -12,7 +12,7 @@ export default function HomePage() {
   useEffect(()=>{
     const fetchData= async()=>{
       var res = await getListFoundItem(1, 4, null,null,null);
-      setBarang(res.data);
+      setBarang(res.data.data);
     }
     fetchData();
   },[])
