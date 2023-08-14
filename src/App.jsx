@@ -9,6 +9,7 @@ import DetailClaim from "./Page/Admin/ListClaim/DetailClaim";
 import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
 import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 import ItemFoundDetail from "./Page/Admin/ItemFound/ItemFoundDetail";
+import ShowImage from "./Page/Admin/ListClaim/showImage";
 // user
 import HomePage from "./Page/User/HomePage";
 import ListBarang from "./Page/User/ListBarang";
@@ -39,6 +40,9 @@ function App() {
               <Route path="/admin/ItemClaim/:id" element={<DetailClaim />} />
               <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
               <Route path="/admin/ListAdmin" element={<ListAdmin />} />
+              <Route path="/admin/ShowImage" element={<ShowImage />} />
+
+
     {/* user */}
               <Route path="/" element={<HomePage />} />
               <Route path="/Barang" element={<ListBarang />} />

@@ -6,6 +6,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { AdminDefault } from "../AdminDefault";
 import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
 import Loading from "../../Componen/Loading"
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const location = useLocation();
@@ -161,7 +162,6 @@ const terimaHandle = async () => {
   }
 };
 
-
   return (
     <>
     {loading ? (<Loading />) : (
@@ -214,21 +214,33 @@ const terimaHandle = async () => {
                 </div>
               </div>
             </div>
-            <div className="col-12">
+            <div className="col-12 ms-2">
                 {showComment.map((item, index) => {
                   return (
-                    <div key={index} className=" border mb-5 d-flex w-50">
-                      <span>{item.value}</span>
-                      <div className="d-flex ps-5">
+                    <div key={index} className=" border mb-5 pb-5  w-50">
+                      <div className=" ">
                       <BsFillPersonFill />
-                      <span  >admin-{item.userName}</span>
+                      <span >admin-{item.userName}</span>
+                      <p className="ps-5">{item.value}</p>
                       </div>
+                      <div className="float-end   me-2 rounded">
+                      {image64 ? (
+                        <>
+                    <Link
+                    className="col-12  text-dark bg-secondary border p-1 rounded text-decoration-none"
+                    to={"/admin/ShowImage"}
+                    state={{ from: image64  }}>
+                    Show image
+                  </Link>
+                        
+                        </>
+                      ) : (null)}</div>
                     </div>
                   );
                 })}
               </div>
 
-            <div>
+            <div >
               <form onSubmit={handleSubmitComment}>
                 <div className="mb-3">
                   <label htmlFor="comment" className="form-label">
@@ -242,13 +254,13 @@ const terimaHandle = async () => {
                   ></textarea>
                 </div>
 
-                <div>
+                <div className="d-flex">
                   <input type="file" 
                   className="form-control"
                   onChange={handleFileInputChange} />
                 </div>
                 <button 
-                className="bg-primary text-white float-end"
+                className="bg-primary text-white float-start ms-2 px-4"
                 type="submit"
                 >
                   Submit
