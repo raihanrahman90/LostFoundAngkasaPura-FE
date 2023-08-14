@@ -113,3 +113,8 @@
     border-radius: 12px;
     padding: 10px;
 }
+
+.notif{
+    background-color: transparent;
+    color: #0480B8;
+}

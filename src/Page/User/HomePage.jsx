@@ -8,6 +8,7 @@ import { Card } from "../Componen/Card";
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
+
   useEffect(()=>{
     const fetchData= async()=>{
       var res = await getListFoundItem(1, 4, null,null,null);
@@ -15,6 +16,9 @@ export default function HomePage() {
     }
     fetchData();
   },[])
+
+  
+
   return (
     <div>
       <Headers />

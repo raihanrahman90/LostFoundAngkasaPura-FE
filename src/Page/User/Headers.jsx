@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {login, logout} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
+import {IoMdNotifications} from 'react-icons/io';
 
 export default function Headers() {
 
@@ -13,6 +14,17 @@ export default function Headers() {
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState();
   const [isLogin, setIsLogin] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
+
+  const clickNotif=()=>{
+    if(showNotif){
+      setShowNotif(false);
+    }
+    if(!showNotif){
+      setShowNotif(true);
+    }
+  }
+
   let navigate = useNavigate()
   useEffect(()=>{
     checkAccessToken()
@@ -94,7 +106,21 @@ export default function Headers() {
               </li>:<></>}
               
             </ul>
-            <div class="d-flex">
+            <div class="">
+              <button className="item align-self-end ms-auto me-1 notif" onClick={clickNotif}>
+                <IoMdNotifications />
+                <span className="notif-count">3</span>
+              </button>
+              <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
+                <div className="notif-list">
+                  <p className="notif-title">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                  </p>
+                  <p className="notif-subtitle">
+                    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                  </p>
+                </div>
+              </div>
               {isLogin?
               <>
                 <BsBell size={30} className="me-5 mt-1"  />
