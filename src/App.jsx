@@ -9,7 +9,7 @@ import DetailClaim from "./Page/Admin/ListClaim/DetailClaim";
 import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
 import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 import ItemFoundDetail from "./Page/Admin/ItemFound/ItemFoundDetail";
-import ShowImage from "./Page/Admin/ListClaim/showImage";
+import ShowImage from "./Page/Admin/ListClaim/ShowImage";
 // user
 import HomePage from "./Page/User/HomePage";
 import ListBarang from "./Page/User/ListBarang";

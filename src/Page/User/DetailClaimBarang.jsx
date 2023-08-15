@@ -25,7 +25,7 @@ export default function DetailClaimBarang() {
         console.log(foundClaimId);
         getDetailFoundClaim(foundClaimId)
         .then((e)=>{
-            console.log(e);
+            setBarang(e.data);
         })
     },[]);
     const handleStatus = (status) => {
@@ -51,21 +51,20 @@ export default function DetailClaimBarang() {
                 </h2>
             </div>
 
-            {barang.map ((item) => {
-                return (
+            {barang?
                     <>
                         <div className="container pb-5">
                             <div className="col-sm-12">
                                 <div className="card">
                                 <div className="row card-body">
-                                        <img className="col-sm-3" src={item.image} alt="sans"/>
+                                        <img className="col-sm-3" src={barang.image} alt="sans"/>
                                         <div className="col-sm-9">
                                             <div className="row">
                                                 <div className="col-4">
                                                     <p className="card-title claim-text">Nama barang </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.name}</p>
+                                                    <p className="card-title">: {barang.name}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -73,7 +72,7 @@ export default function DetailClaimBarang() {
                                                     <p className="card-title">Waktu pengajuan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.foundDate}</p>
+                                                    <p className="card-title">: {barang.createdDate}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -82,8 +81,8 @@ export default function DetailClaimBarang() {
                                                 </div>
                                                 <div className="col-8">
                                                     <p className="card-title">: 
-                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(item.status)}`}>
-                                                            {item.status}
+                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(barang.status)}`}>
+                                                            {barang.status}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -94,7 +93,7 @@ export default function DetailClaimBarang() {
                                                     <p className="card-title">Tempat pengambilan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.tempat_pengambilan}</p>
+                                                    <p className="card-title">: {barang.claimLocation}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -102,12 +101,7 @@ export default function DetailClaimBarang() {
                                                     <p className="card-title">Waktu pengambilan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.waktu_pengambilan}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-12 justify-content-end d-flex">
-                                                    <Link className="btn bg-primary text-white" to={"/Claim/"+item.id+"#title"}>Detail Claim</Link>
+                                                    <p className="card-title">: {barang.claimDate}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -116,8 +110,7 @@ export default function DetailClaimBarang() {
                             </div>
                         </div>
                     </>
-                )
-            })}
+                :<></>}
 
             <div className="row pb-5">
                 <div className="container col-sm-6">
@@ -126,22 +119,22 @@ export default function DetailClaimBarang() {
                             Data Diri
                         </h2>
                         <div className="data-diri col-md-12 my-2">
-                            <p>Raihan</p>
+                            <p>{barang.userName}</p>
                         </div>
                         <div className="data-diri col-md-12 my-2">
-                            <p>123569875123645</p>
+                            <p>{barang.identityNumber}</p>
                         </div>
                         <div className="data-diri col-md-12 py-2">
-                            <p>08789899878988</p>
+                            <p>{barang.userPhoneNumber}</p>
                         </div>
                         <h2 className="pt-4 pb-2">
                             Bukti Kepemilikan
                         </h2>
                         <div className="data-diri col-md-12 py-2">
-                            <p>Jam tersebut pemberian ayah saya, di bagian jarum terdapat inisial WWE yang merupakan inisial dari ayah saya</p>
+                            <p>{barang.proofDescription}</p>
                         </div>
-                        <div className="col-md-12 py-2">
-                            <img src={Logo} alt="sans"/>
+                        <div className="col-12 py-2 row">
+                            <img src={barang.proofImage} alt="sans" className="col-md-4"/>
                         </div>
                     </form> 
                 </div>
