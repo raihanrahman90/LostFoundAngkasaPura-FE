@@ -262,13 +262,12 @@
 }
 .card-image-container{
     overflow-y: hidden;
+    width: 100%;
+    aspect-ratio: 3/2;
 }
 
 @media only screen and (max-width:768px){
-    .card-image-container{
-        height: 150px;
-        width: 100%;
-    }
+    
     .notif-dropdown{
         margin-left: auto;
         margin-right: auto;
@@ -276,17 +275,5 @@
         width: 80%;
         height: 80%;
         z-index: 99;
-    }
-}
-@media only screen and (min-width:768px){
-    .card-image-container{
-        height: 300px;
-        width: 100%;
-    }
-}
-@media only screen and (min-width:992px){
-    .card-image-container{
-        height: 250px;
-        width: 100%;
     }
 }
