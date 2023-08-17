@@ -130,12 +130,12 @@ export default function ItemFoundAdd() {
           />
           <label className="form__label" htmlFor="fotoBarang">Foto Barang</label>
           {selectedFile && (
-      <img
-        src={base64Image}
-        alt="Selected Image"
-        style={{ maxWidth: "300px", marginTop: "10px" }}
-      />
-    )}
+            <img
+              src={base64Image}
+              alt="Selected Image"
+              style={{ maxWidth: "300px", marginTop: "10px" }}
+            />
+          )}
         </div>
 
         <input type="Submit" className="btn btn-primary float-end me-md-5 text-white" />

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {AiOutlineMenu} from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import '../../Asset/style.css';
@@ -8,12 +8,15 @@ import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
 import { BiUser } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
+import { getListNotification } from "../../Hooks/Admin/Admin";
 
 export const AdminDefault = ({title, body}) =>{
   
   const [showSidebar, setShowSidebar] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [countNotification, setCountNotification] = useState(0);
+  const [listNotification, setListNotification] = useState([]);
   let navigate = useNavigate();
 
   const logout = () => {
@@ -44,9 +47,23 @@ export const AdminDefault = ({title, body}) =>{
     {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
     {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'}
   ]
+
+  useEffect(()=>{
+    getListNotification()
+    .then((e)=>{
+      setCountNotification(e.data.length);
+      setListNotification(e.data);
+    })
+
+  },[])
+  const gotoNotification=(url)=>{
+    console.log("ini loh diclick")
+    console.log(url);
+    navigate(url);
+  }
   return (
-    <div className="bg-secondary h-100 roboto shadow admin 100-vh">
-      <div className="row h-100 px-0">
+    <div className="bg-secondary h-100 roboto shadow admin max-vh-100 overflow-hidden">
+      <div className="row px-0 h-100">
         <div className="col-lg-2 col-sm-3 px-0 d-none d-md-block">
           <div className='bg-dark mx-auto px-xl-2 px-lg-0 position-relative h-100 pt-5 sidebar shadow'>
             <ul style={{ listStyle: 'none', padding:'0px'}}>
@@ -92,24 +109,30 @@ export const AdminDefault = ({title, body}) =>{
             </ul>
         </div>
         <div
-          className="col-lg-10 col-md-9 col-sm-12 bg-white shadow px-0 col-12">
+          className="col-lg-10 col-md-9 col-sm-12 bg-white shadow px-0 col-12 max-vh-100">
           <div className="shadow d-flex justify-content-start py-2" id="navbar">
             <button className="item d-md-none d-block" onClick={()=>setShowSidebar(!showSidebar)}>
               <AiOutlineMenu/>
             </button>
             <button className="item align-self-end ms-auto me-3" onClick={clickNotif}>
               <IoMdNotifications />
-              <span className="notif-count">3</span>
+              {countNotification==0?<></>:<span className="notif-count">{countNotification}</span>}
             </button>
             <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
+              {countNotification==0?<>
                 <div className="notif-list">
                   <p className="notif-title">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                  </p>
-                  <p className="notif-subtitle">
-                    testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                    Tidak ada notifikasi untuk saat ini
                   </p>
                 </div>
+              </>:listNotification.map(data=>{
+                return <div className="notif-list" onClick={(e)=>gotoNotification(data.url)}>
+                  <div className="notif-title">{data.title}</div>
+                  <div className="notif-subtitle">{data.subtitle}</div>
+
+                </div>
+              })}
+                
             </div>
             <button className="item me-5" onClick={clickProfile}>
               <CgProfile/>
@@ -127,7 +150,7 @@ export const AdminDefault = ({title, body}) =>{
                 </div>
             </div>
           </div>
-          <div className="rounded shadow px-1 px-md-5 my-3 mx-3 admin-main py-3 pt-5 admin-content">
+          <div className="rounded shadow px-1 px-md-5 my-3 mx-3 py-3 pt-5 admin-content">
             <h5 className="text-dark bold">{title}</h5>
             {body}
           </div>

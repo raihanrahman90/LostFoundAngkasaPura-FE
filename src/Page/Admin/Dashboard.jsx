@@ -29,6 +29,10 @@ export default function Dashboard() {
         setDatas(res.data.data);
       })
       .catch((err) => {
+        console.log("ini error")
+        console.log(err);
+        console.log("ini accessToken");
+        console.log(token)
         if(err.response.status==401){
           navigate("/admin");
         };

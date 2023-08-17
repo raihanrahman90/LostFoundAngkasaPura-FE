@@ -30,8 +30,9 @@ export default function LoginAdmin() {
       console.log(data)
       if (data) {
         setLoading(false);
-        Cookies.set('token', data.data);
-        //navigate('/admin/Dashboard');
+        console.log(data);
+        Cookies.set('token', data.data.data);
+        navigate('/admin/Dashboard');
       }
     })
     .catch((e)=>{

@@ -38,6 +38,6 @@ export const callApiWithToken = async(
       });
       return response.data;
   } catch (e) {
-      throw e.response.data;
+    throw e.response;
   }
 }

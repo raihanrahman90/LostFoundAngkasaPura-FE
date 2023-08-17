@@ -22,3 +22,17 @@ export const createClaim=({itemFoundId, identityNumber, identityType, proofDescr
     }
     return defaultUserRequest(url, 'post', body);
 }
+
+export const getComment = (itemClaimId)=>{
+    var url = '/Item-Claim/'+itemClaimId+"/comment";
+    return defaultUserRequest(url, 'get', "");
+}
+export const sendComment = ({itemClaimId, comment, image})=>{
+    var url = '/Item-Claim/'+itemClaimId+"/comment";
+    var body = {
+        itemClaimId : itemClaimId,
+        value : comment,
+        imageBase64 : image
+    }
+    return defaultUserRequest(url, 'post', body);
+}

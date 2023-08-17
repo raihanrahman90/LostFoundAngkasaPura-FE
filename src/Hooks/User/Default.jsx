@@ -16,10 +16,6 @@ export const defaultUserRequest = async(
 )=>{
     try{
         var accessToken = Cookies.get("token");
-        if(accessToken==undefined){
-            console.log("access token unddefined");
-            throw new Error("accessToken tidak ditemukan");
-        }
         var res = await callApiWithToken(url, method, body, accessToken);
         return res;
     }catch(e){
@@ -39,6 +35,7 @@ export const getAccessToken = async ()=>{
       var accessToken = await callApiWithToken("auth/access-token", 'get', '','')
       return accessToken;
     }catch(e){
+        console.log("ini error access token")
         return e;
     }
 }

@@ -8,7 +8,7 @@ import {login, logout} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
-import { countNotification, getListNotification } from "../../Hooks/User/Notification";
+import {  fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
 
 export default function Headers() {
 
@@ -37,6 +37,14 @@ export default function Headers() {
     .catch((e)=>{
       setIsLogin(false);
     })
+    fetchCountNotification()
+    .then((e)=>{
+      setCountNotification(e.data);
+    })
+    getListNotification()
+    .then((e)=>{
+      setListNotification(e.data)
+    })
   },[isLogin])
   const handleLogout = async()=>{
     logout()
@@ -57,8 +65,9 @@ export default function Headers() {
     console.log(e);
     if(e.status == 200){
       setErrorLogin(null);
+      console.log(e.data.data);
       Cookies.set("token", e.data.data);
-      setIsLogin(true);
+      (true);
       setEmail("");
       setPassword("");
       window.location.reload();
@@ -95,17 +104,7 @@ export default function Headers() {
           <button className="item align-self-end ms-auto me-1 notif me-3 d-inline d-md-none" onClick={clickNotif}>
             <IoMdNotifications />
             <span className="notif-count">3</span>
-          </button>
-          <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
-            <div className="notif-list">
-              <p className="notif-title">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-              </p>
-              <p className="notif-subtitle">
-                testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-              </p>
-            </div>
-          </div></>
+          </button></>
           :<></>}
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -132,7 +131,7 @@ export default function Headers() {
               <>
                 <button className="item align-self-end ms-auto me-1 notif me-3 d-none d-md-inline" onClick={clickNotif}>
                   <IoMdNotifications />
-                  <span className="notif-count">3</span>
+                  <span className="notif-count">{countNotification}</span>
                 </button>
                 <button className="btn bg-danger text-white pe-5 ps-5 me-5 ms-5" onClick={handleLogout}> Logout </button>
               </>:
@@ -189,14 +188,21 @@ export default function Headers() {
     {isLogin?
           <>
           <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
-            <div className="notif-list">
+            {
+              listNotification.length<1?
+              <div className="notif-list">
               <p className="notif-title">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                Tidak ada notifikasi untuk saat ini
               </p>
-              <p className="notif-subtitle">
-                testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-              </p>
-            </div>
+            </div>:
+              listNotification.map(t=><>
+                <div className="notif-list">
+                  <div className="notif-title">{t.title}</div>
+                  <div className="notif-subtitle">{t.subtitle}</div>
+                </div>
+              </>)
+            }
+            
           </div></>
           :<></>}
     </>

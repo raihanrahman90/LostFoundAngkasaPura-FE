@@ -62,3 +62,8 @@ export const createAdmin = async ({body})=>{
         return e;
     }
 }
+
+
+export const getListNotification = async()=>{
+    return defaultAdminRequest({url:"/admin/admin/notification", method:"get", body:""});
+}

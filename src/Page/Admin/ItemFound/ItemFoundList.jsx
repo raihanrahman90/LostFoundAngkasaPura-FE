@@ -92,7 +92,7 @@ export default function FoundItemList() {
         navigate("/admin");
       };
     });
-  })
+  },[])
   useEffect(() => {
     fetchData();
   }, [currentPage, tglStart, tglEnd, kategori, namaBarang, status]);
