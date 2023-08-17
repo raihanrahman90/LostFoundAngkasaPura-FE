@@ -20,15 +20,16 @@ export default function Report() {
                             <img src={customerService} className='w-100 mt-5'/>
                         </div>
                     </div>
-                    <div className="col-md-4 bg-primary rounded text-white px-3 py-5">
-                        <h4 className='text-center'>Hubungi <i>Contact Center</i> Kami</h4>
-                        <h6>Hubungi contact center kami jika tidak dapat menemukan barang Anda pada website ini dalam 1x24 Jam</h6>
-                        <div className='text-center'>
-                            <p>E-mail: cc172@ap1.co.id</p>
-                            <p>Twitter: @Angkasapura172</p>
-                            <p>Instagram: @angkasapura_172</p>
-                            <p>Facebook: Contact Center Angkasa Pura 172</p>
-                            <p>Call: 142</p>
+                    <div className="col-md-4 bg-primary rounded text-white px-3 py-5 row justify-content-center">
+                        <p className='col-12 mb-3'>Hubungi contact center kami jika tidak dapat menemukan barang Anda pada website ini dalam 1x24 Jam</p>
+                        <div className='col-10 fs-12px'>
+                            <p>
+                                E-mail: cc172@ap1.co.id <br/>
+                                Twitter: @Angkasapura172<br/>
+                                Instagram: @angkasapura_172<br/>
+                                Facebook: Contact Center Angkasa Pura 172<br/>
+                                Call: 142
+                            </p>
                         </div>
                     </div>
                 </div>

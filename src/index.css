@@ -1,7 +1,7 @@
 @import url('./custom.scss');
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Poiret+One&family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&family=Inter:wght@400;600;700&family=Poiret+One&family=Roboto:wght@300;400;500;700&display=swap');
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -26,6 +26,8 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-y: scroll;
+  font-family: 'Inter', sans-serif !important;
+
 }
 
 h1 {
@@ -73,7 +75,8 @@ button:focus-visible {
   text-decoration: none;
 }
 .roboto{
-  font-family: 'Exo 2', sans-serif;
-  font-family: 'Poiret One', cursive;
   font-family: 'Roboto', sans-serif;
+}
+.font-inter{
+  font-family: 'Inter', sans-serif !important;
 }

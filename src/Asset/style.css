@@ -296,3 +296,9 @@
 .h-90{
     height: 90%;
 }
+.min-vh-50{
+    min-height: 50vh;
+}
+.fs-12px{
+    font-size: 12px;
+}

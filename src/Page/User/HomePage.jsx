@@ -3,12 +3,12 @@ import Headers from "./Headers";
 import "../../Asset/style.css";
 import Footer from "./Footer";
 import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card } from "../Componen/Card";
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(()=>{
     const fetchData= async()=>{
       var res = await getListFoundItem(1, 4, null,null,null);
@@ -33,7 +33,7 @@ export default function HomePage() {
             yang <br />
             hilang dan mengabarikannya ke kamu
           </h5>
-          <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold">
+          <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold" onClick={(e)=>navigate("/Barang")}>
             Cari Barangmu
           </button>
         </div>
@@ -46,7 +46,7 @@ export default function HomePage() {
                 Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
                 berupaya mencari barang anda. Note: Jika Barang Tidak ditemukan
                 pada list barang setelah 1x24 jam, silahkan klik{" "}
-                <Link to="/report">disini</Link>.
+                <Link to="/report#header">disini</Link>.
               </p>
           </div>
           <div className="col-md-6">

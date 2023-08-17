@@ -35,7 +35,7 @@ export default function DetailBarang() {
             <Headers />
 
             <div className="container pb-3 mt-3 py-5" id="title">
-                <h2 className="fw-bold text-dark">Informasi Barang Hilang</h2>
+                <h2 className="fw-bold">Informasi Barang Hilang</h2>
             </div>
 
             <div className="container my-5 pb-5 text-dark">
@@ -45,10 +45,10 @@ export default function DetailBarang() {
                     </div>
                     <div className="col-md-8">
                         <h2 className="fw-bold">{data.name}</h2>  
-                        <p className="card-category my-5" style={{width:"10%"}}>{data.category}</p>
-                        <p className="detail fw-bold text-dark">Deskripsi :</p>
-                        <p className="detail my-2" >{data.description}</p>
-                        <p className="detail mt-5" >Informasi Penemuan :</p>
+                        <p className="badge bg-success my-3" style={{width:"10%"}}>{data.category}</p>
+                        <p className="detail text-third">Deskripsi :</p>
+                        <p className="detail mt-1" >{data.description}</p>
+                        <p className="detail mt-5 text-third" >Informasi Penemuan :</p>
                         <div className="my-2">
                             <span>
                                 <i className="mx-2">
@@ -65,7 +65,7 @@ export default function DetailBarang() {
                                 Gerbang 6
                             </span>
     </div>*/}
-                        <button className="btn btn-primary w-100 text-white p-3" onClick={goToConfirmation}>
+                        <button className="btn btn-primary w-100 text-white p-3 mt-5" onClick={goToConfirmation}>
                             Konfirmasi Barang
                         </button>
                     </div>

@@ -33,18 +33,19 @@ export default function Headers() {
     checkAccessToken()
     .then((e)=>{
       setIsLogin(true);
+      fetchCountNotification()
+      .then((e)=>{
+        setCountNotification(e.data);
+      })
+      getListNotification()
+      .then((e)=>{
+        setListNotification(e.data)
+      })
     })
     .catch((e)=>{
       setIsLogin(false);
     })
-    fetchCountNotification()
-    .then((e)=>{
-      setCountNotification(e.data);
-    })
-    getListNotification()
-    .then((e)=>{
-      setListNotification(e.data)
-    })
+    
   },[isLogin])
   const handleLogout = async()=>{
     logout()
@@ -62,7 +63,6 @@ export default function Headers() {
   e.preventDefault();
   login({email:email, password:password})
   .then((e)=>{
-    console.log(e);
     if(e.status == 200){
       setErrorLogin(null);
       console.log(e.data.data);
@@ -82,7 +82,7 @@ export default function Headers() {
 
   return (
     <>
-    <div>
+    <div id="header">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid py-3">
           <a class="navbar-brand ms-5 d-none d-md-inline" href="#">

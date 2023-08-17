@@ -13,16 +13,20 @@ import {
     Col
   } from "react-bootstrap";
 import { Card } from "../Componen/Card";
+import {FiAlertTriangle } from 'react-icons/fi';
+import { Link } from "react-router-dom";
 
 export default function ListBarang() {
 
     const [kategori, setKategori] = useState("");
-    const [dataName, setName] = useState("");
+    const [name, setName] = useState("");
     const [barang, setBarang] = useState([]);
     const [page, setPage] = useState(1);
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [dataCategory, setDataCategory] = useState([]);
+    const [isHasMore, setHasMore] = useState(false);
+    const [totalPage, setTotalPage] = useState(0);
     const handleKategori = (e) => {
         setKategori(e.target.value);
     };
@@ -38,11 +42,13 @@ export default function ListBarang() {
     }
 
     useEffect(()=>{
-        getListFoundItem(page, 9, dataName, kategori, startDate, endDate)
+        getListFoundItem(page, 12, name, kategori, startDate, endDate)
         .then((e)=>{
             setBarang(e.data.data)
+            setHasMore(e.data.isHasMore);
+            setTotalPage(e.data.totalPage);
         })
-    },[kategori, startDate, endDate])
+    },[kategori, startDate, endDate, name, page])
 
     useEffect(()=>{
         getCategory()
@@ -90,16 +96,17 @@ export default function ListBarang() {
             </div>
 
 
-            <div className="container">
+            <div className="container min-vh-50">
                 {/* Sub Judul */}
                 <div className="row">
-                <div className="col-3">
-                    <h4 className="text-start pt-5">Filter</h4>
-                </div>
-                <div className="col-9">
-                    <h4 className="text-start pt-5">Daftar Barang Yang Ditemukan</h4>
-
-                </div>
+                    <div className="col-3">
+                        <h4 className="text-start pt-5">Filter</h4>
+                    </div>
+                    <div className="col-9">
+                        <h4 className="text-start pt-5">Daftar Barang Yang Ditemukan</h4>
+                        <p className="text-third"><FiAlertTriangle/> Note : Jika barang tidak Ditemukan pada list barang setelah 1x24 jam, silahkan hubungi <i>contact center</i>  
+                        <Link to={"/report"} className="ms-1">disini</Link></p>
+                    </div>
                 </div>
 
                 {/* Content */}
@@ -114,7 +121,7 @@ export default function ListBarang() {
                             >
                                 <option value="">--</option>
                                 {dataCategory.map(data=>{
-                                    return <option value={data.category}>{data.category}</option>
+                                    return <option value={data.category} key={data.category}>{data.category}</option>
                                 })}
                             </select>
                         </div>
@@ -125,11 +132,8 @@ export default function ListBarang() {
                             <hr style={{width:'20%', border:'1px solid black'}} className="container"/>
                             <input type="date" className="form-control" id="enddate" onChange={handleEndDate} value={endDate}/> 
                         </div>
-                        <div className="pt-2">
-                            <button className="btn btn-hapus w-100 fw-bold">Hapus Filter</button>
-                        </div>
                     </div>
-                    <div className="col-12 col-md-9 pb-5">
+                    <div className="col-12 col-md-9 pb-5 min-vh-50 position-relative mb-5">
                         <div className="my-3">
                             <div className='d-flex row'>
                                 {barang.map((item) => {
@@ -140,10 +144,13 @@ export default function ListBarang() {
                                 }
                             </div>
                         </div>
-                        <div className="d-flex justify-content-center">
-                            <button>{"<"}</button>
-                            <button disabled className="mx-1">1</button>
-                            <button>{">"}</button>
+                        <div className="position-absolute bottom-0 w-100">
+                            <div className="d-flex justify-content-center ">
+
+                                <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+                                <button disabled className="mx-1">{page}{isHasMore}</button>
+                                <button onClick={(e)=>setPage(page+1)} className={!isHasMore?"d-none":""}>{">"}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
