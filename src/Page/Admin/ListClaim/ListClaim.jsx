@@ -13,6 +13,9 @@ export default function ListClaim() {
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [status, setStatus] = useState(null);
+  const [page, setPage] = useState(1);
+
+
   let navigate = useNavigate();
   const nextButton = async ()=>{
     setCurrentPage(currentPage+1);
@@ -31,7 +34,8 @@ export default function ListClaim() {
     const token = Cookies.get("token");
     const getListData = async()=>{
       try{
-        let listData = await getListClaim({page:currentPage,status:status});
+        let listData = await getListClaim({page,status:status});
+        console.log(listData);
         setData(listData.data.data);
       }catch(e){
         if(e.error ===401){
@@ -40,7 +44,7 @@ export default function ListClaim() {
       }
     }
     getListData();
-  }, [status]);
+  }, [status, page]);
   return (
     <AdminDefault
       title={"List Claim"}
@@ -103,7 +107,7 @@ export default function ListClaim() {
             </table>
           </div>
           {/* Pagination */}
-          <nav aria-label="pagination" className="d-flex">
+          {/* <nav aria-label="pagination" className="d-flex">
             <button
               className={`page-item ${currentPage === 1 ? 'disabled' : ''} text-secondary`}
               onClick={prevButton}
@@ -112,7 +116,9 @@ export default function ListClaim() {
             </button>
             <div className="text-center d-flex justify-content-center my-auto">
               Page {currentPage} of {totalPages}
-            </div>     
+            </div>    
+            {currentPage == 1 ? <>
+              <div className="d-none">
             <button
               className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
               onClick={nextButton}
@@ -120,7 +126,25 @@ export default function ListClaim() {
             >
               {">"}
             </button>
-          </nav>
+              
+              </div>
+            </> : 
+              <button
+              className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
+              onClick={nextButton}
+              disabled={!hasMore}
+            >
+              {">"}
+            </button>
+              
+              } 
+           
+          </nav> */}
+          <div className="d-flex justify-content-center ">
+          <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+          <button disabled className="mx-1">{page}{hasMore}</button>
+          <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
+          </div>
         </div>
       }/>
 );

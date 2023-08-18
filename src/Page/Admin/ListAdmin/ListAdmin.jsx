@@ -37,7 +37,7 @@ export default function ListAdmin() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       alert("Berhasil menghapus admin");
       fetchData();
     } catch (error) {

@@ -146,7 +146,6 @@ export default function ListBarang() {
                         </div>
                         <div className="position-absolute bottom-0 w-100">
                             <div className="d-flex justify-content-center ">
-
                                 <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
                                 <button disabled className="mx-1">{page}{isHasMore}</button>
                                 <button onClick={(e)=>setPage(page+1)} className={!isHasMore?"d-none":""}>{">"}</button>
