@@ -10,6 +10,8 @@ export default function ListAdmin() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+
   const navigate = useNavigate();
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
@@ -18,7 +20,7 @@ export default function ListAdmin() {
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
     try{
-      const response = await getListAdmin({page:currentPage, name:null,email:null,access:null}); 
+      const response = await getListAdmin({page, name:null,email:null,access:null}); 
       console.log(response);
       setData(response.data.data);
       setTotalPages(response.data.pageTotal);
@@ -49,12 +51,7 @@ export default function ListAdmin() {
     }
   };
   
-  const nextButton = async ()=>{
-    setCurrentPage(currentPage+1);
-  }
-  const prevButton = ()=>{
-    setCurrentPage(currentPage-1);
-  }
+  useEffect(() => {}, [data, page]);
   return (
     <AdminDefault
       title={"List Admin"}
@@ -87,24 +84,11 @@ export default function ListAdmin() {
               </table>
             </div>
              {/* Pagination */}
-          <nav aria-label="pagination" className="d-flex">
-                <button
-                  className={`page-item ${currentPage === 1 ? 'disabled' : ''} text-secondary`}
-                  onClick={prevButton}
-                  disabled={currentPage === 1}
-                >{"<"}
-                </button>
-                <div className="text-center d-flex justify-content-center my-auto">
-                  Page {currentPage} of {totalPages}
-                </div>     
-                <button
-                  className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
-                  onClick={nextButton}
-                  disabled={!hasMore}
-                >
-                  {">"}
-                </button>
-          </nav>
+             <div className="d-flex justify-content-center ">
+          <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+          <button disabled className="mx-1">{page}{hasMore}</button>
+          <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
+          </div>
           </div>
         </>
       }
