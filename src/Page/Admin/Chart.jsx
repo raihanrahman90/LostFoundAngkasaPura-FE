@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,11 +8,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
-import axios from "axios";
-import Cookies from "js-cookie";
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,118 +22,46 @@ ChartJS.register(
   Legend
 );
 
-export function Chart() {
-  const [datasets, setDatasets] = useState([]);
-  const [labels, setLabels] = useState([]);
-  const [startDate, setStartDate] = useState("2023-01-01");
-  const [endDate, setEndDate] = useState("2023-12-31");
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        //   text: 'Chart.js Line Chart',
-      },
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
     },
-  };
+    title: {
+      display: true,
+    //   text: 'Chart.js Line Chart',
+    },
+  },
+};
 
-  const data = {
-    labels: labels,
-    datasets: datasets,
-  };
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
 
-  useEffect(() => {
-    const token = Cookies.get("token");
-    axios
-      .get(
-        `${BASE_URL}/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setDatasets(res.data.data.datasets);
-        setLabels(res.data.data.labels);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+export const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+        label: 'Dataset 3',
+        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        borderColor: 'rgb(8, 143, 143)',
+        backgroundColor: 'rgba(8, 143, 143, 0.5)',
+      },
+  ],
+};
 
-  const handleTanggal = (e) => {
-    e.preventDefault();
-    const token = Cookies.get("token");
-    axios
-      .get(
-        `${BASE_URL}/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setDatasets(res.data.data.datasets);
-        setLabels(res.data.data.labels);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  return (
-    <>
-      <div className="row">
-        <div className="col-md-2 col-12">
-          <form onSubmit={handleTanggal} className="mt-5">
-            <div className="w-100">
-              <label htmlFor="" className="w-100">
-                Start
-                <input
-                  type="month"
-                  className="w-100 px-5 py-2 rounded mb-3"
-                  onChange={(e) => {
-                    setStartDate(e.target.value);
-                  }}
-                />
-              </label>
-
-              <label htmlFor="" className="w-100">
-                End
-                <input
-                  type="month"
-                  className="w-100 px-5 py-2 rounded mb-3"
-                  onChange={(e) => {
-                    setEndDate(e.target.value);
-                  }}
-                />
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="border border-0 bg-primary text-white px-3 border-dark text-dark me-3 fw-bold  rounded py-2 w-100"
-            >
-              Set Tanggal
-            </button>
-            <button className="btn btn-primary text-white w-100 mt-1 fw-bold">
-              Download CSV
-            </button>
-          </form>
-        </div>
-
-        <div className="w-md-75 h-100 col-12 col-md-10 d-flex justify-content-center">
-          <div className="w-100">
-            <Line options={options} data={data}/>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+export function Chart() {
+  return <Line options={options} data={data} />;
 }
