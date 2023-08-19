@@ -1,18 +1,17 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "http://103.150.92.47:8081";
-axios.defaults.withCredentials = true
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export const defaultRequest = axios.create({
    baseURL: BASE_URL,
-   headers: {
+  headers: {
     "Content-Type": "application/json",
   },
 });
 
 export const authRequest = axios.create({
   baseURL: BASE_URL,
-  withCredentials:true,
   headers: {
     "Content-Type": "application/json",
     "Authorization": 'Bearer '+ Cookies.get('token')
@@ -20,24 +19,8 @@ export const authRequest = axios.create({
   },
 });
 
-export const callApiWithToken = async(
-  url,
-  method,
-  dataToSend,
-  accessToken)=>{
+export const instance = axios.create({
+  baseURL: BASE_URL,
+  headers: {"Authorization": 'Bearer '+ Cookies.get('token')}
+});
 
-  try {
-      const response = await defaultRequest.request({
-          url,
-          method,
-          data: dataToSend,
-          withCredentials:true,
-          headers: {
-              'Authorization': `Bearer ${accessToken}`,
-          },
-      });
-      return response.data;
-  } catch (e) {
-    throw e.response;
-  }
-}
