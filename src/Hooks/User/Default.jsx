@@ -11,6 +11,18 @@ export const login = async ({
     })
 };
 
+export const register = async ({
+    email, password, name, phone
+})=>{
+    return defaultRequest
+    .post(`/auth/register`, {
+        email:email,
+        password:password,
+        name:name,
+        phone:phone
+    })
+};
+
 export const defaultUserRequest = async(
     url, method, body
 )=>{
