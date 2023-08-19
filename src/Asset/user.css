@@ -18,3 +18,103 @@
     /* margin-bottom: 10% !important; */
     margin-bottom: 6% !important;
 }
+.hv-75{
+    height: 75vh;
+}
+.hv-50{
+    height: 50vh;
+}
+.hv-45{
+    height: 45vh;
+}
+.h-fit-content{
+    height: fit-content;
+}
+.landingpage-card{
+    margin-top: -100px!important;
+    z-index: 99px;
+}
+
+.cardTitle{
+    display: absolute;
+    margin-left: 25vw;
+    width: 50%; 
+    margin-bottom: 5%;
+}
+
+.card-category {
+    background-color: #66B82E;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 10 0 10;
+    text-align: center;
+
+}
+
+.listBarang{
+    margin-top: 10% !important;
+}
+
+.btn-filter{
+    color: white !important;
+}
+
+.btn-hapus{
+    border: #138FC7 1px solid !important;
+    color: #138FC7 !important;
+}
+
+.detail {
+    text-align: justify;
+    font-size: 16px;;
+}
+
+
+.confirmedStyle {
+    background-color: #66B82E;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 10 0 10;
+    text-align: center;
+    width: 17%;
+    /* other confirmed styles */
+}
+
+.confirmationStyle {
+    background-color: #F1C40F;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 10 0 10;
+    text-align: center;
+    width: 20%;
+    /* other confirmation styles */
+}
+
+.rejectStyle {
+    background-color: #E71414;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 0 10 0 10;
+    text-align: center;
+    width: 17%;
+    /* other reject styles */
+}
+
+.claim-text {
+    text-align: justify;
+}
+
+.card {
+    border-radius: 20px;
+}
+
+.data-diri {
+    background-color: #EDEDED;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.notif{
+    background-color: transparent;
+    color: #0480B8;
+}

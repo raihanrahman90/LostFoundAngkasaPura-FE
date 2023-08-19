@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import "../../Asset/style.css";
@@ -12,6 +10,7 @@ export default function CustomReport() {
 
   const [noHp, setNoHp] = useState("");
   const [email, setEmail] = useState("");
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleNoHp = (e) => {
     setNoHp(e.target.value);
@@ -38,7 +37,7 @@ export default function CustomReport() {
 
    useEffect(() => {
     const token = Cookies.get("token");
-    axios.get("http://103.150.92.47:8081/Admin/Item-Found", {
+    axios.get(`${BASE_URL}/Admin/Item-Found`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -57,7 +56,6 @@ export default function CustomReport() {
     <div className="bgDashboard">
       <div className="row  pt-5 pb-5">
         <div className="col-2 ">
-          <Navbar />
         </div>
 
         <div
