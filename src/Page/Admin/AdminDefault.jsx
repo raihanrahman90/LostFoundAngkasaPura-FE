@@ -138,16 +138,9 @@ export const AdminDefault = ({title, body}) =>{
               <CgProfile/>
             </button>
             <div className={"notif-dropdown "+(showProfile?"":"d-none")}>
-            <div className="notif-list">
-                  <Link className="text-decoration-none text-dark fw-bold" to="/admin/Setting">
+                  <Link className="text-decoration-none text-dark fw-bold d-block notif-list w-100" to="/admin/Setting">
                   Setting
                   </Link>
-                </div>
-                <div className="notif-list">
-                  <p className="notif-title">
-                  Logout
-                  </p>
-                </div>
             </div>
           </div>
           <div className="rounded shadow px-1 px-md-5 my-3 mx-3 py-3 pt-5 admin-content">

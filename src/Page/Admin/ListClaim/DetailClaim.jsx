@@ -29,20 +29,19 @@ const Detail = () => {
 
   },[comment])
   useEffect(()=>{
-    const fetchData = async()=>{
-      getDetailClaim({id:routeParams["id"]})
-      .then((e)=>{
-        setItem(e.data);
-      })
-      .catch((err)=>{
-        if(err.response.status ==401){
-          navigate("/admin");
-        }
-      });
-    }
     fetchData();
-  },[])
-
+  },[]);
+  const fetchData = async()=>{
+    getDetailClaim({id:routeParams["id"]})
+    .then((e)=>{
+      setItem(e.data);
+    })
+    .catch((err)=>{
+      if(err.response.status ==401){
+        navigate("/admin");
+      }
+    });
+  }
   const getComment = async ()=>{
     const token = Cookies.get("token");
     axios
@@ -80,7 +79,7 @@ const Detail = () => {
     e.preventDefault();
     const token = Cookies.get("token");
     const data = {
-      itemClaimId: idItemClaim,
+      itemClaimId: itemClaimId,
       value : comment,
       imageBase64 : image64 
   };
@@ -110,7 +109,7 @@ const tolakHandle = async () => {
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${idItemClaim}/reject`,
+      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/reject`,
       {
         rejectReason: tolak,
       },
@@ -122,11 +121,11 @@ const tolakHandle = async () => {
     );
 
     console.log('Tolak response:', response.data);
-    setLoading(false)
-
+    setLoading(false);
+    fetchData();
   } catch (error) {
     console.error('Tolak error:', error);
-
+    setLoading(false);
   }
 };
 
@@ -328,7 +327,7 @@ const terimaHandle = async () => {
                       <div class="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
-                          <label htmlFor="namaBarang" className="form-label">rejectReason</label>
+                          <label htmlFor="namaBarang" className="form-label">Alasan</label>
                           <input required type="text" className="form-control" id="namaBarang" onChange={(e)=>{setTolak(e.target.value)}} />
                         </div>
                         {/* End of Form filter */}
