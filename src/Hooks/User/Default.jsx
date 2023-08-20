@@ -58,3 +58,11 @@ export const checkAccessToken = async ()=>{
 export const logout = async ()=>{
     return await defaultUserRequest("auth/logout", "get", "");
 }
+
+export const requestCodeForgotPassword = async({email})=>{
+    return await defaultRequest.post("auth/forgot-password/code", {email:email});
+}
+
+export const requestPasswordReset = async({email, code, password})=>{
+    return await defaultRequest.post("auth/forgot-password/reset-password", {email:email, code:code, password:password});
+}

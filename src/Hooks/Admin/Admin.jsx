@@ -73,3 +73,9 @@ export const getProfile = async()=>{
 export const updateProfile = async({email, updatePassword, password})=>{
     return defaultAdminRequest({url:"/admin/admin/profile", method:"post", body:{email:email, updatePassword:updatePassword, password:password}})
 }
+export const downloadExcel = async({startDate, endDate})=>{
+    var url = "/admin/dashboard/download?";
+    if(startDate.trim()!="") url=url+"startDate="+startDate;
+    if(endDate.trim()!="") url = url+"&endDate="+endDate;
+    return defaultAdminRequest({url:url, method:"get",body:""});
+}

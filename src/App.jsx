@@ -23,6 +23,7 @@ import NotFound from "./Page/User/NotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 import LoginUser from "./Page/User/Login";
+import ForgotPassword from "./Page/User/ForgotPassword";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
               <Route path="/Claim" element={<ListClaimUser/>}/>
               <Route path="/Claim/:id" element={<DetailClaimBarang/>}/>
               <Route path="/Login" element={<LoginUser/>}/>
+              <Route path="/forgot-password" element = {<ForgotPassword/>}/>
             </Routes>
         </BrowserRouter>
       </section>

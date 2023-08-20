@@ -25,14 +25,9 @@ export default function Dashboard() {
         },
       })
       .then((res) => {
-        // console.log(res.data.data);
         setDatas(res.data.data);
       })
       .catch((err) => {
-        console.log("ini error")
-        console.log(err);
-        console.log("ini accessToken");
-        console.log(token)
         if(err.response.status==401){
           navigate("/admin");
         };

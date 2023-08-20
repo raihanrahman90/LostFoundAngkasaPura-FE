@@ -302,3 +302,6 @@
 .fs-12px{
     font-size: 12px;
 }
+.content{
+    min-height: 40vh;
+}

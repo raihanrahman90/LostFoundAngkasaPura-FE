@@ -13,6 +13,9 @@ import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { downloadExcel } from "../../Hooks/Admin/Admin";
+import fileDownload from "js-file-download";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -88,6 +91,12 @@ export function Chart() {
         console.log(err);
       });
   };
+  const clickDownload = ()=>{
+    downloadExcel({startDate:startDate,endDate:endDate})
+    .then((e)=>{
+      fileDownload(e, 'Lost found.xlsx');
+    });
+  }
 
   return (
     <>
@@ -123,7 +132,7 @@ export function Chart() {
             >
               Set Tanggal
             </button>
-            <button className="btn btn-primary text-white w-100 mt-1 fw-bold">
+            <button className="btn btn-primary text-white w-100 mt-1 fw-bold" onClick={clickDownload}>
               Download CSV
             </button>
           </form>

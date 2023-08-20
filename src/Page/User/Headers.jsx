@@ -203,7 +203,7 @@ useEffect(()=>{
                       <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
                     </div>
 
-                      <p className="mt-3"><a href="#"> Lupa password </a></p>
+                      <p className="mt-3"><Link to="/forgot-password"> Lupa password </Link></p>
 
                       <div className="mx-auto d-block">
 
