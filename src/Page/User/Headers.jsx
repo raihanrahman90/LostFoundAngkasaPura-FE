@@ -203,9 +203,9 @@ useEffect(()=>{
                       <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
                     </div>
 
-                    <p className="mt-3"><a href="#"> Lupa password </a></p>
+                      <p className="mt-3"><a href="#"> Lupa password </a></p>
 
-                    <div className="mx-auto d-block">
+                      <div className="mx-auto d-block">
 
                     <button className="w-100 mt-3 btn bg-primary text-white" type="submit">Login</button>
                     </div>
@@ -231,7 +231,7 @@ useEffect(()=>{
                       <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
                     </div>
 
-                    <h5 className="mb-3">Login</h5>
+                    <h5 className="mb-3">Daftar</h5>
                     {errorLogin?<div className="alert bg-danger text-white">
                       {errorLogin}
                     </div>:<></>}
@@ -262,7 +262,7 @@ useEffect(()=>{
                 </div>
               </div>
             </div>
-            </div>
+          </div>
           </div>
         </div>
       </nav>

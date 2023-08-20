@@ -67,3 +67,9 @@ export const createAdmin = async ({body})=>{
 export const getListNotification = async()=>{
     return defaultAdminRequest({url:"/admin/admin/notification", method:"get", body:""});
 }
+export const getProfile = async()=>{
+    return defaultAdminRequest({url:"/admin/admin/profile", method:"get", body:""});
+}
+export const updateProfile = async({email, updatePassword, password})=>{
+    return defaultAdminRequest({url:"/admin/admin/profile", method:"post", body:{email:email, updatePassword:updatePassword, password:password}})
+}
