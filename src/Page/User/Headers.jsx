@@ -4,7 +4,7 @@ import { BsBell } from "react-icons/bs";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {login, logout} from '../../Hooks/User/Default';
+import {login, logout, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
@@ -13,12 +13,15 @@ import {  fetchCountNotification, getListNotification } from "../../Hooks/User/N
 export default function Headers() {
 
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [phone , setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState();
   const [isLogin, setIsLogin] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const [countNotification, setCountNotification] = useState(0);
   const [listNotification, setListNotification] = useState([]);
+
   const clickNotif=()=>{
     if(showNotif){
       setShowNotif(false);
@@ -80,6 +83,38 @@ export default function Headers() {
   });
 }
 
+const handleRegister = async (e) => {
+  e.preventDefault();
+  register({email:email, password:password, name:name, phone:phone})
+  .then((e)=>{
+    if(e.status == 200){
+      setErrorLogin(null);
+      Cookies.set("token", e.data.data);
+      setIsLogin(true);
+      setEmail("");
+      setPassword("");
+      window.location.reload();
+    }else{
+      setErrorLogin(e.message);
+    }
+  })
+  .catch((e)=>{
+    setErrorLogin(e.response.data.data);
+  });
+}
+
+useEffect(()=>{
+  const data = {
+    email:email,
+    password:password,
+    phone:phone,
+    name:name
+  }
+
+  console.log(data);
+},[])
+
+
   return (
     <>
     <div id="header">
@@ -135,93 +170,99 @@ export default function Headers() {
                 </button>
                 <button className="btn bg-danger text-white pe-5 ps-5 me-5 ms-5" onClick={handleLogout}> Logout </button>
               </>:
-              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
                 Login
               </button>}
               
               
 
             {/* <!-- Modal --> */}
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal modalLogin fade" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form class="modal-body" onSubmit={handleLogin}>
+
+                    <div>
+                      <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
                     </div>
-                    <form class="modal-body" onSubmit={handleLogin}>
 
-                      <div>
-                        <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
-                      </div>
+                    <h5 className="mb-3">Login</h5>
+                    {errorLogin?<div className="alert bg-danger text-white">
+                      {errorLogin}
+                    </div>:<></>}
+                    
+                    <div>
+                    <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Alamat Email" required/>
+                    </div>
 
-                      <h5 className="mb-3">Login</h5>
-                      {errorLogin?<div className="alert bg-danger text-white">
-                        {errorLogin}
-                      </div>:<></>}
-                      
-                      <div>
-                      <input className="mx-1 px-4 py-2 w-100 " onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Alamat Email" required/>
-                      </div>
-
-                      <div className="mt-3">
-                        <input className="mx-1 px-4 py-2 w-100" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
-                      </div>
+                    <div className="mt-3">
+                      <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
+                    </div>
 
                       <p className="mt-3"><a href="#"> Lupa password </a></p>
 
                       <div className="mx-auto d-block">
 
-                      <button className="w-100 mt-3 btn bg-primary text-light" type="submit">Login</button>
-                        <p className="text-center mt-2">
-                          Belum punya akun? 
-                          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar</button>
-                        </p>
-                      </div>
-
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="modal fade" id="daftarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button className="w-100 mt-3 btn bg-primary text-white" type="submit">Login</button>
                     </div>
-                    <form class="modal-body" onSubmit={handleLogin}>
 
-                      <div>
-                        <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
-                      </div>
-
-                      <h5 className="mb-3">Login</h5>
-                      {errorLogin?<div className="alert bg-danger text-white">
-                        {errorLogin}
-                      </div>:<></>}
-                      
-                      <div>
-                      <input className="mx-1 px-4 py-2 w-100 " onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Alamat Email" required/>
-                      </div>
-
-                      <div className="mt-3">
-                        <input className="mx-1 px-4 py-2 w-100" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
-                      </div>
-
-                      <p className="mt-3"><a href="#"> Lupa password </a></p>
-
-                      <div className="mx-auto d-block">
-
-                      <button className="w-100 mt-3 btn bg-primary text-light" type="submit">Login</button>
-                        <p className="text-center mt-2">Belum punya akun? <span><a href="#">Daftar</a></span></p>
-                      </div>
-
-                    </form>
-                  </div>
+                  </form>
+                    <p className="text-center mt-2">Belum punya akun? <span><button className="bg-transparent border-0 text-black" data-bs-target="#exampleModalRegis" data-bs-dismiss="modalLogin"  data-bs-toggle="modal" >Daftar</button></span></p>
                 </div>
               </div>
             </div>
+
+            {/* modalRegis */}
+
+            <div class="modal modalRegis fade" id="exampleModalRegis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form class="modal-body" onSubmit={handleRegister}>
+
+                    <div>
+                      <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
+                    </div>
+
+                    <h5 className="mb-3">Daftar</h5>
+                    {errorLogin?<div className="alert bg-danger text-white">
+                      {errorLogin}
+                    </div>:<></>}
+                    
+                    <div className="mt-3">
+                    <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setName(e.target.value)}}  type="text" placeholder="Name" required/>
+                    </div>
+
+                    <div className="mt-3">
+                    <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setEmail(e.target.value)}}  type="email" placeholder="Email" required/>
+                    </div>
+
+                    <div className="mt-3">
+                    <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPhone(e.target.value)}}  type="number" placeholder="Phone" required/>
+                    </div>
+
+                    <div className="mt-3">
+                      <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
+                    </div>
+
+                    <div className="mx-auto d-block">
+
+                    <button className="w-100 mt-3 btn bg-primary text-white" type="submit">Daftar</button> 
+                    </div>
+
+                  </form>
+                    <p className="text-center mt-2">Sudah punya akun? <span><button className="bg-transparent border-0 text-black"   data-bs-dismiss="modal" >Login</button></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </nav>

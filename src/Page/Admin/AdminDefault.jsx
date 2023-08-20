@@ -139,9 +139,9 @@ export const AdminDefault = ({title, body}) =>{
             </button>
             <div className={"notif-dropdown "+(showProfile?"":"d-none")}>
             <div className="notif-list">
-                  <p className="notif-title">
+                  <Link className="text-decoration-none text-dark fw-bold" to="/admin/Setting">
                   Setting
-                  </p>
+                  </Link>
                 </div>
                 <div className="notif-list">
                   <p className="notif-title">

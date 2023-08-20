@@ -57,6 +57,14 @@ export default function ListBarang() {
         })
     }, [])
 
+    const handleReset = ()=>{
+        setKategori('');
+        setStartDate('');
+        setEndDate('');
+    }
+
+
+
     return (
         <div style={{backgroundColor:"white"}}>
             <Headers />
@@ -132,6 +140,10 @@ export default function ListBarang() {
                             <hr style={{width:'20%', border:'1px solid black'}} className="container"/>
                             <input type="date" className="form-control" id="enddate" onChange={handleEndDate} value={endDate}/> 
                         </div>
+
+                        <button className="w-100 mt-3 bg-danger" onClick={handleReset} >
+                            reset
+                        </button>
                     </div>
                     <div className="col-12 col-md-9 pb-5 min-vh-50 position-relative mb-5">
                         <div className="my-3">
@@ -146,7 +158,6 @@ export default function ListBarang() {
                         </div>
                         <div className="position-absolute bottom-0 w-100">
                             <div className="d-flex justify-content-center ">
-
                                 <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
                                 <button disabled className="mx-1">{page}{isHasMore}</button>
                                 <button onClick={(e)=>setPage(page+1)} className={!isHasMore?"d-none":""}>{">"}</button>
