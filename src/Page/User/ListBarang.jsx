@@ -126,6 +126,7 @@ export default function ListBarang() {
                             onChange={handleKategori}
                             className="form-select"
                             id="kategori"
+                            value={kategori}
                             >
                                 <option value="">--</option>
                                 {dataCategory.map(data=>{
