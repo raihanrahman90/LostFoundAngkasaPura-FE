@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AdminDefault } from "../AdminDefault";
 import { useNavigate, useParams } from "react-router-dom";
+import { sendCloseItem } from "../../../Hooks/Admin/Item";
+
 import axios from "axios";
 import Cookies from 'js-cookie';
 
@@ -28,6 +30,17 @@ export default function ItemFoundDetail() {
     });
   }, []);
 
+  const closeHandle = async()=>{
+    sendCloseItem({id:itemFoundId})
+    .then((e)=>{
+      alert("Berhasil meng-closed item");
+      window.location.reload();
+    })
+    .catch((e)=>{
+      console.log(e);
+      alert(e.data.data);
+    })
+  }
   // console.log(from);
   return (
     <AdminDefault
@@ -35,6 +48,10 @@ export default function ItemFoundDetail() {
       body={
         <>
         <div className="row"> 
+          <div className="col-md-6 col-12">
+            <h6>Gambar Barang</h6>
+            <img className="mx-auto d-block rounded" src={data.image} alt="" />
+          </div>
           <div className="container rounded border mt-3 col-12 col-md-6">
             <div className="pb-2 fw-bold form__group w-100">
               <input
@@ -86,9 +103,33 @@ export default function ItemFoundDetail() {
               >{data.description}</textarea>
               <label className="form__label" htmlFor="description">Description</label>
             </div>
-          </div>
-          <div className="col-md-6 col-12">
-            <img className="mx-auto d-block rounded" src={data.image} alt="" />
+            <div className="col-12 d-flex justify-content-end">
+                {data.status=="Confirmed"?<><button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
+                  Close Item
+                </button>
+                <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        {/* Form filter */}
+                        <div>
+                          Item Found akan diclosed
+                        </div>
+                        {/* End of Form filter */}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={closeHandle}>Terima</button>
+                      </div>
+                    </div>
+                  </div>
+                </div></>:<></>}
+                
+            </div>
           </div>
         </div>
 

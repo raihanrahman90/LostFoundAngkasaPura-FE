@@ -18,7 +18,6 @@ export const defaultAdminRequest = async({
         var accessToken = Cookies.get("token");
         if(accessToken==undefined){
             console.log("access token unddefined");
-            throw new Error("accessToken tidak ditemukan");
         }
         var res = await callApiWithToken(url, method, body, accessToken);
         return res;

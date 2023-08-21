@@ -22,17 +22,12 @@ export const addItem = async ({
 };
 
 
-export const getListItem = async () => {
-    return await defaultAdminRequest(`/Admin/Item-Found?foundDate=2023-07-30&name=Tas&category=Tas&status=Found`, 'get', {})
-    .then((res)=>{
-        console.log(res.data)
-        return res.data
-    }
-    )
-    .catch((error)=>{
-        console.error(new Error("TOLOOOOOOONG"));
-    }
-    );
+export const sendCloseItem = async({id})=>{
+    return defaultAdminRequest({url:"admin/item-found/"+id+"/closed", method:"post", body:{}});
+}
+
+export const getCategory = async()=>{
+    return defaultAdminRequest({url:"admin/item-found/category", method:"get", body:{}});
 }
 
 

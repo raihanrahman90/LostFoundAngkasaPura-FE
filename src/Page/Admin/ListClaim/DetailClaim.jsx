@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { BsFillPersonFill } from "react-icons/bs";
 import { AdminDefault } from "../AdminDefault";
 import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
+import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import Loading from "../../Componen/Loading"
 import { Link } from "react-router-dom";
 
@@ -84,19 +84,14 @@ const Detail = () => {
       imageBase64 : image64 
   };
   console.log(data)
-  const res = await axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
+  const res = axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
+  }).then((e)=>{
+    window.location.reload();
   });
-  getComment();
-  setComment("");
-  setImage64("");
-  setImage64("");
-
-
-  console.log(res)
 }
 
 const tolakHandle = async () => {
@@ -129,17 +124,28 @@ const tolakHandle = async () => {
   }
 };
 
+const closeHandle = async()=>{
+  console.log(",asuk sini gak sih")
+  sendCloseItem({id:item.itemFoundId})
+  .then((e)=>{
+    alert("Berhasil meng-closed item");
+    window.location.reload();
+  })
+  .catch((e)=>{
+    console.log(e);
+    alert(e.data.data);
+  })
+}
 const terimaHandle = async () => {
   if(namaTempat === "" || tgl === ""){
     alert("Data tidak boleh kosong")
     return
   }
-  console.log(namaTempat, tgl)
   setLoading(true)
   try {
     const token = Cookies.get('token');
     const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${idItemClaim}/approve`,
+      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/approve`,
       {
         claimLocation: namaTempat,
         claimDate: tgl
@@ -169,7 +175,7 @@ const terimaHandle = async () => {
       <>
           {item==null?<></>:<>
           
-          <div className={"row table overflow-hidden min-h-80 h-90 pb-2"}> 
+          <div className={"row table overflow-auto min-h-80 h-90 pb-2"}> 
             <div className="col-md-4 card me-2 h-100 overflow-auto">
               <div className="row">
                 <div className="col-12">
@@ -184,7 +190,7 @@ const terimaHandle = async () => {
               </div>
               <div className="row">
                 <div className="form__group col-12">
-                  <input type="text" disabled className="form__field" value={item.status}/>
+                  <input type="text" disabled className="form__field" value={item.itemFoundStatus}/>
                   <label className="form__label">Status</label>
                 </div>
               </div>
@@ -201,6 +207,12 @@ const terimaHandle = async () => {
                 </div>
                 <div className="row">
                   <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.status}/>
+                    <label className="form__label">Status</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.proofDescription}/>
                     <label className="form__label">Deskripsi</label>
                   </div>
@@ -213,33 +225,32 @@ const terimaHandle = async () => {
             <div className="col-md-7 card px-2 h-100 overflow-auto">
               {showComment.length > 0?
               <div>
-                
                 <h6>Keterangan Tambahan</h6>  
               </div>:<></>}
-                <div className="row">
-                  {showComment.map((item, index) => {
+                  {showComment.map((comment, index) => {
                     return (
-                      <div key={index} className=" border mb-2 col-12 col-xxl-8">
-                        <div className=" ">
-                        <span className="fw-bold text-dark">From: {item.userName} ({item.userStatus})</span>
-                        <p className="ps-5">{item.value}</p>
+                      <div className={"row "+(comment.userStatus==="Admin"?"justify-content-start":"justify-content-end")}>
+                        <div key={index} className="border mb-2 col-10 col-md-8">
+                          <div className=" ">
+                          <span className="fw-bold text-dark">From: {comment.userName} ({comment.userStatus})</span>
+                          <p className="ps-5">{comment.value}</p>
+                          </div>
+                          <div className="float-end   me-2 rounded">
+                          {comment.image ? (
+                            <>
+                        <Link
+                          className="col-12  text-dark bg-secondary border p-1 rounded text-decoration-none"
+                          to={"/admin/ShowImage"}
+                          state={{ from: comment.image  }}>
+                          Show image
+                        </Link>
+                            </>
+                          ) : (null)}</div>
                         </div>
-                        <div className="float-end   me-2 rounded">
-                        {item.image ? (
-                          <>
-                      <Link
-                      className="col-12  text-dark bg-secondary border p-1 rounded text-decoration-none"
-                      to={"/admin/ShowImage"}
-                      state={{ from: item.image  }}>
-                      Show image
-                    </Link>
-                          
-                          </>
-                        ) : (null)}</div>
+                      
                       </div>
                     );
                   })}
-                </div>
                 <form onSubmit={handleSubmitComment}>
                   <div className="mb-3">
                     <label htmlFor="comment" className="form-label fw-bold text-dark">
@@ -275,13 +286,13 @@ const terimaHandle = async () => {
                   </button>
                 </form>
               </div>
-          </div>
-          {item.status === "Confirmation" ? (
+            </div>
+            
             <div className="row">
               <div className="col-11">
                 <div className="float-end top"> 
-                {/* <button className="btn btn-success me-1 text-white me-5 px-5" onClick={terimaHandle}>Terima</button> */}
-                {/* start tombol terima */}
+          {item.status === "Confirmation" ? (
+            <>
                 <button type="button" class="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
                   Terima
                 </button>
@@ -289,7 +300,7 @@ const terimaHandle = async () => {
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="TerimaLabel">Terima Item</h5>
+                        <h5 class="modal-title" id="TerimaLabel">Terima Claim User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -339,13 +350,42 @@ const terimaHandle = async () => {
                     </div>
                   </div>
                 </div>
-              
+                </>
+              ):(null)}
+
+            {item.itemFoundStatus=="Confirmed"?<>
+            <button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
+              Close Item
+            </button>
+            <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {/* Form filter */}
+                    <div>
+                      Item Found akan diclosed
+                    </div>
+                    {/* End of Form filter */}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={closeHandle}>Terima</button>
+                  </div>
+                </div>
               </div>
+            </div></>:<></>}
+            
+            </div>
               {/* end tombol tolak */}
               </div>
               
-            </div>):(null)}
+            </div>
           </>}
+          
             
         </>
       }

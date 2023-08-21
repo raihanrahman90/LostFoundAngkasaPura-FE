@@ -59,6 +59,7 @@ export default function DetailClaimBarang() {
             setFile("")
             setBase64Image("");
             fetchComment();
+            window.location.reload();
         })
     }
     const handleStatus = (status) => {
@@ -69,6 +70,8 @@ export default function DetailClaimBarang() {
                 return "confirmationStyle";
             case "Reject":
                 return "rejectStyle";
+            case "Approved":
+                return "confirmedStyle";
             default:
                 return "";
         }
@@ -138,7 +141,7 @@ export default function DetailClaimBarang() {
                                                                         </div>
                                                                     </div>
                                                                     <div className="row">
-                                                                        <div className="col-3"><span className="bg-success badge"> Confirmed</span></div>
+                                                                        <div className="col-3"><span className="bg-success badge"> Approved</span></div>
                                                                         <div className="col-1">:</div>
                                                                         <div className="col-8">
                                                                             Data Anda telah dikonfirmasi oleh Admin, Anda dapat mengambil pada lokasi dan waktu yang ditentukan atau dapat menghubungi Admin melalui bagian keterangan tambahan.  
@@ -228,7 +231,7 @@ export default function DetailClaimBarang() {
                                 <div className="col-8 data-diri mb-3">
                                     <div className="block fw-bold text-dark">{e.userName} - {e.userStatus}</div>
                                     <p className="text-dark">{e.value}</p>
-                                    {e.image ==""?<></>:<a href={e.image}>Gambar</a>}
+                                    {e.image?<a href={e.image}>Gambar</a>:<></>}
                                 </div>
                                 {e.userStatus=="User"?<div className="col-1">
                                     <AiOutlineUser/>
@@ -242,7 +245,7 @@ export default function DetailClaimBarang() {
                             <input type="text" className="form-control" id="" placeholder="Informasi Tambahan" required onChange={handleInformasiTambahan} value={informasiTambahan}/>
                         </div>
                         <div className="col-12 py-2">
-                            <input className="form-control" type="file" id="formFile" required onChange={handleFileInputChange} key={file}/>
+                            <input className="form-control" type="file" id="formFile" onChange={handleFileInputChange}/>
                         </div>
                         <button className="bg-primary text-white btn px-5" type="submit">
                             Kirim

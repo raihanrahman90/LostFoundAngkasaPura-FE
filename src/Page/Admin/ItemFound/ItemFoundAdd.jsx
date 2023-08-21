@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
 import Loading from "../../Componen/Loading";
 import { useNavigate } from "react-router-dom";
+import { getCategory } from "../../../Hooks/Admin/Item";
 
 export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
   const [tanggalDitemukan, setTanggalDitemukan] = useState("");
   const [kategori, setKategori] = useState("perhiasan");
+  const [newCategory, setNewCategory] = useState(false);
+  const [listCategory, setListCategory] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Image, setBase64Image] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +30,12 @@ export default function ItemFoundAdd() {
       reader.readAsDataURL(file);
     }
   };
-
+  useEffect(()=>{
+    getCategory()
+    .then((e)=>{
+      setListCategory(e.data);
+    })
+  },[])
 
 
   const handleSubmit = async (e) => {
@@ -94,19 +102,32 @@ export default function ItemFoundAdd() {
           <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
         </div>
 
-        <div className="form__group col-6">
+        <div className="form__group col-3">
+          {newCategory?
+          <input
+          required
+            onChange={(e) => setKategori(e.target.value)}
+            className="form__field"
+            id="kategori"
+          />:
           <select
           required
             onChange={(e) => setKategori(e.target.value)}
             className="form__field"
             id="kategori"
           >
-            <option value="Perhiasan">Perhiasan</option>
-            <option value="Tas">Tas</option>
-            <option value="Dompet">Dompet</option>
-            <option value="Koper">Koper</option>
-          </select>
+            {listCategory.map((e)=>{
+              <option value={e.value} key={e.value}>{e.value}</option>
+            })}
+          </select>}
           <label className="form__label" htmlFor="kategori">Kategori</label>
+        </div>
+        <div className="form__group col-3">
+          <input
+            onChange={(e) => setNewCategory(!newCategory)}
+            type="checkbox"
+          />
+          <label  htmlFor="kategori">kategory baru?</label>
         </div>
 
         <div className="form__group col-6">

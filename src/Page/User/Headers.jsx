@@ -278,7 +278,7 @@ useEffect(()=>{
               </p>
             </div>:
               listNotification.map(t=><>
-                <div className="notif-list">
+                <div className="notif-list" onClick={()=>navigate(t.url)}>
                   <div className="notif-title">{t.title}</div>
                   <div className="notif-subtitle">{t.subtitle}</div>
                 </div>
