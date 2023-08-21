@@ -24,6 +24,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css'
 import LoginUser from "./Page/User/Login";
 import ForgotPassword from "./Page/User/ForgotPassword";
+import UserList from "./Page/Admin/User/UserList";
+import UserDetail from "./Page/Admin/User/UserDetail";
 
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
               <Route path="/admin/ListAdmin" element={<ListAdmin />} />
               <Route path="/admin/ShowImage" element={<ShowImage />} />
               <Route path="/admin/Setting" element={<Setting />} />
+              <Route path="/admin/user" element={<UserList/>}/>
+              <Route path="/admin/user/:id" element={<UserDetail/>}/>
 
 
     {/* user */}

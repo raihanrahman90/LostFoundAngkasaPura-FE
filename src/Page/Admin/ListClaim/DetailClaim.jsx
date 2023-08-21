@@ -207,6 +207,24 @@ const terimaHandle = async () => {
                 </div>
                 <div className="row">
                   <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.userName}/>
+                    <label className="form__label">Nama</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.userPhoneNumber}/>
+                    <label className="form__label">No. HP</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.userEmail}/>
+                    <label className="form__label">Email</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.status}/>
                     <label className="form__label">Status</label>
                   </div>

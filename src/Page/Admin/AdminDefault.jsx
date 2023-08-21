@@ -5,7 +5,7 @@ import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
-import { BiUser } from "react-icons/bi";
+import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
 import { getListNotification } from "../../Hooks/Admin/Admin";
@@ -45,7 +45,8 @@ export const AdminDefault = ({title, body}) =>{
     {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
     {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
     {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
-    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'}
+    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
+    {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
   ]
 
   useEffect(()=>{
