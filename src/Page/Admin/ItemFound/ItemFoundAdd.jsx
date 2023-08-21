@@ -33,6 +33,7 @@ export default function ItemFoundAdd() {
   useEffect(()=>{
     getCategory()
     .then((e)=>{
+      console.log(e.data);
       setListCategory(e.data);
     })
   },[])
@@ -117,7 +118,7 @@ export default function ItemFoundAdd() {
             id="kategori"
           >
             {listCategory.map((e)=>{
-              <option value={e.value} key={e.value}>{e.value}</option>
+              return <option value={e.category} key={e.category}>{e.category}</option>
             })}
           </select>}
           <label className="form__label" htmlFor="kategori">Kategori</label>
