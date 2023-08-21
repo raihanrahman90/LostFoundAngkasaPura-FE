@@ -178,7 +178,7 @@ export default function FoundItemList() {
                   {data.map((item, index) => {
                     let status=<></>;
                     if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;
-                    if(item.status==='Confirmed') status = <div className="badge bg-success">{item.status}</div>;
+                    if(item.status==='Confirmed' || item.status ==="Closed") status = <div className="badge bg-success">{item.status}</div>;
                       
                     return <>
                     <tr key={item.id}>
