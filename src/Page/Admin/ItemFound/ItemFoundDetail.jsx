@@ -96,7 +96,7 @@ export default function ItemFoundDetail() {
             
             <div className="pb-2 fw-bold form__group w-100">
               <textarea
-                value={data.status}
+                value={data.description}
                 className="form__field"
                 id="description"
                 disabled
