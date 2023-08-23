@@ -11,6 +11,7 @@ import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
 import ItemFoundDetail from "./Page/Admin/ItemFound/ItemFoundDetail";
 import ShowImage from "./Page/Admin/ListClaim/ShowImage";
 import Setting from "./Page/Admin/Setting";
+import DetailAdmin from "./Page/Admin/ListAdmin/DetailAdmin";
 // user
 import HomePage from "./Page/User/HomePage";
 import ListBarang from "./Page/User/ListBarang";
@@ -49,6 +50,7 @@ function App() {
               <Route path="/admin/Setting" element={<Setting />} />
               <Route path="/admin/user" element={<UserList/>}/>
               <Route path="/admin/user/:id" element={<UserDetail/>}/>
+              <Route path="/admin/DetailAdmin/:id" element={<DetailAdmin />} />
 
 
     {/* user */}

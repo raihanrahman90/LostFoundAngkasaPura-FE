@@ -4,6 +4,9 @@ import { getListAdmin } from "../../../Hooks/Admin/Admin";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
+import jwt from "jsonwebtoken";
+
+
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
@@ -11,6 +14,17 @@ export default function ListAdmin() {
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+
+
+  const jwtToken = () => {
+    const token = Cookies.get("token");
+    // const decoded = decode(token);
+    // console.log(decoded);
+  }
+
+  useEffect(() => {
+    jwtToken();
+  },[])
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,7 +35,7 @@ export default function ListAdmin() {
   const fetchData = async () => {
     try{
       const response = await getListAdmin({page, name:null,email:null,access:null}); 
-      console.log(response);
+      // console.log(response);
       setData(response.data.data);
       setTotalPages(response.data.pageTotal);
       setHasMore(response.data.isHasMore);
@@ -78,6 +92,12 @@ export default function ListAdmin() {
                       <td>{item.email}</td>
                       <td>{item.access}</td>
                       <td><button className="bg-danger text-white btn" onClick={() => handleDelete(item.id)}>Hapus</button></td>
+                      <Link
+                        to={`/Admin/DetailAdmin/${item.id}`}
+                        className="btn btn-primary text-white"
+                      >
+                        Detail
+                      </Link>
                     </tr>
                   ))}
                 </tbody>

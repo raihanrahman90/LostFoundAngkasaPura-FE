@@ -8,7 +8,7 @@ export const login = async ({
     .post(`/admin/Admin/login`, {
         email:email,
         password:password
-    });
+    })
 };
 
 export const defaultAdminRequest = async({
@@ -43,7 +43,7 @@ export const getAccessToken = async ()=>{
 export const getListAdmin = async ({page, name, email, access})=>{
     try{
         var url = "admin/admin?page="+page;
-        console.log(name==null);
+        // console.log(name==null);
         if(name !== null) {url= url+"&name="+name;}
         if(email !== null) {url = url+"&email="+email;}
         if(access !== null) {url = url+"&access="+access;}
@@ -77,4 +77,12 @@ export const downloadExcel = async({startDate, endDate})=>{
     if(startDate.trim()!="") url=url+"startDate="+startDate;
     if(endDate.trim()!="") url = url+"&endDate="+endDate;
     return defaultAdminRequest({url:url, method:"get",body:""});
+}
+
+export const getDetailAdmin = async ({ id }) => {
+    return await defaultAdminRequest({ url: "/admin/admin/" + id, method: "get", body: "" });
+}
+
+export const resetPassword = async ({ id }) => {
+    return await defaultAdminRequest({ url: "/admin/admin/" + id + "/reset-password", method: "post", body: "" });
 }
