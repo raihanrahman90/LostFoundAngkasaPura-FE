@@ -28,7 +28,7 @@ export default function Report() {
                                 Twitter: @Angkasapura172<br/>
                                 Instagram: @angkasapura_172<br/>
                                 Facebook: Contact Center Angkasa Pura 172<br/>
-                                Call: 142
+                                Call: 172
                             </p>
                         </div>
                     </div>
