@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import Loading from "../Componen/Loading";
+import jwt_decode from 'jwt-decode';
 
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
@@ -30,12 +31,15 @@ export default function LoginAdmin() {
       console.log(data)
       if (data) {
         setLoading(false);
-        console.log(data);
-        Cookies.set('token', data.data.data);
+        let token = data.data.data;
+        var decoded = jwt_decode(token);
+        Cookies.set('token', token);
+        Cookies.set('access', decoded.Access)
         navigate('/admin/Dashboard');
       }
     })
     .catch((e)=>{
+      console.log(e)
       setMessage(e.response.data.data)
       setLoading(false);
     });

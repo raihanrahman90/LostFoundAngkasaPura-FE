@@ -10,14 +10,13 @@ export default function DetailAdmin() {
     const routeParams = useParams();
     const id = routeParams.id;
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const token = Cookies.get("token");
     const [data, setData] = useState([]);
     const [Loadings, setLoadings] = useState(false);
+    const access = Cookies.get("access");
 
     const fetchData = async () => {
         const respon = await getDetailAdmin({id});
         setData(respon.data);
-
     }
     useEffect(() => {
         fetchData();
@@ -54,10 +53,13 @@ export default function DetailAdmin() {
                     <input type="text" value={data.email} className='form-control w-75' disabled />
 
                 </div>
-
+                {access=="SuperAdmin"?
                 <button type="button" class="btn btn-danger px-5  me-1 text-white" data-bs-toggle="modal" data-bs-target="#Tolak">
                   Reset Password
                 </button>
+                :<></>
+                }
+                
 
                 <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
                   <div class="modal-dialog">
