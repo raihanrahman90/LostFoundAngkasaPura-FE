@@ -35,7 +35,7 @@ export default function ListClaim() {
     const getListData = async()=>{
       try{
         let listData = await getListClaim({page,status:status});
-        console.log(listData);
+        // console.log(listData);
         setData(listData.data.data);
       }catch(e){
         if(e.error ===401){

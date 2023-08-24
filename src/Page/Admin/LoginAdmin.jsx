@@ -27,7 +27,7 @@ export default function LoginAdmin() {
       password: password,
     })
     .then((data)=>{
-      console.log(data)
+      // console.log(data)
       if (data) {
         setLoading(false);
         console.log(data);
