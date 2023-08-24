@@ -47,18 +47,24 @@ export const AdminDefault = ({title, body}) =>{
   const decodeJwt = () => {
     const token = Cookies.get('token');
     const decoded = jwt_decode(token);
-    // console.log(decoded.Access);
-    if(decoded.Access !== 'admin'){
-      // console.log("ini admin yang jalan")
-       setListMenu([
-        {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
-        {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-        {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
-        {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
-      ] ) 
+    hadnleAcces(decoded.Access);
+}
+  
+
+  const hadnleAcces = (access) => {
+    switch (access) {
+      case 'Admin':
+        // console.log("admin");
+        AdminList();
+          break;
+      case 'SuperAdmin':
+        // console.log("admin");
+        SuperAdminList();
+          break;
   }
-  if(decoded.Access === 'SuperAdmin'){
-    // console.log("ini super admin yang jalan")
+  }
+
+  const SuperAdminList = () => {
     setListMenu( [
       {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
       {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
@@ -66,12 +72,20 @@ export const AdminDefault = ({title, body}) =>{
       {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
       {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
     ] )
-}
+  }
+
+  const AdminList = () => {
+    setListMenu([
+      {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
+      {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
+      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
+      {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
+    ] ) 
   }
 
   useEffect(()=> {
     decodeJwt();
-    console.log(listMenu);
+    // console.log(listMenu);
   },[])
 
 
