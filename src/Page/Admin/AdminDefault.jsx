@@ -68,8 +68,8 @@ export const AdminDefault = ({title, body}) =>{
     setListMenu( [
       {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
       {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
-      {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
+      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'Claim'},
+      {icon:<BiUser/>, to:'/admin/ListAdmin', text:'Admin'},
       {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
     ] )
   }
@@ -78,7 +78,7 @@ export const AdminDefault = ({title, body}) =>{
     setListMenu([
       {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
       {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
+      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'Claim'},
       {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
     ] ) 
   }
