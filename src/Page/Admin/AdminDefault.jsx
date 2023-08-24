@@ -9,6 +9,7 @@ import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
 import { getListNotification } from "../../Hooks/Admin/Admin";
+import jwt_decode from "jwt-decode";
 
 export const AdminDefault = ({title, body}) =>{
   
@@ -17,6 +18,7 @@ export const AdminDefault = ({title, body}) =>{
   const [showProfile, setShowProfile] = useState(false);
   const [countNotification, setCountNotification] = useState(0);
   const [listNotification, setListNotification] = useState([]);
+  const [listMenu, setListMenu] = useState([])
   let navigate = useNavigate();
 
   const logout = () => {
@@ -41,13 +43,38 @@ export const AdminDefault = ({title, body}) =>{
       setShowNotif(false);
     }
   }
-  const listMenu = [
-    {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
-    {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-    {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
-    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
-    {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
-  ]
+  
+  const decodeJwt = () => {
+    const token = Cookies.get('token');
+    const decoded = jwt_decode(token);
+    // console.log(decoded.Access);
+    if(decoded.Access !== 'admin'){
+      // console.log("ini admin yang jalan")
+       setListMenu([
+        {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
+        {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
+        {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
+        {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
+      ] ) 
+  }
+  if(decoded.Access === 'SuperAdmin'){
+    // console.log("ini super admin yang jalan")
+    setListMenu( [
+      {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
+      {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
+      {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
+      {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
+      {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
+    ] )
+}
+  }
+
+  useEffect(()=> {
+    decodeJwt();
+    console.log(listMenu);
+  },[])
+
+
 
   useEffect(()=>{
     getListNotification()
@@ -68,6 +95,7 @@ export const AdminDefault = ({title, body}) =>{
         <div className="col-lg-2 col-sm-3 px-0 d-none d-md-block">
           <div className='bg-dark mx-auto px-xl-2 px-lg-0 position-relative h-100 pt-5 sidebar shadow'>
             <ul style={{ listStyle: 'none', padding:'0px'}}>
+              
               {listMenu.map(element => {
                 return <li className='py-1 px-lg-3 px-md-1 text-white my-3 pe-xl-5 menu_link' style={{fontSize:'16px'}}>
                   <Link className="decoration-none w-100 ml-3" to={element.to}>

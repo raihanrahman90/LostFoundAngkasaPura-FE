@@ -4,7 +4,6 @@ import { getListAdmin } from "../../../Hooks/Admin/Admin";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
-import jwt from "jsonwebtoken";
 
 
 
@@ -15,16 +14,6 @@ export default function ListAdmin() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-
-  const jwtToken = () => {
-    const token = Cookies.get("token");
-    // const decoded = decode(token);
-    // console.log(decoded);
-  }
-
-  useEffect(() => {
-    jwtToken();
-  },[])
 
   const navigate = useNavigate();
   useEffect(() => {
