@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import './Card.css'
 
 export const Card = ({id,image, name, description,category})=>{
     return <div className="col-lg-3 mb-3 col-6 px-1 card-barang px-md-3">
