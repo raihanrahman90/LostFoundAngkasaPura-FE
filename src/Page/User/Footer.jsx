@@ -4,7 +4,7 @@ import {BsTelephone, BsPeople} from 'react-icons/bs'
 
 export default function Footer() {
   return (
-<div className="py-5">
+<div className="py-5 px-5">
   <div className="row">
     <div className="col-12 col-md-5 align-self-center">
       <img src={logo} className="mx-auto d-block" alt="" />

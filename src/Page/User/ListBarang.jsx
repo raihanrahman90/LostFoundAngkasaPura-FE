@@ -107,10 +107,10 @@ export default function ListBarang() {
             <div className="container min-vh-50">
                 {/* Sub Judul */}
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-12 col-md-3">
                         <h4 className="text-start pt-5">Filter</h4>
                     </div>
-                    <div className="col-9">
+                    <div className="col-12 col-md-9">
                         <h4 className="text-start pt-5">Daftar Barang Yang Ditemukan</h4>
                         <p className="text-third"><FiAlertTriangle/> Note : Jika barang tidak Ditemukan pada list barang setelah 1x24 jam, silahkan hubungi <i>contact center</i>  
                         <Link to={"/report"} className="ms-1">disini</Link></p>
