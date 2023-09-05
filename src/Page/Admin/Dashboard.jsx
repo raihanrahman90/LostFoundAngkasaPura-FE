@@ -8,7 +8,6 @@ import {AiOutlineCheckCircle,AiOutlineMail,AiOutlineSearch} from 'react-icons/ai
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
 export default function Dashboard() {
 
   const [datas, setDatas] = useState([]);
