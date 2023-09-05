@@ -13,7 +13,6 @@ import carousel_1 from '../../Asset/carousel_1.jpg'
 import carousel_2 from '../../Asset/carousel_2.jpg'
 import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
-import { useMediaQuery } from 'react-responsive';
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
@@ -25,7 +24,7 @@ export default function HomePage() {
     }
     fetchData();
   },[])
-  const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
+  const isMobile = false;
   var carousel = [carousel_1, carousel_2];
   
 
