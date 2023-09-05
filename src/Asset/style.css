@@ -326,11 +326,15 @@
     top: 0px;
     left: 0px;
     text-align: center;
-    padding-top: 200px;
 }
-
-.z-5{
-    z-index: 100;
+.z-20{
+    z-index: 20;
+}
+.z-30{
+    z-index: 30;
+}
+.h-fit{
+    height: fit-content;
 }
 .card-text.element{
     display: -webkit-box;

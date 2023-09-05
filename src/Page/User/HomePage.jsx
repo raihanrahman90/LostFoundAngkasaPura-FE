@@ -13,6 +13,7 @@ import carousel_1 from '../../Asset/carousel_1.jpg'
 import carousel_2 from '../../Asset/carousel_2.jpg'
 import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
+import { useMediaQuery } from 'react-responsive';
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
@@ -23,8 +24,9 @@ export default function HomePage() {
       setBarang(res.data.data);
     }
     fetchData();
-  },[])
-  const isMobile = false;
+  },[]);
+  const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
+  
   var carousel = [carousel_1, carousel_2];
   
 
@@ -52,24 +54,29 @@ export default function HomePage() {
             />
       </MDBCarousel>
         <div className="bg-carousel"></div>
-        <div className="z-5 position-absolute mb-5 carousel-text">
-          <h1 className="title text-white pb-5 fw-bold display-4 display-md-3">
-            Temukan <span className="text-warning">Barangmu</span>
-          </h1>
-          <h5 className="text-white fs-5 fs-md-4">
-            Cari barangmu yang hilang, Kami akan membantumu mencari barangmu
-            yang <br />
-            hilang dan mengabarikannya ke kamu
-          </h5>
-          <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold" onClick={(e)=>navigate("/Barang")}>
-            Cari Barangmu
-          </button>
+        <div className="z-20 position-absolute mb-5 carousel-text d-flex justify-content-center align-items-center">
+          <div className="h-fit">
+            <h1 className="title text-white pb-5 fw-bold display-4 display-md-3">
+              Temukan <span className="text-warning">Barangmu</span>
+            </h1>
+            <h5 className="text-white fs-5 fs-md-4">
+              Cari barangmu yang hilang, Kami akan membantumu mencari barangmu
+              yang <br />
+              hilang dan mengabarikannya ke kamu
+            </h5>
+            <div>
+              <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold w-fit" onClick={(e)=>navigate("/Barang")}>
+                Cari Barangmu
+              </button>
+            
+            </div>
+          </div>
         </div>
       </div>
       <div className="row my-2 mx-2 justify-content-center px-md-0" id="home-card">
         <div className="
             col-10 col-md-10 text-center d-flex rounded shadow 
-            landingpage-card bg-white h-fit-content z-5 p-md-3 text-white mx-2 p-1">
+            landingpage-card bg-white h-fit-content z-5 p-md-3 text-white mx-2 p-1 z-30">
           <div className="row">
             <div className="col-md-6 mb-2 mb-md-0">
               <div className="col-12 bg-primary rounded py-2 h-100 px-2 px-md-3">
