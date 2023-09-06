@@ -28,18 +28,17 @@ export default function LoginAdmin() {
       password: password,
     })
     .then((data)=>{
-      console.log(data)
       if (data) {
         setLoading(false);
-        let token = data.data.data;
+        let token = data.data.data.accessToken;
         var decoded = jwt_decode(token);
         Cookies.set('token', token);
+        Cookies.set('refreshToken', data.data.data.refreshToken);
         Cookies.set('access', decoded.Access)
         navigate('/admin/Dashboard');
       }
     })
     .catch((e)=>{
-      console.log(e)
       setMessage(e.response.data.data)
       setLoading(false);
     });
@@ -56,7 +55,6 @@ export default function LoginAdmin() {
     const checkAccessToken = async()=>{
       try{
         let accessToken = await getAccessToken();
-        // console.log(accessToken);
         return accessToken;
       }catch(e){
         if(e.message == 'Mohon login kembali'){

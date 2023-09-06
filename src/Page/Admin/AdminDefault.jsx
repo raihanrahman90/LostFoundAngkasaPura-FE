@@ -21,6 +21,7 @@ export const AdminDefault = ({title, body}) =>{
 
   const logout = () => {
     Cookies.remove('token');
+    Cookies.remove('refreshToken');
     navigate('/admin');
   };
   const clickNotif=()=>{
@@ -58,8 +59,6 @@ export const AdminDefault = ({title, body}) =>{
 
   },[])
   const gotoNotification=(url)=>{
-    console.log("ini loh diclick")
-    console.log(url);
     navigate(url);
   }
   return (

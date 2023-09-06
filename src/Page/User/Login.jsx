@@ -43,10 +43,7 @@ export default function LoginUser() {
   useEffect(() =>{
     var params = new URLSearchParams(location.search);
     var messageParam = params.get("message");
-    console.log("test 1")
-    console.log(messageParam)
     if(messageParam){
-      console.log("tes");
       setMessage(messageParam);
     }
     const checkAccessToken = async()=>{

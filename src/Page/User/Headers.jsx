@@ -1,10 +1,9 @@
 import React,{useState, useEffect} from "react";
 import Logo from "../../Asset/logo.png";
-import { BsBell } from "react-icons/bs";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {login, logout, register} from '../../Hooks/User/Default';
+import {login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
@@ -51,15 +50,10 @@ export default function Headers() {
     
   },[isLogin])
   const handleLogout = async()=>{
-    logout()
-    .then((e)=>{
-      setIsLogin(false);
-      Cookies.remove("token");
-      navigate("/")
-    })
-    .catch((e)=>{
-      alert(e);
-    })
+    setIsLogin(false);
+    Cookies.remove("token");
+    Cookies.remove("refrehToken");
+    navigate("/")
   }
 
  const handleLogin = async (e) => { 
@@ -68,9 +62,8 @@ export default function Headers() {
   .then((e)=>{
     if(e.status == 200){
       setErrorLogin(null);
-      console.log(e.data.data);
-      Cookies.set("token", e.data.data);
-      (true);
+      Cookies.set("token", e.data.data.accessToken);
+      Cookies.set("refreshToken", e.data.data.refreshToken);
       setEmail("");
       setPassword("");
       window.location.reload();
@@ -89,7 +82,8 @@ const handleRegister = async (e) => {
   .then((e)=>{
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data);
+      Cookies.set("token", e.data.data.accessToken);
+      Cookies.set("refreshToken", e.data.data.refreshToken);
       setIsLogin(true);
       setEmail("");
       setPassword("");
@@ -110,8 +104,6 @@ useEffect(()=>{
     phone:phone,
     name:name
   }
-
-  console.log(data);
 },[])
 
 

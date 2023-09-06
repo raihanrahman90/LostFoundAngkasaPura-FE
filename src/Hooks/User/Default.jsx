@@ -44,7 +44,8 @@ export const defaultUserRequest = async(
 
 export const getAccessToken = async ()=>{
     try {
-      var accessToken = await callApiWithToken("auth/access-token", 'get', '','')
+        var refreshToken = Cookies.get("refreshToken");
+      var accessToken = await callApiWithToken("auth/access-token?refreshToken="+refreshToken, 'get', '','')
       return accessToken;
     }catch(e){
         console.log("ini error access token")
@@ -54,9 +55,6 @@ export const getAccessToken = async ()=>{
 
 export const checkAccessToken = async ()=>{
     return await defaultUserRequest("auth/access-token/check", "get", "");
-}
-export const logout = async ()=>{
-    return await defaultUserRequest("auth/logout", "get", "");
 }
 
 export const requestCodeForgotPassword = async({email})=>{

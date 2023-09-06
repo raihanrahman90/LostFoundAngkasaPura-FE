@@ -34,8 +34,9 @@ export const defaultAdminRequest = async({
 
 export const getAccessToken = async ()=>{
     try {
-      var accessToken = await callApiWithToken("admin/admin/access-token", 'get', '','')
-      return accessToken;
+        var refreshToken = Cookies.get("refreshToken");
+        var accessToken = await callApiWithToken("admin/admin/access-token?refreshToken="+refreshToken, 'get', '','')
+        return accessToken.accessToken;
     }catch(e){
         return e;
     }
