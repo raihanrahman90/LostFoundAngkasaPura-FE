@@ -34,24 +34,24 @@ export default function HomePage() {
     <div>
       <Headers />
       <div className="vh-80 overflow-y-hidden position-relative">
-        <MDBCarousel className="vh-80 overflow-y-hidden d-flex justify-content-center align-items-center" 
-        >
+        <MDBCarousel>
           {carousel.map((t,index)=>{
             return <MDBCarouselItem
-            className='d-block mx-auto h-100'
+            className='carousel-image'
             itemId={index+1}
             src={t}
             alt='...'
-            >
-            
-          </MDBCarouselItem>
-          })}
-          <MDBCarouselItem
-            className='d-block mx-auto w-100'
-            itemId={3}
-            src={isMobile?carousel_3_mobile:carousel_3}
-            alt='...'
+            key={index}
             />
+            
+          })}
+        <MDBCarouselItem
+          className='d-block mx-auto w-100'
+          itemId={3}
+          src={isMobile?carousel_3_mobile:carousel_3}
+          alt='...'
+          />
+          
       </MDBCarousel>
         <div className="bg-carousel"></div>
         <div className="z-20 position-absolute mb-5 carousel-text d-flex justify-content-center align-items-center">
@@ -60,13 +60,11 @@ export default function HomePage() {
               Temukan <span className="text-warning">Barangmu</span>
             </h1>
             <h5 className="text-white fs-5 fs-md-4">
-              Cari barangmu yang hilang, Kami akan membantumu mencari barangmu
-              yang <br />
-              hilang dan mengabarikannya ke kamu
+              Cari dan laporkan barang Anda melalui website kami
             </h5>
             <div>
               <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold w-fit" onClick={(e)=>navigate("/Barang")}>
-                Cari Barangmu
+                Cari
               </button>
             
             </div>
@@ -82,10 +80,7 @@ export default function HomePage() {
               <div className="col-12 bg-primary rounded py-2 h-100 px-2 px-md-3">
                 <p className="fw-bold text-title">Laporkan Barang hilang</p>
                 <p className="text-body">
-                  Anda kehilangan barang? Laporkan segera ke petugas kami, kami akan
-                  berupaya mencari barang Anda.
-                  Note: Jika Barang Tidak ditemukan
-                  pada list barang setelah 1x24 jam, silahkan klik{" "}
+                  Jika barang tidak tersedia pada website lebih dari 1x24 Jam, silahkan klik {" "}
                   <Link to="/report#header" className="text-white">disini</Link>.
                 </p>
               </div>
@@ -94,10 +89,7 @@ export default function HomePage() {
               <div className="col-12  bg-success rounded py-2 h-100 px-2 px-md-3">
                 <p className="fw-bold text-title">Cari Barang Hilang</p>
                 <div className="text-body">
-                  Semua informasi barang yang hilang yang telah ditemukan tersedia
-                  di dalam web ini.
-                  Cari barang anda yang hilang di website ini dan
-                  klaim kepemilikan barang anda.
+                  Semua informasi barang yang ditemukan tersedia pada website ini. Cari, daftar akun dan klaim barang Anda.
                 </div>
               </div>
             </div>
@@ -106,13 +98,20 @@ export default function HomePage() {
       </div>
 
       <div className="">
-        <div className="bgdasboard   ">
+        <div className="bgdasboard  min-vh-50 ">
           <h1 className=" text-center text-white pb-5 fw-bold pt-5">
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
           <div className="container">
             <div className="row g-5">
-              {barang.map((item) => {
+              {
+              barang.length==0?
+              <>
+                <div className="text-center text-white min-h-200 d-flex justify-content-center align-items-center">
+                  Tidak ada barang baru ditemukan
+                </div>
+              </>:
+              barang.map((item) => {
                 return (
                     <Card key={item.id} id={item.id} image={item.image} description={item.description} name={item.name}/>
                 );

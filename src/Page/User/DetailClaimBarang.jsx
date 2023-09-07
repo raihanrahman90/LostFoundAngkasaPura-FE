@@ -108,7 +108,7 @@ export default function DetailClaimBarang() {
                                                     <p className="card-title fw-bold text-dark ">Waktu pengajuan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title text-dark ">: {barang.createdDate}</p>
+                                                    <p className="card-title text-dark ">: {barang.createdDate.split("T")[0]}</p>
                                                 </div>
                                             </div>
                                             <div className="row">

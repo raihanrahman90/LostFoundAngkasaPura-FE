@@ -10,7 +10,7 @@ export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
   const [tanggalDitemukan, setTanggalDitemukan] = useState("");
-  const [kategori, setKategori] = useState("perhiasan");
+  const [kategori, setKategori] = useState();
   const [newCategory, setNewCategory] = useState(false);
   const [listCategory, setListCategory] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -56,14 +56,17 @@ export default function ItemFoundAdd() {
             imageBase64: base64Image,
           }
         );
-        console.log(result);
         setLoading(false);
         if(result){
           navigate("/admin/FoundItem")
         }
       }catch(err){
-        if(err.response.status==401){
+        setLoading(false);
+        console.log(err);
+        if(err.status==401){
           navigate("/admin");
+        }else{
+          alert(err.data.data);
         };
       }
     }

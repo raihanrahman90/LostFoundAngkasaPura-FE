@@ -54,6 +54,9 @@ export default function FoundItemList() {
     if(tglStart.trim() != ""){
       url = `${url}&foundDateStart=${tglStart}`;
     }
+    if(tglEnd.trim() != ""){
+      url = `${url}&foundDateEnd=${tglEnd}`;
+    }
     if(kategori.trim() != ""){
       url = `${url}&category=${kategori}`;
     }
@@ -175,6 +178,11 @@ export default function FoundItemList() {
                   </tr>
                 </thead>
                 <tbody>
+                  {data.length==0?<>
+                    <tr>
+                      <td colSpan={5} className="text-center">Belum ada data ditambahkan</td>
+                    </tr>
+                  </>:<></>}
                   {data.map((item, index) => {
                     let status=<></>;
                     if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;

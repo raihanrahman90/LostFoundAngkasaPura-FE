@@ -104,8 +104,9 @@ export function Chart() {
         <div className="col-md-2 col-12">
           <form onSubmit={handleTanggal} className="mt-5">
             <div className="w-100">
-              <label htmlFor="" className="w-100">
-                Start
+              <label htmlFor="" className="w-100 text-dark">
+                Start Date
+              </label>
                 <input
                   type="month"
                   className="w-100 px-5 py-2 rounded mb-3"
@@ -113,18 +114,15 @@ export function Chart() {
                     setStartDate(e.target.value);
                   }}
                 />
-              </label>
 
-              <label htmlFor="" className="w-100">
-                End
-                <input
-                  type="month"
-                  className="w-100 px-5 py-2 rounded mb-3"
-                  onChange={(e) => {
-                    setEndDate(e.target.value);
-                  }}
-                />
-              </label>
+              <label htmlFor="" className="w-100 text-dark">End Date</label>
+              <input
+                type="month"
+                className="w-100 px-5 py-2 rounded mb-3"
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                }}
+              />
             </div>
             <button
               type="submit"

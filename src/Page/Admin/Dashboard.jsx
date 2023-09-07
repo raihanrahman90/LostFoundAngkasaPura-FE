@@ -67,7 +67,6 @@ export default function Dashboard() {
               className="
               d-flex
               justify-content-center
-              align-items-center
               mb-5
               col-12
               "
