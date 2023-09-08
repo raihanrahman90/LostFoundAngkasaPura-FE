@@ -16,21 +16,17 @@ const Detail = () => {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
+  const [itemClaimId, setItemClaimId] = useState();
   const routeParams = useParams();
-  const itemClaimId = routeParams["id"];
   const [namaTempat, setNamaTempat] = useState("");
   const [tgl, setTgl] = useState("");
   const [tolak, setTolak] = useState(false);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
-  
 
-  useEffect(()=>{
-
-  },[comment])
   useEffect(()=>{
     fetchData();
-  },[]);
+  },[routeParams]);
   const fetchData = async()=>{
     getDetailClaim({id:routeParams["id"]})
     .then((e)=>{
