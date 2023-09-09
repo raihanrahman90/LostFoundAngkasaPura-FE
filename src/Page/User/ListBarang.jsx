@@ -72,20 +72,6 @@ export default function ListBarang() {
             <div className="bgdasboard text-center py-5">
                 <h1 className="title text-white pb-3 fw-bold">Temukan <span className="text-warning">Barangmu</span></h1>
                 <h5 className="text-white pb-3 ">Cari barangmu yang hilang, Kami akan membantumu mencari barangmu yang <br />hilang dan mengabarikannya ke kamu</h5>
-
-                {/* <input className="inputs border border-secondary mb-2 mt-5 icon-rtl" type="text" placeholder="Cari Barang" /> */}
-                {/* <Container className="mt-5  pb-5">
-                    <Row className="d-flex justify-content-center">
-                        <Col md={6}>
-                            <Form className="d-flex justify-content-center">
-                                <InputGroup>
-                                    <FormControl type="search" className="me-2" placeholder="Search" prefix={AiOutlineSearch}>
-                                    </FormControl>
-                                </InputGroup>
-                            </Form>
-                        </Col>
-                    </Row>
-                </Container> */}
                 <Container className="mt-5 pb-5">
                     <Row className="d-flex justify-content-center">
                         <Col md={6}>

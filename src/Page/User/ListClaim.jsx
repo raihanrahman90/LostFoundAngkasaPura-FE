@@ -5,7 +5,9 @@ import '../../Asset/user.css';
 import "../../Asset/style.css";
 import { Link, useNavigate } from "react-router-dom";
 import { listItemClaim } from "../../Hooks/User/ItemClaim";
-import { checkAccessToken } from "../../Hooks/User/Default";
+import { Status } from "../../Constants/Status";
+import { statusBadge } from "../../Util/Utils";
+
 export default function ListClaimUser() {
     const navigate = useNavigate();
     const [barang, setBarang] = useState([]);
@@ -21,21 +23,6 @@ export default function ListClaimUser() {
             navigate("/Login?message=Mohon login terlebih dahulu")
         })
     },[page])
-
-    const handleStatus = (status) => {
-        switch (status) {
-            case "Confirmed":
-                return "bg-primary";
-            case "Confirmation":
-                return "bg-dark";
-            case "Rejected":
-                return "bg-danger";
-            case "Approved":
-                return "bg-success";
-            default:
-                return "";
-        }
-    };
 
     return (
         <div style={{backgroundColor:"white"}}>
@@ -69,7 +56,7 @@ export default function ListClaimUser() {
                                                     <p className="card-title">Waktu pengajuan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title">: {item.foundDate}</p>
+                                                    <p className="card-title">: {item.createdDate==null?"":item.createdDate.split("T")[0]}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -78,29 +65,44 @@ export default function ListClaimUser() {
                                                 </div>
                                                 <div className="col-8">
                                                     <p className="card-title">: 
-                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(item.status)}`}>
-                                                            {item.status}
-                                                        </span>
+                                                        {statusBadge(item.status)}
                                                     </p>
                                                 </div>
                                             </div>
-                                            
-                                            <div className="row">
-                                                <div className="col-4">
-                                                    <p className="card-title">Tempat pengambilan </p>
-                                                </div>
-                                                <div className="col-8">
-                                                    <p className="card-title">: {item.tempat_pengambilan}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-4">
-                                                    <p className="card-title">Waktu pengambilan </p>
-                                                </div>
-                                                <div className="col-8">
-                                                    <p className="card-title">: {item.waktu_pengambilan}</p>
-                                                </div>
-                                            </div>
+                                            {
+                                                item.status === Status.Approved?
+                                                <>
+                                                    <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title">Tempat pengambilan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title">: {item.claimLocation}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title">Waktu pengambilan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title">: {item.claimDate}</p>
+                                                        </div>
+                                                    </div>
+                                                </>:<></>
+                                            }
+                                            {
+                                                item.status === Status.Rejected ?
+                                                <>
+                                                   <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title">Alasan Penolakan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title">: {item.rejectReason}</p>
+                                                        </div>
+                                                    </div>
+                                                </>:<></>
+                                            }
                                             <div className="row">
                                                 <div className="col-12 justify-content-end d-flex">
                                                     <Link className="btn bg-primary text-white" to={"/Claim/"+item.id+"#title"}>Detail Claim</Link>

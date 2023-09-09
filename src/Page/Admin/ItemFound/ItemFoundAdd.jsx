@@ -81,7 +81,7 @@ export default function ItemFoundAdd() {
       body={
         <>
         {loading ? (<Loading />) : (
-        <form className="row pt-5 pb-5" onSubmit={handleSubmit}>
+        <form className="row pt-5 pb-5 px-2" onSubmit={handleSubmit}>
         <div className="form__group">
           <input
             onChange={(e) => setNamaBarang(e.target.value)}
@@ -106,7 +106,7 @@ export default function ItemFoundAdd() {
           <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
         </div>
 
-        <div className="form__group col-3">
+        <div className="form__group col-md-3 col-6">
           {newCategory?
           <input
           required
@@ -126,7 +126,7 @@ export default function ItemFoundAdd() {
           </select>}
           <label className="form__label" htmlFor="kategori">Kategori</label>
         </div>
-        <div className="form__group col-3">
+        <div className="form__group col-md-3 col-6">
           <input
             onChange={(e) => setNewCategory(!newCategory)}
             type="checkbox"
@@ -134,7 +134,7 @@ export default function ItemFoundAdd() {
           <label  htmlFor="kategori">kategory baru?</label>
         </div>
 
-        <div className="form__group col-6">
+        <div className="form__group col-md-6 col-12">
           <input
             onChange={(e) => setTanggalDitemukan(e.target.value)}
             type="date"

@@ -1,17 +1,16 @@
-
 import FoundItem from "./Page/Admin/ItemFound/ItemFoundList";
 import LoginAdmin from "./Page/Admin/LoginAdmin";
 import AddItem from "./Page/Admin/ItemFound/ItemFoundAdd";
 import Dashboard from "./Page/Admin/Dashboard";
 import CustomReport from "./Page/Admin/CustomReport";
-import ListClaim from "./Page/Admin/ListClaim/ListClaim";
-import DetailClaim from "./Page/Admin/ListClaim/DetailClaim";
-import CreateAdmin from "./Page/Admin/ListAdmin/CreateAdmin";
-import ListAdmin from "./Page/Admin/ListAdmin/ListAdmin";
+import ListClaim from "./Page/Admin/Claim/ListClaim";
+import DetailClaim from "./Page/Admin/Claim/DetailClaim";
+import CreateAdmin from "./Page/Admin/Admin/CreateAdmin";
+import ListAdmin from "./Page/Admin/Admin/ListAdmin";
 import ItemFoundDetail from "./Page/Admin/ItemFound/ItemFoundDetail";
-import ShowImage from "./Page/Admin/ListClaim/ShowImage";
+import ShowImage from "./Page/Admin/Claim/ShowImage";
 import Setting from "./Page/Admin/Setting";
-import DetailAdmin from "./Page/Admin/ListAdmin/DetailAdmin";
+import DetailAdmin from "./Page/Admin/Admin/DetailAdmin";
 // user
 import HomePage from "./Page/User/HomePage";
 import ListBarang from "./Page/User/ListBarang";

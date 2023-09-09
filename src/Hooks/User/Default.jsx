@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
-import { useNavigate } from "react-router-dom";
 export const login = async ({
     email, password
 })=>{
@@ -32,10 +31,14 @@ export const defaultUserRequest = async(
         return res;
     }catch(e){
         try{
-            var accessToken = await getAccessToken();
-            var res = await callApiWithToken(url, method, body, accessToken);
-            Cookies.set("token", accessToken);
-            return res;
+            if(e.status===401){
+                var accessToken = await getAccessToken();
+                var res = await callApiWithToken(url, method, body, accessToken);
+                Cookies.set("token", accessToken);
+                return res;
+            }else{
+                throw e;
+            }
         }catch(e){
             throw e
         }

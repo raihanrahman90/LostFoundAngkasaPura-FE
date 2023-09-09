@@ -7,6 +7,7 @@ import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import Loading from "../../Componen/Loading"
 import { Link } from "react-router-dom";
+import { Status } from "../../../Constants/Status";
 
 const Detail = () => {
   const location = useLocation();
@@ -25,7 +26,9 @@ const Detail = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
+    setItemClaimId(routeParams["id"]);
     fetchData();
+    getComment();
   },[routeParams]);
   const fetchData = async()=>{
     getDetailClaim({id:routeParams["id"]})
@@ -41,7 +44,7 @@ const Detail = () => {
   const getComment = async ()=>{
     const token = Cookies.get("token");
     axios
-      .get(`${BASE_URL}/Admin/Item-Comment?itemClaimId=${itemClaimId}`, {
+      .get(`${BASE_URL}/Admin/Item-Comment?itemClaimId=${routeParams["id"]}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "image/jpeg",
@@ -54,10 +57,6 @@ const Detail = () => {
         console.log(err);
       });
   }
-
-  useEffect(() => {
-    getComment();
-  }, []);
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -72,6 +71,7 @@ const Detail = () => {
   };
 
   const handleSubmitComment = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const token = Cookies.get("token");
     const data = {
@@ -86,7 +86,11 @@ const Detail = () => {
       "Content-Type": "application/json",
     },
   }).then((e)=>{
+    setLoading(false);
     window.location.reload();
+  }).catch((e)=>{
+    setLoading(false);
+    alert("Terjadi kesalahan");
   });
 }
 
@@ -154,10 +158,10 @@ const terimaHandle = async () => {
     );
 
     console.log('Claim Di teirma', response.data);
-    setLoading(false)
-
+    setLoading(false);
   } catch (error) {
-    console.error('Tolak error:', error);
+    setLoading(false);
+    alert(error);
 
   }
 };
@@ -171,7 +175,7 @@ const terimaHandle = async () => {
       <>
           {item==null?<></>:<>
           
-          <div className={"row table overflow-auto min-h-80 h-90 pb-2"}> 
+          <div className={"row table overflow-auto min-h-80 h-80 pb-2 mx-0"}> 
             <div className="col-md-4 card me-2 h-100 overflow-auto">
               <div className="row">
                 <div className="col-12">
@@ -225,6 +229,33 @@ const terimaHandle = async () => {
                     <label className="form__label">Status</label>
                   </div>
                 </div>
+                {
+                  item.status===Status.Rejected?<>
+                    <div className="row">
+                      <div className="form__group col-12">
+                        <input type="text" disabled className="form__field" value={item.rejectReason}/>
+                        <label className="form__label">Alasan</label>
+                      </div>
+                    </div>
+                  </>:<></>
+                }
+                
+                {
+                  item.status===Status.Approved?<>
+                    <div className="row">
+                      <div className="form__group col-12">
+                        <input type="text" disabled className="form__field" value={item.claimLocation}/>
+                        <label className="form__label">Tanggal Pengambilan</label>
+                      </div>
+                    </div>
+                      <div className="row">
+                        <div className="form__group col-12">
+                          <input type="text" disabled className="form__field" value={item.claimDate}/>
+                          <label className="form__label">Lokasi Pengambilan</label>
+                        </div>
+                      </div>
+                  </>:<></>
+                }
                 <div className="row">
                   <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.proofDescription}/>
@@ -305,7 +336,7 @@ const terimaHandle = async () => {
             <div className="row">
               <div className="col-11">
                 <div className="float-end top"> 
-          {item.status === "Confirmation" ? (
+          {item.status === Status.Confirmation ? (
             <>
                 <button type="button" class="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
                   Terima
@@ -367,7 +398,7 @@ const terimaHandle = async () => {
                 </>
               ):(null)}
 
-            {item.itemFoundStatus=="Confirmed"?<>
+            {item.itemFoundStatus==Status.Confirmed?<>
             <button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
               Close Item
             </button>

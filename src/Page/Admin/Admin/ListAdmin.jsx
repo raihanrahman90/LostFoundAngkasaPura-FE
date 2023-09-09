@@ -4,12 +4,9 @@ import { getListAdmin } from "../../../Hooks/Admin/Admin";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
-import jwt_decode from "jwt-decode";
-
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -19,7 +16,7 @@ export default function ListAdmin() {
   const navigate = useNavigate();
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
-  }, [currentPage]);
+  }, [page]);
 
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
@@ -37,7 +34,6 @@ export default function ListAdmin() {
   const handleDelete = async (id) => {
     try {
       const token = Cookies.get("token");
-      console.log(id);
       const response = await axios.delete(`${BASE_URL}/admin/admin/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,

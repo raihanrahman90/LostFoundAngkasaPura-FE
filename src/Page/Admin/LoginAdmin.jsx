@@ -57,9 +57,7 @@ export default function LoginAdmin() {
         let accessToken = await getAccessToken();
         return accessToken;
       }catch(e){
-        if(e.message == 'Mohon login kembali'){
-          alert("Token expired")
-        }
+        alert(e.message)
       }
     }
     checkAccessToken().catch(console.error);

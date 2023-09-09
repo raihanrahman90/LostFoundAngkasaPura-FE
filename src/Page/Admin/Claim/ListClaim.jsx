@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import ListData from "./ListData";
 import { getListClaim } from "../../../Hooks/Admin/ItemClaim";
@@ -8,9 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ListClaim() {
   const [data, setData] = useState([]);
-  const [editData, setEditData] = useState(null); // State untuk data yang akan diedit
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState(1);
@@ -84,6 +81,7 @@ export default function ListClaim() {
                 <tr>
                   <th>Nama Barang</th>
                   <th>Tanggal Claim</th>
+                  <th>Status Item</th>
                   <th>Status</th>
                   <th>Tindakan</th>
                 </tr>
@@ -101,45 +99,12 @@ export default function ListClaim() {
                   itemFoundId={item.itemFoundId}
                   itemLostId={item.itemLostId}
                   userId={item.userId}
+                  itemFoundStatus={item.itemFoundStatus}
                 />
               ))}
               </tbody>
             </table>
           </div>
-          {/* Pagination */}
-          {/* <nav aria-label="pagination" className="d-flex">
-            <button
-              className={`page-item ${currentPage === 1 ? 'disabled' : ''} text-secondary`}
-              onClick={prevButton}
-              disabled={currentPage === 1}
-            >{"<"}
-            </button>
-            <div className="text-center d-flex justify-content-center my-auto">
-              Page {currentPage} of {totalPages}
-            </div>    
-            {currentPage == 1 ? <>
-              <div className="d-none">
-            <button
-              className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
-              onClick={nextButton}
-              disabled={!hasMore}
-            >
-              {">"}
-            </button>
-              
-              </div>
-            </> : 
-              <button
-              className={`page-item ${currentPage === totalPages ? 'disabled' : ''} float-end text-secondary`}
-              onClick={nextButton}
-              disabled={!hasMore}
-            >
-              {">"}
-            </button>
-              
-              } 
-           
-          </nav> */}
           <div className="d-flex justify-content-center ">
           <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
           <button disabled className="mx-1">{page}{hasMore}</button>

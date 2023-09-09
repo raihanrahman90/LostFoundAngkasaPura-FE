@@ -186,6 +186,7 @@
 }
 .sidebar-mobile.opened{
     width: 300px;
+    z-index: 1000;
 }
 #loading{
     position: fixed;
@@ -227,11 +228,11 @@
     padding: 10px 5px;
 }
 .notif-dropdown .notif-list{
-    border-bottom: black;
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
     overflow-x: hidden;
+    border-bottom: var(--bs-dark) 2px solid;
 }
 .notif-dropdown .notif-list:hover{
     border-bottom: black;

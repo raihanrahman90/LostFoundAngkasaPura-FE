@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { AdminDefault } from "../AdminDefault";
 import { LoadingPage } from "../../Loading";
+import { statusBadge } from "../../../Util/Utils";
 
 export default function FoundItemList() {
   const [data, setData] = useState([]);
@@ -18,8 +19,6 @@ export default function FoundItemList() {
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
 
   const handleKategori = (e) => {
@@ -184,16 +183,12 @@ export default function FoundItemList() {
                     </tr>
                   </>:<></>}
                   {data.map((item, index) => {
-                    let status=<></>;
-                    if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;
-                    if(item.status==='Confirmed' || item.status ==="Closed") status = <div className="badge bg-success">{item.status}</div>;
-                      
                     return <>
                     <tr key={item.id}>
                       <td>{item.name}</td>
                       <td>{item.category}</td>
                       <td>{item.foundDate}</td>
-                      <td>{status}</td>
+                      <td>{statusBadge(item.status)}</td>
                       <td>
                         <Link
                           className="btn btn-primary text-white"

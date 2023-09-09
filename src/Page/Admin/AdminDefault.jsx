@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {AiOutlineMenu} from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ export const AdminDefault = ({title, body}) =>{
   const [showProfile, setShowProfile] = useState(false);
   const [countNotification, setCountNotification] = useState(0);
   const [listNotification, setListNotification] = useState([]);
+  const routeParams = useParams();
   let navigate = useNavigate();
 
   const logout = () => {
@@ -24,6 +25,9 @@ export const AdminDefault = ({title, body}) =>{
     Cookies.remove('refreshToken');
     navigate('/admin');
   };
+  useEffect(()=>{
+    setShowNotif(false);
+  }, [routeParams])
   const clickNotif=()=>{
     if(showNotif){
       setShowNotif(false);
@@ -45,8 +49,8 @@ export const AdminDefault = ({title, body}) =>{
   const listMenu = [
     {icon:<BsGraphDown/>, to:'/admin/dashboard', text:'Dashboard'},
     {icon:<BsSearch/>, to:'/admin/FoundItem', text:'Found Item'},
-    {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'List Claim'},
-    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'List Admin'},
+    {icon:<BsTicketDetailedFill/>, to:'/admin/ItemClaim', text:'Claim'},
+    {icon:<BiUser/>, to:'/admin/ListAdmin', text:'Admin'},
     {icon:<BiUserCircle/>, to:'/admin/user', text:"User"}
   ]
 
@@ -67,9 +71,9 @@ export const AdminDefault = ({title, body}) =>{
         <div className="col-lg-2 col-sm-3 px-0 d-none d-md-block">
           <div className='bg-dark mx-auto px-xl-3 px-lg-0 position-relative h-100 pt-5 sidebar shadow ps-5'>
             <ul style={{ listStyle: 'none', padding:'0px'}}>
-              {listMenu.map(element => {
-                return <li className='py-1 px-lg-3 px-md-1 text-white my-3 pe-xl-5 menu_link px-3' style={{fontSize:'16px'}}>
-                  <Link className="decoration-none w-100 ml-3" to={element.to}>
+              {listMenu.map((element, index) => {
+                return <li className='py-1 px-0 text-white my-3  menu_link ' style={{fontSize:'16px'}} key={index}>
+                  <Link className="decoration-none w-100 ml-3 d-block px-3" to={element.to}>
                     {element.icon}
                     <span className='ms-3'>
                       {element.text}
