@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { AdminDefault } from "../AdminDefault";
-import Cookies from "js-cookie";
-import Loading from "../../Componen/Loading";
 import { createAdmin } from "../../../Hooks/Admin/Admin";
 import { useNavigate } from "react-router-dom";
+import { LoadingModal } from "../../Loading";
 
 export default function CreateAdmin() {
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [unit, setUnit] = useState("");
   const [access, setAccess] = useState("admin");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,8 +37,7 @@ export default function CreateAdmin() {
       title={"Create Admin"}
       body={
         <>
-        {loading ? (<Loading />) : (
-
+        <LoadingModal isLoading={loading}/>
         <form onSubmit={handleCreateAdmin}>
           <div
             className="col-md-10 pt-5"
@@ -132,7 +127,6 @@ export default function CreateAdmin() {
             </div>
           </div>
         </form>
-        )}
 
         </>
 

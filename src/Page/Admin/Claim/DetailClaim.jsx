@@ -5,12 +5,11 @@ import Cookies from "js-cookie";
 import { AdminDefault } from "../AdminDefault";
 import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
-import Loading from "../../Componen/Loading"
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
+import { LoadingModal } from "../../Loading";
 
 const Detail = () => {
-  const location = useLocation();
   const [comment, setComment] = useState("")
   const [showComment, setShowComment] = useState([]);
   const [image64, setImage64] = useState("")
@@ -156,9 +155,8 @@ const terimaHandle = async () => {
         },
       }
     );
-
-    console.log('Claim Di teirma', response.data);
     setLoading(false);
+    fetchData();
   } catch (error) {
     setLoading(false);
     alert(error);
@@ -168,7 +166,7 @@ const terimaHandle = async () => {
 
   return (
     <>
-    {loading ? (<Loading />) : (
+    <LoadingModal isLoading={loading}/>
     <AdminDefault 
     title={"Detail Claim"}
     body={
@@ -229,33 +227,6 @@ const terimaHandle = async () => {
                     <label className="form__label">Status</label>
                   </div>
                 </div>
-                {
-                  item.status===Status.Rejected?<>
-                    <div className="row">
-                      <div className="form__group col-12">
-                        <input type="text" disabled className="form__field" value={item.rejectReason}/>
-                        <label className="form__label">Alasan</label>
-                      </div>
-                    </div>
-                  </>:<></>
-                }
-                
-                {
-                  item.status===Status.Approved?<>
-                    <div className="row">
-                      <div className="form__group col-12">
-                        <input type="text" disabled className="form__field" value={item.claimLocation}/>
-                        <label className="form__label">Tanggal Pengambilan</label>
-                      </div>
-                    </div>
-                      <div className="row">
-                        <div className="form__group col-12">
-                          <input type="text" disabled className="form__field" value={item.claimDate}/>
-                          <label className="form__label">Lokasi Pengambilan</label>
-                        </div>
-                      </div>
-                  </>:<></>
-                }
                 <div className="row">
                   <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.proofDescription}/>
@@ -266,6 +237,45 @@ const terimaHandle = async () => {
                   <img src={item.proofImage}/>
                 </div>
               </div>
+              {
+                item.status === Status.Rejected || item.status === Status.Approved?
+                <div>
+                  <h6>Keterangan Persetujuan</h6>
+                  {
+                    item.status===Status.Rejected?<>
+                      <div className="row">
+                        <div className="form__group col-12">
+                          <input type="text" disabled className="form__field" value={item.rejectReason}/>
+                          <label className="form__label">Alasan</label>
+                        </div>
+                      </div>
+                    </>:<></>
+                  }
+                  {
+                    item.status===Status.Approved?<>
+                      <div className="row">
+                        <div className="form__group col-12">
+                          <input type="text" disabled className="form__field" value={item.claimLocation}/>
+                          <label className="form__label">Tanggal Pengambilan</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="form__group col-12">
+                          <input type="text" disabled className="form__field" value={item.claimDate}/>
+                          <label className="form__label">Lokasi Pengambilan</label>
+                        </div>
+                      </div>
+                    </>:<></>
+                  }
+                  
+                  <div className="row">
+                    <div className="form__group col-12">
+                      <input type="text" disabled className="form__field" value={item.approvalBy}/>
+                      <label className="form__label">Persetujuan Oleh</label>
+                    </div>
+                  </div>
+                </div>:<></>
+              }
             </div>
             <div className="col-md-7 card px-2 h-100 overflow-auto">
               {showComment.length > 0?
@@ -435,8 +445,6 @@ const terimaHandle = async () => {
         </>
       }
     />
-
-  )}
   </>
   );
 }

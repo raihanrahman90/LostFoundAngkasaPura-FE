@@ -5,8 +5,8 @@ import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
-import Loading from "../Componen/Loading";
 import jwt_decode from 'jwt-decode';
+import { LoadingModal } from '../Loading';
 
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
@@ -65,7 +65,7 @@ export default function LoginAdmin() {
 
   return (
     <>
-    {loading ? (<Loading />) : (
+    <LoadingModal isLoading={loading}/>
     <section className="vh-100 vw-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="row g-0">
@@ -100,7 +100,6 @@ export default function LoginAdmin() {
           </div>
       </div>
     </section>
-    )}
 </>
 
   );

@@ -198,6 +198,8 @@
     background-color: white;
     justify-content: center;
     align-items: center;
+    left: 0px;
+    top: 0px;
 }
 #loading img{
     width: 100px;

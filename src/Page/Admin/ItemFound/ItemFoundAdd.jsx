@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
-import Loading from "../../Componen/Loading";
 import { useNavigate } from "react-router-dom";
 import { getCategory } from "../../../Hooks/Admin/Item";
+import { LoadingModal } from "../../Loading";
 
 export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
@@ -75,12 +75,11 @@ export default function ItemFoundAdd() {
 
   return (
     <>
-    {loading ? (<Loading />) : (
     <AdminDefault
       title={"Add Item Found"}
       body={
         <>
-        {loading ? (<Loading />) : (
+        <LoadingModal isLoading={loading}/>
         <form className="row pt-5 pb-5 px-2" onSubmit={handleSubmit}>
         <div className="form__group">
           <input
@@ -164,11 +163,10 @@ export default function ItemFoundAdd() {
         </div>
 
         <input type="Submit" className="btn btn-primary float-end me-md-5 text-white" />
-        </form> )}
+        </form>
         </>
 
-}/>
-)}
+        }/>
     </>
 
 

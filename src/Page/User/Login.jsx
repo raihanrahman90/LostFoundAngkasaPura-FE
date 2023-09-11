@@ -2,25 +2,21 @@ import React, { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
-import Loading from "../Componen/Loading";
-import * as qs from 'querystring';
+import { LoadingModal } from '../Loading';
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
 
 export default function LoginUser() {
-  const paramRouter = useParams();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
-  let navigate = useNavigate();
 
 
   const handleLogin = async (e) => { 
     e.preventDefault();
+    setLoading(true);
     login({email:email, password:password})
     .then((e)=>{
       if(e.status == 200){
@@ -29,8 +25,10 @@ export default function LoginUser() {
         setIsLogin(true);
         setEmail("");
         setPassword("");
+        setLoading(false);
         window.location.reload();
       }else{
+        setLoading(false);
         setErrorLogin(e.message);
       }
     })
@@ -62,7 +60,7 @@ export default function LoginUser() {
 
   return (
     <>
-    {loading ? (<Loading />) : (
+    <LoadingModal isLoading={loading}/>
     <section className="vh-100 vw-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="row g-0">
@@ -97,7 +95,6 @@ export default function LoginUser() {
           </div>
       </div>
     </section>
-    )}
 </>
 
   );

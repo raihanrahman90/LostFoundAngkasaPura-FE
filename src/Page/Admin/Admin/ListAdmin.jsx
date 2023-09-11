@@ -4,12 +4,14 @@ import { getListAdmin } from "../../../Hooks/Admin/Admin";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
+import { LoadingModal, LoadingPage } from "../../Loading";
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+  const [isLoading, setLoading] = useState(false);
   const access = Cookies.get("access");
 
 
@@ -21,12 +23,15 @@ export default function ListAdmin() {
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
     try{
+      setLoading(true);
       const response = await getListAdmin({page, name:null,email:null,access:null}); 
       // console.log(response);
       setData(response.data.data);
       setTotalPages(response.data.pageTotal);
       setHasMore(response.data.isHasMore);
+      setLoading(false);
     }catch(e){
+      setLoading(false);
       if(e.statusCode===401) navigate("admin");
     }
   };
@@ -57,6 +62,7 @@ export default function ListAdmin() {
       title={"List Admin"}
       body={
         <>
+          <LoadingModal isLoading={isLoading}/>
           <div className="mt-5">
             <div className="w-100">
               <Link to="/Admin/CreateAdmin" className="btn btn-primary text-white float-right">Add Admin</Link>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import ListData from "./ListData";
 import { getListClaim } from "../../../Hooks/Admin/ItemClaim";
 import { AdminDefault } from "../AdminDefault";
 import { useNavigate } from "react-router-dom";
+import { LoadingModal } from "../../Loading";
 
 export default function ListClaim() {
   const [data, setData] = useState([]);
@@ -11,6 +11,7 @@ export default function ListClaim() {
   const [hasMore, setHasMore] = useState(true);
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState(1);
+  const [isLoading, setLoading] = useState(false);
 
 
   let navigate = useNavigate();
@@ -28,13 +29,15 @@ export default function ListClaim() {
     setStatus(e.target.value);
   }
   useEffect(() => {
-    const token = Cookies.get("token");
     const getListData = async()=>{
       try{
+        setLoading(true);
         let listData = await getListClaim({page,status:status});
         console.log(listData);
         setData(listData.data.data);
+        setLoading(false);
       }catch(e){
+        setLoading(false);
         if(e.error ===401){
           navigate("/Admin", -1);
         };
@@ -46,6 +49,8 @@ export default function ListClaim() {
     <AdminDefault
       title={"List Claim"}
       body={ 
+<>
+        <LoadingModal isLoading={isLoading}/>
         <div className="">
           <button type="button" class="mr-2 me-5 bg-primary text-white ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Filter
@@ -80,7 +85,7 @@ export default function ListClaim() {
               <thead style={{backgroundColor:"black"}}>
                 <tr>
                   <th>Nama Barang</th>
-                  <th>Tanggal Claim</th>
+                  <th>Tanggal Pengambilan</th>
                   <th>Status Item</th>
                   <th>Status</th>
                   <th>Tindakan</th>
@@ -110,7 +115,7 @@ export default function ListClaim() {
           <button disabled className="mx-1">{page}{hasMore}</button>
           <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
           </div>
-        </div>
+        </div></>
       }/>
 );
 }

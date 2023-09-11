@@ -46,6 +46,7 @@ export default function FoundItemList() {
   
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
+    setLoading(true);
     let url = `${BASE_URL}/Admin/Item-Found?page=${page}`;
     if(namaBarang.trim() != ""){
       url = `${url}&name=${namaBarang}`;
@@ -74,7 +75,9 @@ export default function FoundItemList() {
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error('Error fetching data:', error);
     }
   };

@@ -29,8 +29,9 @@ ChartJS.register(
 export function Chart() {
   const [datasets, setDatasets] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [startDate, setStartDate] = useState("2023-01-01");
-  const [endDate, setEndDate] = useState("2023-12-31");
+  var year = new Date().getFullYear();
+  const [startDate, setStartDate] = useState(year+"-01");
+  const [endDate, setEndDate] = useState(year+"-12");
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const options = {
@@ -51,28 +52,11 @@ export function Chart() {
     datasets: datasets,
   };
 
-  useEffect(() => {
-    const token = Cookies.get("token");
-    axios
-      .get(
-        `${BASE_URL}/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setDatasets(res.data.data.datasets);
-        setLabels(res.data.data.labels);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   const handleTanggal = (e) => {
     e.preventDefault();
+    fetchData();
+  };
+  const fetchData = (e)=>{
     const token = Cookies.get("token");
     axios
       .get(
@@ -84,13 +68,17 @@ export function Chart() {
         }
       )
       .then((res) => {
+        console.log("ini jalankok")
         setDatasets(res.data.data.datasets);
         setLabels(res.data.data.labels);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
+  useEffect(()=>{
+    fetchData();
+  },[])
   const clickDownload = ()=>{
     downloadExcel({startDate:startDate,endDate:endDate})
     .then((e)=>{

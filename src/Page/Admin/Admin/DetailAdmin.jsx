@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { AdminDefault } from '../AdminDefault'
 import { useParams } from 'react-router-dom'
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import {getDetailAdmin, resetPassword} from '../../../Hooks/Admin/Admin'
-import Loading from "../../Componen/Loading";
+import { LoadingModal } from '../../Loading';
 
 export default function DetailAdmin() {
     const routeParams = useParams();
     const id = routeParams.id;
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [data, setData] = useState([]);
-    const [Loadings, setLoadings] = useState(false);
+    const [loading, setLoadings] = useState(false);
     const access = Cookies.get("access");
 
     const fetchData = async () => {
@@ -38,25 +36,26 @@ export default function DetailAdmin() {
         title="Detail Admin"
         body={
             <>
-            {Loadings ? (<Loading/>) : (
+            <LoadingModal isLoading={loading}/>
             <div>
                 <div className='row mt-5'>
-                    <div className='col-3'>id :</div>
-                    <input type="text" value={data.id} className='form-control w-75' disabled />
-                </div>
-                <div className='row mt-5'>
-                    <div className='col-3'>Nama :</div>
+                    <div className='col-3'>Nama</div>
                     <input type="text" value={data.name} className='form-control w-75' disabled />
                 </div>
                 <div className='row mt-5'>
-                    <div className='col-3'>Email :</div>
+                    <div className='col-3'>Email</div>
                     <input type="text" value={data.email} className='form-control w-75' disabled />
-
+                </div>
+                <div className='row mt-5'>
+                    <div className='col-3'>Access</div>
+                    <input type="text" value={data.access} className='form-control w-75' disabled />
                 </div>
                 {access=="SuperAdmin"?
-                <button type="button" class="btn btn-danger px-5  me-1 text-white" data-bs-toggle="modal" data-bs-target="#Tolak">
-                  Reset Password
-                </button>
+                <>
+                  <button type="button" class="btn btn-danger px-3 me-1 text-white float-end mt-5" data-bs-toggle="modal" data-bs-target="#Tolak">
+                    Reset Password
+                  </button>
+                </>
                 :<></>
                 }
                 
@@ -86,8 +85,6 @@ export default function DetailAdmin() {
                 </div>
 
             </div>
-            )
-            }
             </>
 
         }
