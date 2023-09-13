@@ -5,7 +5,7 @@ import '../../Asset/user.css';
 import "../../Asset/style.css";
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { checkAccessToken } from "../../Hooks/User/Default";
 export default function DetailBarang() {
     const routeParams = useParams();
@@ -57,14 +57,6 @@ export default function DetailBarang() {
                                 {data.foundDate}
                             </span>
                         </div>
-                        {/*<div className="mb-3">
-                            <span>
-                                <i className="mx-2">
-                                    <IoLocationOutline className="" style={{color: "#2ECC71"}}/>
-                                </i>
-                                Gerbang 6
-                            </span>
-    </div>*/}
                         <button className="btn btn-primary w-100 text-white p-3 mt-5" onClick={goToConfirmation}>
                             Konfirmasi Barang
                         </button>

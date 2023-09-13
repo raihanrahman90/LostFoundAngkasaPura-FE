@@ -1,19 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { Chart } from "./Chart";
-import lab_profile from "../../Asset/lab_profile.png";
-import check_circle from "../../Asset/check_circle.png";
 import {AdminDefault} from './AdminDefault';
 import {GoReport} from 'react-icons/go';
 import {AiOutlineCheckCircle,AiOutlineMail,AiOutlineSearch} from 'react-icons/ai';
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
 export default function Dashboard() {
 
   const [datas, setDatas] = useState([]);
-  const [datasets, setDatasets] = useState([]);
-  const [labels , setLabels] = useState([]);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   var navigate = useNavigate();
   useEffect(() => {
@@ -68,7 +63,6 @@ export default function Dashboard() {
               className="
               d-flex
               justify-content-center
-              align-items-center
               mb-5
               col-12
               "

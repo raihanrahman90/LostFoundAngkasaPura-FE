@@ -2,7 +2,7 @@ import { defaultUserRequest } from "./Default";
 
 
 export const listItemClaim= async (page)=>{
-    var url = '/Item-Claim?page='+page;
+    var url = '/Item-Claim?size=1000&page='+page;
     return await defaultUserRequest(url, 'get', "");
 }
 

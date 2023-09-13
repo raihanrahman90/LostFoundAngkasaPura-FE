@@ -1,6 +1,5 @@
 import { defaultUserRequest } from "./Default";
 
-
 export const fetchCountNotification= ()=>{
     var url = '/auth/notification/count';
     return defaultUserRequest(url, 'get', "");

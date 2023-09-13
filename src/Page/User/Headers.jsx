@@ -1,14 +1,14 @@
 import React,{useState, useEffect} from "react";
 import Logo from "../../Asset/logo.png";
-import { BsBell } from "react-icons/bs";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {login, logout, register} from '../../Hooks/User/Default';
+import {login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
 import {  fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
+import { LoadingPage } from "../Loading";
 
 export default function Headers() {
 
@@ -21,6 +21,7 @@ export default function Headers() {
   const [showNotif, setShowNotif] = useState(false);
   const [countNotification, setCountNotification] = useState(0);
   const [listNotification, setListNotification] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const clickNotif=()=>{
     if(showNotif){
@@ -51,26 +52,22 @@ export default function Headers() {
     
   },[isLogin])
   const handleLogout = async()=>{
-    logout()
-    .then((e)=>{
-      setIsLogin(false);
-      Cookies.remove("token");
-      navigate("/")
-    })
-    .catch((e)=>{
-      alert(e);
-    })
+    setIsLogin(false);
+    Cookies.remove("token");
+    Cookies.remove("refrehToken");
+    navigate("/")
   }
 
  const handleLogin = async (e) => { 
   e.preventDefault();
+  setLoading(true);
   login({email:email, password:password})
   .then((e)=>{
+    setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      console.log(e.data.data);
-      Cookies.set("token", e.data.data);
-      (true);
+      Cookies.set("token", e.data.data.accessToken);
+      Cookies.set("refreshToken", e.data.data.refreshToken);
       setEmail("");
       setPassword("");
       window.location.reload();
@@ -78,18 +75,22 @@ export default function Headers() {
       setErrorLogin(e.message);
     }
   })
-  .catch((e)=>{
-    setErrorLogin(e.response.data.data);
+  .catch((err)=>{
+    console.log(err);
+    setErrorLogin(err.response.data.data);
   });
 }
 
 const handleRegister = async (e) => {
   e.preventDefault();
+  setLoading(true);
   register({email:email, password:password, name:name, phone:phone})
   .then((e)=>{
+    setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data);
+      Cookies.set("token", e.data.data.accessToken);
+      Cookies.set("refreshToken", e.data.data.refreshToken);
       setIsLogin(true);
       setEmail("");
       setPassword("");
@@ -99,6 +100,7 @@ const handleRegister = async (e) => {
     }
   })
   .catch((e)=>{
+    setLoading(false);
     setErrorLogin(e.response.data.data);
   });
 }
@@ -110,13 +112,12 @@ useEffect(()=>{
     phone:phone,
     name:name
   }
-
-  console.log(data);
 },[])
 
 
   return (
     <>
+    {isLoading?<LoadingPage/>:<></>}
     <div id="header">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid py-3">
@@ -138,7 +139,7 @@ useEffect(()=>{
           <>
           <button className="item align-self-end ms-auto me-1 notif me-3 d-inline d-md-none" onClick={clickNotif}>
             <IoMdNotifications />
-            <span className="notif-count">3</span>
+            <span className="notif-count">{countNotification}</span>
           </button></>
           :<></>}
           <div class="collapse navbar-collapse" id="navbarSupportedContent">

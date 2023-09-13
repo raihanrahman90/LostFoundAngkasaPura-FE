@@ -6,6 +6,8 @@ import "../../Asset/style.css";
 import { Link, useParams } from "react-router-dom";
 import { getDetailFoundClaim, getComment, sendComment } from "../../Hooks/User/ItemClaim";
 import {AiOutlineUser} from 'react-icons/ai'
+import { Status } from "../../Constants/Status";
+import { statusBadge } from "../../Util/Utils";
 
 export default function DetailClaimBarang() {
 
@@ -19,13 +21,13 @@ export default function DetailClaimBarang() {
 
 
     useEffect(()=>{
-        console.log(foundClaimId);
         getDetailFoundClaim(foundClaimId)
         .then((e)=>{
             setBarang(e.data);
         })
         fetchComment();
-    },[]);
+    },[routeParams]);
+
     const fetchComment = async ()=>{
         getComment(foundClaimId)
         .then(e=>{
@@ -62,23 +64,9 @@ export default function DetailClaimBarang() {
             window.location.reload();
         })
     }
-    const handleStatus = (status) => {
-        switch (status) {
-            case "Confirmed":
-                return "confirmedStyle";
-            case "Confirmation":
-                return "confirmationStyle";
-            case "Reject":
-                return "rejectStyle";
-            case "Approved":
-                return "confirmedStyle";
-            default:
-                return "";
-        }
-    };
 
     return (
-        <div style={{backgroundColor:"white"}}>
+        <div className="bg-white">
             <Headers />
 
             <div className="container py-5" id="title">
@@ -108,7 +96,7 @@ export default function DetailClaimBarang() {
                                                     <p className="card-title fw-bold text-dark ">Waktu pengajuan </p>
                                                 </div>
                                                 <div className="col-8">
-                                                    <p className="card-title text-dark ">: {barang.createdDate}</p>
+                                                    <p className="card-title text-dark ">: {barang.createdDate==null?"":barang.createdDate.split("T")[0]}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -118,10 +106,7 @@ export default function DetailClaimBarang() {
                                                 </div>
                                                 <div className="col-8">
                                                     <p className="card-title text-dark ">: 
-                                                        <span className={`px-2 py-1 ms-2 text-white rounded ${handleStatus(barang.status)}`}>
-                                                            {barang.status}
-                                                            
-                                                        </span>
+                                                        {statusBadge(barang.status)}
                                                         <button type="button" class="text-white bg-dark badge ms-2" data-bs-toggle="modal" data-bs-target="#Tolak">
                                                         !
                                                         </button>
@@ -164,23 +149,38 @@ export default function DetailClaimBarang() {
                                                     </p>
                                                 </div>
                                             </div>
-                                            
-                                            <div className="row">
-                                                <div className="col-4">
-                                                    <p className="card-title fw-bold text-dark ">Tempat pengambilan </p>
-                                                </div>
-                                                <div className="col-8">
-                                                    <p className="card-title text-dark ">: {barang.claimLocation}</p>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-4">
-                                                    <p className="card-title fw-bold text-dark ">Waktu pengambilan </p>
-                                                </div>
-                                                <div className="col-8">
-                                                    <p className="card-title text-dark ">: {barang.claimDate}</p>
-                                                </div>
-                                            </div>
+                                            {
+                                                barang.status===Status.Rejected?<>
+                                                    <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title fw-bold text-dark ">Alasan Penolakan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title text-dark ">: {barang.rejectReason}</p>
+                                                        </div>
+                                                    </div>
+                                                </>:<></>
+                                            }
+                                            {
+                                                barang.status === Status.Approved ?<>
+                                                    <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title fw-bold text-dark ">Tempat pengambilan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title text-dark ">: {barang.claimLocation}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-4">
+                                                            <p className="card-title fw-bold text-dark ">Waktu pengambilan </p>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="card-title text-dark ">: {barang.claimDate}</p>
+                                                        </div>
+                                                    </div>
+                                                </>:<></>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -6,3 +6,8 @@ export const LoadingPage = ()=>{
         </div>
     </>
 }
+export const LoadingModal = ({isLoading})=>{
+    return <>
+        {isLoading?<LoadingPage/>:<></>}
+    </>
+}

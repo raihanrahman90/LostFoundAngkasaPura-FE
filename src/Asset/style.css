@@ -186,10 +186,11 @@
 }
 .sidebar-mobile.opened{
     width: 300px;
+    z-index: 1000;
 }
 #loading{
     position: fixed;
-    z-index: 999;
+    z-index: 10000;
     opacity: 0.4;
     width: 100vw;
     height: 100vh;
@@ -197,6 +198,8 @@
     background-color: white;
     justify-content: center;
     align-items: center;
+    left: 0px;
+    top: 0px;
 }
 #loading img{
     width: 100px;
@@ -227,11 +230,11 @@
     padding: 10px 5px;
 }
 .notif-dropdown .notif-list{
-    border-bottom: black;
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
     overflow-x: hidden;
+    border-bottom: var(--bs-dark) 2px solid;
 }
 .notif-dropdown .notif-list:hover{
     border-bottom: black;
@@ -304,4 +307,83 @@
 }
 .content{
     min-height: 40vh;
+}
+.vh-80{
+    height: 80vh;
+}
+.bg-carousel{
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    opacity: 0.3;
+    z-index: 3;
+}
+.carousel-text{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+}
+.z-20{
+    z-index: 20;
+}
+.z-30{
+    z-index: 30;
+}
+.h-fit{
+    height: fit-content;
+}
+.card-text.element{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.carousel-caption.d-none{
+    display: block !important;
+}
+.hv-20{
+    height: 20vh;
+}
+#home-card .text-title, #home-card .text-body{
+    color: white !important;
+}
+#home-card .text-title{
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width:768px){
+    #home-card .text-title{
+        font-size: 1rem;    
+    }
+    #home-card .text-body{
+        font-size: 0.7rem;
+    }
+}
+
+#home-card{
+    min-height: 100px;
+    height: fit-content;
+}
+@media only screen and (max-width:768px){
+    .carousel-image{
+        height: 80vh;
+        width: auto;
+    }
+}
+@media only screen and (min-width:768px){
+    .carousel-image{
+        width: 100%;
+        min-height: 100%;
+        height: auto;
+    }
+}
+.min-h-200{
+    min-height: 200px;
 }

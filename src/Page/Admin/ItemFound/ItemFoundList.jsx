@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { AdminDefault } from "../AdminDefault";
 import { LoadingPage } from "../../Loading";
+import { statusBadge } from "../../../Util/Utils";
 
 export default function FoundItemList() {
   const [data, setData] = useState([]);
@@ -18,8 +19,6 @@ export default function FoundItemList() {
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
 
   const handleKategori = (e) => {
@@ -47,12 +46,16 @@ export default function FoundItemList() {
   
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
+    setLoading(true);
     let url = `${BASE_URL}/Admin/Item-Found?page=${page}`;
     if(namaBarang.trim() != ""){
       url = `${url}&name=${namaBarang}`;
     }
     if(tglStart.trim() != ""){
       url = `${url}&foundDateStart=${tglStart}`;
+    }
+    if(tglEnd.trim() != ""){
+      url = `${url}&foundDateEnd=${tglEnd}`;
     }
     if(kategori.trim() != ""){
       url = `${url}&category=${kategori}`;
@@ -72,7 +75,9 @@ export default function FoundItemList() {
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error('Error fetching data:', error);
     }
   };
@@ -175,17 +180,18 @@ export default function FoundItemList() {
                   </tr>
                 </thead>
                 <tbody>
+                  {data.length==0?<>
+                    <tr>
+                      <td colSpan={5} className="text-center">Belum ada data ditambahkan</td>
+                    </tr>
+                  </>:<></>}
                   {data.map((item, index) => {
-                    let status=<></>;
-                    if(item.status==='Found') status = <div className="badge bg-primary">{item.status}</div>;
-                    if(item.status==='Confirmed' || item.status ==="Closed") status = <div className="badge bg-success">{item.status}</div>;
-                      
                     return <>
                     <tr key={item.id}>
                       <td>{item.name}</td>
                       <td>{item.category}</td>
                       <td>{item.foundDate}</td>
-                      <td>{status}</td>
+                      <td>{statusBadge(item.status)}</td>
                       <td>
                         <Link
                           className="btn btn-primary text-white"

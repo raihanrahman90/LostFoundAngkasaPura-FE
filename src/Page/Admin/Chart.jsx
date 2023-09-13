@@ -29,8 +29,9 @@ ChartJS.register(
 export function Chart() {
   const [datasets, setDatasets] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [startDate, setStartDate] = useState("2023-01-01");
-  const [endDate, setEndDate] = useState("2023-12-31");
+  var year = new Date().getFullYear();
+  const [startDate, setStartDate] = useState(year+"-01");
+  const [endDate, setEndDate] = useState(year+"-12");
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const options = {
@@ -51,28 +52,11 @@ export function Chart() {
     datasets: datasets,
   };
 
-  useEffect(() => {
-    const token = Cookies.get("token");
-    axios
-      .get(
-        `${BASE_URL}/admin/dashboard/grafik?startDate=2023-01-01&endDate=2023-12-31`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setDatasets(res.data.data.datasets);
-        setLabels(res.data.data.labels);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   const handleTanggal = (e) => {
     e.preventDefault();
+    fetchData();
+  };
+  const fetchData = (e)=>{
     const token = Cookies.get("token");
     axios
       .get(
@@ -84,13 +68,17 @@ export function Chart() {
         }
       )
       .then((res) => {
+        console.log("ini jalankok")
         setDatasets(res.data.data.datasets);
         setLabels(res.data.data.labels);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
+  useEffect(()=>{
+    fetchData();
+  },[])
   const clickDownload = ()=>{
     downloadExcel({startDate:startDate,endDate:endDate})
     .then((e)=>{
@@ -104,8 +92,9 @@ export function Chart() {
         <div className="col-md-2 col-12">
           <form onSubmit={handleTanggal} className="mt-5">
             <div className="w-100">
-              <label htmlFor="" className="w-100">
-                Start
+              <label htmlFor="" className="w-100 text-dark">
+                Start Date
+              </label>
                 <input
                   type="month"
                   className="w-100 px-5 py-2 rounded mb-3"
@@ -113,18 +102,15 @@ export function Chart() {
                     setStartDate(e.target.value);
                   }}
                 />
-              </label>
 
-              <label htmlFor="" className="w-100">
-                End
-                <input
-                  type="month"
-                  className="w-100 px-5 py-2 rounded mb-3"
-                  onChange={(e) => {
-                    setEndDate(e.target.value);
-                  }}
-                />
-              </label>
+              <label htmlFor="" className="w-100 text-dark">End Date</label>
+              <input
+                type="month"
+                className="w-100 px-5 py-2 rounded mb-3"
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                }}
+              />
             </div>
             <button
               type="submit"

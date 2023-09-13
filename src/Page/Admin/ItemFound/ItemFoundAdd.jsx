@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
-import Loading from "../../Componen/Loading";
 import { useNavigate } from "react-router-dom";
 import { getCategory } from "../../../Hooks/Admin/Item";
+import { LoadingModal } from "../../Loading";
 
 export default function ItemFoundAdd() {
   const [namaBarang, setNamaBarang] = useState("");
   const [ciriBarang, setCiriBarang] = useState("");
   const [tanggalDitemukan, setTanggalDitemukan] = useState("");
-  const [kategori, setKategori] = useState("perhiasan");
+  const [kategori, setKategori] = useState();
   const [newCategory, setNewCategory] = useState(false);
   const [listCategory, setListCategory] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -56,14 +56,17 @@ export default function ItemFoundAdd() {
             imageBase64: base64Image,
           }
         );
-        console.log(result);
         setLoading(false);
         if(result){
           navigate("/admin/FoundItem")
         }
       }catch(err){
-        if(err.response.status==401){
+        setLoading(false);
+        console.log(err);
+        if(err.status==401){
           navigate("/admin");
+        }else{
+          alert(err.data.data);
         };
       }
     }
@@ -72,13 +75,12 @@ export default function ItemFoundAdd() {
 
   return (
     <>
-    {loading ? (<Loading />) : (
     <AdminDefault
       title={"Add Item Found"}
       body={
         <>
-        {loading ? (<Loading />) : (
-        <form className="row pt-5 pb-5" onSubmit={handleSubmit}>
+        <LoadingModal isLoading={loading}/>
+        <form className="row pt-5 pb-5 px-2" onSubmit={handleSubmit}>
         <div className="form__group">
           <input
             onChange={(e) => setNamaBarang(e.target.value)}
@@ -103,7 +105,7 @@ export default function ItemFoundAdd() {
           <label className="form__label" htmlFor="ciriBarang">Ciri Ciri Barang</label>
         </div>
 
-        <div className="form__group col-3">
+        <div className="form__group col-md-3 col-6">
           {newCategory?
           <input
           required
@@ -123,7 +125,7 @@ export default function ItemFoundAdd() {
           </select>}
           <label className="form__label" htmlFor="kategori">Kategori</label>
         </div>
-        <div className="form__group col-3">
+        <div className="form__group col-md-3 col-6">
           <input
             onChange={(e) => setNewCategory(!newCategory)}
             type="checkbox"
@@ -131,7 +133,7 @@ export default function ItemFoundAdd() {
           <label  htmlFor="kategori">kategory baru?</label>
         </div>
 
-        <div className="form__group col-6">
+        <div className="form__group col-md-6 col-12">
           <input
             onChange={(e) => setTanggalDitemukan(e.target.value)}
             type="date"
@@ -161,11 +163,10 @@ export default function ItemFoundAdd() {
         </div>
 
         <input type="Submit" className="btn btn-primary float-end me-md-5 text-white" />
-        </form> )}
+        </form>
         </>
 
-}/>
-)}
+        }/>
     </>
 
 

@@ -8,12 +8,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import { createClaim } from "../../Hooks/User/ItemClaim";
+import { LoadingPage } from "../Loading";
 export default function ClaimBarang() {
     var routeParams = useParams();
     var navigate = useNavigate();
     const itemFoundId = routeParams["id"];
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [informasiTambahan, setInformasiTambahan] = useState();
     const [identityNumber, setIdentityNumber] = useState();
@@ -62,13 +63,18 @@ export default function ClaimBarang() {
             proofImageBase64: base64Image,
         }
         ).then((e)=>{
+            setLoading(false);
             navigate("/Claim/"+e.data.id);
+        })
+        .catch((err)=>{
+            alert("Terjadi kesalahan pada server");
+            setLoading(false);
         });
-        setLoading(false);
     };
 
     return (
         <div style={{backgroundColor:"white"}}>
+            {isLoading?<LoadingPage/>:<></>}
             <Headers />
 
             <div className="container py-5">
@@ -81,7 +87,7 @@ export default function ClaimBarang() {
 
             <div className="container pb-5">
                 <div className="row justify-content-center">
-                    <div className="col-sm-10">
+                    <div className="col-md-10 col-12">
                         <div className="card">
                             <div className="row card-body">
                                 <div className="col-sm-3">
@@ -100,8 +106,8 @@ export default function ClaimBarang() {
             </div>
 
             <div className="row pb-5">
-                <div className="container col-sm-6">
-                    <form onSubmit={handleSubmit}>
+                <div className="container col-md-6">
+                    <form onSubmit={handleSubmit} className="px-2">
                         <h2 >
                             Data Diri
                         </h2>

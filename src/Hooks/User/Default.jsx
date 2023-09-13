@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
-import { useNavigate } from "react-router-dom";
 export const login = async ({
     email, password
 })=>{
@@ -32,10 +31,14 @@ export const defaultUserRequest = async(
         return res;
     }catch(e){
         try{
-            var accessToken = await getAccessToken();
-            var res = await callApiWithToken(url, method, body, accessToken);
-            Cookies.set("token", accessToken);
-            return res;
+            if(e.status===401){
+                var accessToken = await getAccessToken();
+                var res = await callApiWithToken(url, method, body, accessToken);
+                Cookies.set("token", accessToken);
+                return res;
+            }else{
+                throw e;
+            }
         }catch(e){
             throw e
         }
@@ -44,7 +47,8 @@ export const defaultUserRequest = async(
 
 export const getAccessToken = async ()=>{
     try {
-      var accessToken = await callApiWithToken("auth/access-token", 'get', '','')
+        var refreshToken = Cookies.get("refreshToken");
+      var accessToken = await callApiWithToken("auth/access-token?refreshToken="+refreshToken, 'get', '','')
       return accessToken;
     }catch(e){
         console.log("ini error access token")
@@ -54,9 +58,6 @@ export const getAccessToken = async ()=>{
 
 export const checkAccessToken = async ()=>{
     return await defaultUserRequest("auth/access-token/check", "get", "");
-}
-export const logout = async ()=>{
-    return await defaultUserRequest("auth/logout", "get", "");
 }
 
 export const requestCodeForgotPassword = async({email})=>{

@@ -72,20 +72,6 @@ export default function ListBarang() {
             <div className="bgdasboard text-center py-5">
                 <h1 className="title text-white pb-3 fw-bold">Temukan <span className="text-warning">Barangmu</span></h1>
                 <h5 className="text-white pb-3 ">Cari barangmu yang hilang, Kami akan membantumu mencari barangmu yang <br />hilang dan mengabarikannya ke kamu</h5>
-
-                {/* <input className="inputs border border-secondary mb-2 mt-5 icon-rtl" type="text" placeholder="Cari Barang" /> */}
-                {/* <Container className="mt-5  pb-5">
-                    <Row className="d-flex justify-content-center">
-                        <Col md={6}>
-                            <Form className="d-flex justify-content-center">
-                                <InputGroup>
-                                    <FormControl type="search" className="me-2" placeholder="Search" prefix={AiOutlineSearch}>
-                                    </FormControl>
-                                </InputGroup>
-                            </Form>
-                        </Col>
-                    </Row>
-                </Container> */}
                 <Container className="mt-5 pb-5">
                     <Row className="d-flex justify-content-center">
                         <Col md={6}>
@@ -107,10 +93,10 @@ export default function ListBarang() {
             <div className="container min-vh-50">
                 {/* Sub Judul */}
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-12 col-md-3 order-2 order-md-1">
                         <h4 className="text-start pt-5">Filter</h4>
                     </div>
-                    <div className="col-9">
+                    <div className="col-12 col-md-9 order-1 order-md-2">
                         <h4 className="text-start pt-5">Daftar Barang Yang Ditemukan</h4>
                         <p className="text-third"><FiAlertTriangle/> Note : Jika barang tidak Ditemukan pada list barang setelah 1x24 jam, silahkan hubungi <i>contact center</i>  
                         <Link to={"/report"} className="ms-1">disini</Link></p>
@@ -142,8 +128,8 @@ export default function ListBarang() {
                             <input type="date" className="form-control" id="enddate" onChange={handleEndDate} value={endDate}/> 
                         </div>
 
-                        <button className="w-100 mt-3 bg-danger" onClick={handleReset} >
-                            reset
+                        <button className="w-100 mt-3 bg-danger text-white" onClick={handleReset} >
+                            Reset
                         </button>
                     </div>
                     <div className="col-12 col-md-9 pb-5 min-vh-50 position-relative mb-5">

@@ -5,7 +5,8 @@ import bg from '../../Asset/background_1.png';
 import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
-import Loading from "../Componen/Loading";
+import jwt_decode from 'jwt-decode';
+import { LoadingModal } from '../Loading';
 
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
@@ -30,8 +31,11 @@ export default function LoginAdmin() {
       // console.log(data)
       if (data) {
         setLoading(false);
-        console.log(data);
-        Cookies.set('token', data.data.data);
+        let token = data.data.data.accessToken;
+        var decoded = jwt_decode(token);
+        Cookies.set('token', token);
+        Cookies.set('refreshToken', data.data.data.refreshToken);
+        Cookies.set('access', decoded.Access)
         navigate('/admin/Dashboard');
       }
     })
@@ -52,12 +56,9 @@ export default function LoginAdmin() {
     const checkAccessToken = async()=>{
       try{
         let accessToken = await getAccessToken();
-        // console.log(accessToken);
         return accessToken;
       }catch(e){
-        if(e.message == 'Mohon login kembali'){
-          alert("Token expired")
-        }
+        alert(e.message)
       }
     }
     checkAccessToken().catch(console.error);
@@ -65,7 +66,7 @@ export default function LoginAdmin() {
 
   return (
     <>
-    {loading ? (<Loading />) : (
+    <LoadingModal isLoading={loading}/>
     <section className="vh-100 vw-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="row g-0">
@@ -100,7 +101,6 @@ export default function LoginAdmin() {
           </div>
       </div>
     </section>
-    )}
 </>
 
   );
