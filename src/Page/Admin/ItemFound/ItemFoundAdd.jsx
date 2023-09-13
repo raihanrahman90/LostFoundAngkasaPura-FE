@@ -150,6 +150,7 @@ export default function ItemFoundAdd() {
             onChange={handleFileInputChange}
             className="form__field"
             id="fotoBarang"
+            accept="image/png, image/gif, image/jpeg"
             required
           />
           <label className="form__label" htmlFor="fotoBarang">Foto Barang</label>

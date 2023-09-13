@@ -36,3 +36,11 @@ export const sendComment = ({itemClaimId, comment, image})=>{
     }
     return defaultUserRequest(url, 'post', body);
 }
+
+export const sendRating = ({itemClaimId, rating})=>{
+    var url = '/Item-Claim/'+itemClaimId+"/rating";
+    var body = {
+        rating:rating
+    };
+    return defaultUserRequest(url, 'post', body);
+}

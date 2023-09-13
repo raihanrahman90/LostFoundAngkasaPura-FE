@@ -6,6 +6,7 @@ import { Status } from "../../../Constants/Status";
 
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { LoadingModal } from "../../Loading";
 
 export default function ItemFoundDetail() {
   // const location = useLocation();
@@ -13,7 +14,23 @@ export default function ItemFoundDetail() {
   const itemFoundId = routeParams["id"];
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [data, setData] = useState("");
+  const [imageClosing, setImageClosing] = useState();
+  const [imageClosing64, setImageClosing64] = useState();
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handleImageClosing = (event) => {
+    const file = event.target.files[0];
+    setImageClosing(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     const token = Cookies.get("token");
     const res = axios.get(`${BASE_URL}/Admin/Item-Found/${itemFoundId}`, {
@@ -31,12 +48,15 @@ export default function ItemFoundDetail() {
   }, []);
 
   const closeHandle = async()=>{
-    sendCloseItem({id:itemFoundId})
+    setLoading(true);
+    sendCloseItem({id:itemFoundId, image:imageClosing64})
     .then((e)=>{
+      setLoading(false);
       alert("Berhasil meng-closed item");
       window.location.reload();
     })
     .catch((e)=>{
+      setLoading(false);
       console.log(e);
       alert(e.data.data);
     })
@@ -47,10 +67,17 @@ export default function ItemFoundDetail() {
       title="View Data"
       body={
         <>
+        <LoadingModal isLoading={isLoading}/>
         <div className="row"> 
-          <div className="col-md-6 col-12">
+          <div className="col-md-6 col-12 row">
             <h6>Gambar Barang</h6>
             <img className="mx-auto d-block rounded" src={data.image} alt="" />
+            {
+              data.imageClosing===null?<></>:<>
+                <h6>Gambar Closing</h6>
+                <img className="mx-auto d-block rounded" src={data.imageClosing} alt="" />
+                </>
+            }
           </div>
           <div className="container mt-3 col-12 col-md-6">
             <div className="rounded border px-2">
@@ -104,8 +131,10 @@ export default function ItemFoundDetail() {
                 >{data.description}</textarea>
                 <label className="form__label" htmlFor="description">Description</label>
               </div>
-              <div className="col-12 d-flex justify-content-end">
-                  {data.status===Status.Found?<><button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
+                  {data.status===Status.Confirmed || data.status===Status.Found?
+                  <>
+                <div className="col-12 d-flex justify-content-end">
+                  <button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
                     Close Item
                   </button>
                   <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
@@ -120,6 +149,21 @@ export default function ItemFoundDetail() {
                           <div>
                             Item Found akan diclosed
                           </div>
+                          <div className="d-flex">
+                            <input type="file" 
+                            className="form-control"
+                            onChange={handleImageClosing} 
+                            accept="image/png, image/gif, image/jpeg"/>
+                          </div>
+                          <div className="row">
+                            {imageClosing && (
+                              <img
+                                src={imageClosing64}
+                                alt="Selected Image"
+                                className=""
+                              />
+                            )}
+                          </div>
                           {/* End of Form filter */}
                         </div>
                         <div class="modal-footer">
@@ -128,9 +172,10 @@ export default function ItemFoundDetail() {
                         </div>
                       </div>
                     </div>
-                  </div></>:<></>}
-                  
+                  </div>
               </div>
+                  </>:<></>}
+                  
             </div>
           </div>
         </div>

@@ -10,11 +10,11 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { downloadExcel } from "../../Hooks/Admin/Admin";
 import fileDownload from "js-file-download";
+import { saveAs } from 'file-saver';
 
 ChartJS.register(
   CategoryScale,
@@ -68,7 +68,6 @@ export function Chart() {
         }
       )
       .then((res) => {
-        console.log("ini jalankok")
         setDatasets(res.data.data.datasets);
         setLabels(res.data.data.labels);
       })
@@ -81,8 +80,12 @@ export function Chart() {
   },[])
   const clickDownload = ()=>{
     downloadExcel({startDate:startDate,endDate:endDate})
-    .then((e)=>{
-      fileDownload(e, 'Lost found.xlsx');
+    .then(response=>{
+      console.log(response);
+      const outputFilename = `${Date.now()}.xlsx`;
+      // If you want to download file automatically using link attribute.
+      const url = new Blob([response]);
+      saveAs(url, "Lost Found.xlsx")
     });
   }
 
