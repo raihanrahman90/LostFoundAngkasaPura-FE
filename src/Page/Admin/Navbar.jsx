@@ -6,10 +6,19 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
-
+import jwt_decode from "jwt-decode";
 
 
 export default function Navbar() {
+  const jwtToken = () => {
+    const token = Cookies.get("token");
+    const decoded = jwt_decode(token);
+    console.log(decoded);
+  }
+
+  useEffect(() => {
+    jwtToken();
+  },[])
 
   let navigate = useNavigate();
 

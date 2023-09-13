@@ -78,16 +78,28 @@ export function Chart() {
   useEffect(()=>{
     fetchData();
   },[])
-  const clickDownload = ()=>{
-    downloadExcel({startDate:startDate,endDate:endDate})
-    .then(response=>{
-      console.log(response);
-      const outputFilename = `${Date.now()}.xlsx`;
-      // If you want to download file automatically using link attribute.
-      const url = new Blob([response]);
-      saveAs(url, "Lost Found.xlsx")
-    });
+
+  const clickDownload = () => {
+    const token = Cookies.get("token");
+    axios
+      .get(`${BASE_URL}/admin/dashboard/download?startDate=${startDate}&endDate=${endDate}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: "blob"
+      })
+      .then(response => {
+        const blob = new Blob([response.data], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.xlsx'; // Nama file yang akan diunduh
+        a.click();
+      });
   }
+  
 
   return (
     <>

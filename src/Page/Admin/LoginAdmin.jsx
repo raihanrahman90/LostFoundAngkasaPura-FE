@@ -28,6 +28,7 @@ export default function LoginAdmin() {
       password: password,
     })
     .then((data)=>{
+      // console.log(data)
       if (data) {
         setLoading(false);
         let token = data.data.data.accessToken;

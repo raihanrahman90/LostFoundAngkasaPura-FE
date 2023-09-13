@@ -33,7 +33,7 @@ export default function ListClaim() {
       try{
         setLoading(true);
         let listData = await getListClaim({page,status:status});
-        console.log(listData);
+        // console.log(listData);
         setData(listData.data.data);
         setLoading(false);
       }catch(e){

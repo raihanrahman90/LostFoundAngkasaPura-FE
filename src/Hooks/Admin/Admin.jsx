@@ -48,7 +48,7 @@ export const getListAdmin = async ({page, name, email, access})=>{
         if(name !== null) {url= url+"&name="+name;}
         if(email !== null) {url = url+"&email="+email;}
         if(access !== null) {url = url+"&access="+access;}
-        var res = await defaultAdminRequest({url:url, method:"get", body:""});
+        var res = await defaultAdminRequest({url:url, method:"get", body:"",  });
         return res;
     }catch(e){
         return e
