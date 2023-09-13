@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import { getListFoundItem } from "../../Hooks/User/ListFoundItem";
 import { Link, useNavigate } from "react-router-dom";
 import { Card } from "../Componen/Card";
-// import {
-//   MDBCarousel,
-//   MDBCarouselItem,
-// } from 'mdb-react-ui-kit';
+import {
+  MDBCarousel,
+  MDBCarouselItem,
+} from 'mdb-react-ui-kit';
 import carousel_1 from '../../Asset/carousel_1.jpg'
 import carousel_2 from '../../Asset/carousel_2.jpg'
 import carousel_3 from '../../Asset/carousel_3.jpg'

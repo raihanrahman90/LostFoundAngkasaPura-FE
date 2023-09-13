@@ -4,8 +4,7 @@ import { getListAdmin } from "../../../Hooks/Admin/Admin";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
-
-
+import { LoadingModal, LoadingPage } from "../../Loading";
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
