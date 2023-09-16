@@ -17,3 +17,15 @@ export const statusBadge=(status)=>{
             return "";
     }
 }
+export const getBase64 = (file)=>{
+    let document = "";
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        document = reader.result;
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+    return document;
+}

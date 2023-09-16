@@ -7,6 +7,7 @@ import { Status } from "../../../Constants/Status";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { LoadingModal } from "../../Loading";
+import { getBase64 } from "../../../Util/Utils";
 
 export default function ItemFoundDetail() {
   // const location = useLocation();
@@ -14,22 +15,21 @@ export default function ItemFoundDetail() {
   const itemFoundId = routeParams["id"];
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [data, setData] = useState("");
-  const [imageClosing, setImageClosing] = useState();
   const [imageClosing64, setImageClosing64] = useState();
+  const [documentClosing64, setDocumentClosing64] = useState();
+  const [agentName, setAgentName] = useState();
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleImageClosing = (event) => {
     const file = event.target.files[0];
-    setImageClosing(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageClosing64(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    setImageClosing64(getBase64(file));
   };
+
+  const handleDocumentClosing = (event) => {
+    const file = event.target.files[0];
+    setDocumentClosing64(getBase64(file));
+  }
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -49,7 +49,7 @@ export default function ItemFoundDetail() {
 
   const closeHandle = async()=>{
     setLoading(true);
-    sendCloseItem({id:itemFoundId, image:imageClosing64})
+    sendCloseItem({id:itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
     .then((e)=>{
       setLoading(false);
       alert("Berhasil meng-closed item");
@@ -139,7 +139,7 @@ export default function ItemFoundDetail() {
                   </button>
                   <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">
+                      <form class="modal-content" onSubmit={closeHandle}>
                         <div class="modal-header">
                           <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -147,7 +147,7 @@ export default function ItemFoundDetail() {
                         <div class="modal-body">
                           {/* Form filter */}
                           <div>
-                            Item Found akan diclosed
+                            Foto Documentasi
                           </div>
                           <div className="d-flex">
                             <input type="file" 
@@ -155,22 +155,30 @@ export default function ItemFoundDetail() {
                             onChange={handleImageClosing} 
                             accept="image/png, image/gif, image/jpeg"/>
                           </div>
-                          <div className="row">
-                            {imageClosing && (
-                              <img
-                                src={imageClosing64}
-                                alt="Selected Image"
-                                className=""
-                              />
-                            )}
+                          <div>
+                            Berita Acara
+                          </div>
+                          <div className="d-flex">
+                            <input type="file" 
+                            className="form-control"
+                            onChange={handleDocumentClosing} 
+                            accept=".doc, .docx, .pdf"/>
+                          </div>
+                          <div>
+                            Nama Petugas
+                          </div>
+                          <div className="d-flex">
+                            <input type="text" 
+                            className="form-control"
+                            onChange={(e)=>setAgentName(e.target.value)} />
                           </div>
                           {/* End of Form filter */}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={closeHandle}>Terima</button>
+                          <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
               </div>

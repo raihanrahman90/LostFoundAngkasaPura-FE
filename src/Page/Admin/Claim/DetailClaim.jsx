@@ -14,7 +14,9 @@ const Detail = () => {
   const [comment, setComment] = useState("")
   const [showComment, setShowComment] = useState([]);
   const [image64, setImage64] = useState("")
-  const [image64Closing, setImage64Closing] = useState("");
+  const [imageClosing64, setImageClosing64] = useState("");
+  const [documentClosing64, setDocumentClosing64] = useState("");
+  const [agentName, setAgentName] = useState();
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
@@ -23,7 +25,6 @@ const Detail = () => {
   const [namaTempat, setNamaTempat] = useState("");
   const [tgl, setTgl] = useState("");
   const [tolak, setTolak] = useState(false);
-  const [imageClosing, setImageClosing] = useState();
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
 
@@ -72,17 +73,16 @@ const Detail = () => {
     }
   };
 
+  
   const handleImageClosing = (event) => {
     const file = event.target.files[0];
-    setImageClosing(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage64Closing(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    setImageClosing64(getBase64(file));
   };
+
+  const handleDocumentClosing = (event) => {
+    const file = event.target.files[0];
+    setDocumentClosing64(getBase64(file));
+  }
 
   const handleSubmitComment = async (e) => {
     setLoading(true);
@@ -140,7 +140,7 @@ const tolakHandle = async () => {
 
 const closeHandle = async()=>{
   setLoading(true);
-  sendCloseItem({id:item.itemFoundId, image:image64Closing})
+  sendCloseItem({id:item.itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
   .then((e)=>{
     setLoading(false);
     alert("Berhasil meng-closed item");
@@ -398,7 +398,7 @@ const terimaHandle = async () => {
             </button>
             <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
               <div class="modal-dialog">
-                <div class="modal-content">
+                <form class="modal-content" onSubmit={closeHandle}>
                   <div class="modal-header">
                     <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -414,39 +414,29 @@ const terimaHandle = async () => {
                       onChange={handleImageClosing} 
                       accept="image/png, image/gif, image/jpeg"/>
                     </div>
-                    <div className="row">
-                      {imageClosing && (
-                        <img
-                          src={image64Closing}
-                          alt="Selected Image"
-                          className=""
-                        />
-                      )}
-                    </div>
                     <div>
                       Berita Acara
                     </div>
                     <div className="d-flex">
                       <input type="file" 
                       className="form-control"
-                      onChange={handleImageClosing} 
-                      accept="image/png, image/gif, image/jpeg"/>
+                      onChange={handleDocumentClosing} 
+                      accept=".doc, .docx, .pdf"/>
                     </div>
-                    
                     <div>
                       Nama Petugas
                     </div>
                     <div className="d-flex">
                       <input type="text" 
                       className="form-control"
-                      onChange={handleImageClosing} />
+                      onChange={(e)=>setAgentName(e.target.value)} />
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={closeHandle}>Terima</button>
+                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
                   </div>
-                </div>
+                </form>
               </div>
             </div></>:<></>}
             
