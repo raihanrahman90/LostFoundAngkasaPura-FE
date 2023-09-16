@@ -121,7 +121,7 @@ export default function ClaimBarang() {
                             <input type="text" className="form-control" id="" placeholder="Informasi Tambahan" required onChange={handleInformasiTambahan}/>
                         </div>
                         <div className="col-md-12 py-2">
-                            <input className="form-control" type="file" id="formFile" required onChange={handleFileInputChange}/>
+                            <input className="form-control" type="file" id="formFile" required onChange={handleFileInputChange} accept="image/png, image/gif, image/jpeg"/>
                         </div>
                         <div className="col-12">
                             <button type="submit" className="btn btn-primary w-100 text-white px-3 mt-2">Konfirmasi Barang</button>

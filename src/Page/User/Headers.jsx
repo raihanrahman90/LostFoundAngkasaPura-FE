@@ -273,11 +273,18 @@ useEffect(()=>{
           <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
             {
               listNotification.length<1?
-              <div className="notif-list">
-              <p className="notif-title">
-                Tidak ada notifikasi untuk saat ini
-              </p>
-            </div>:
+              <>
+                <div className="notif-list">
+                  <p className="notif-title">
+                    Tidak ada notifikasi untuk saat ini
+                  </p>
+                </div>
+                <div className="notif-list">
+                  <p className="notif-title">
+                    Mohon refresh website untuk menampilkan notifikasi terbaru
+                  </p>
+                </div>
+              </>:
               listNotification.map(t=><>
                 <div className="notif-list" onClick={()=>navigate(t.url)}>
                   <div className="notif-title">{t.title}</div>

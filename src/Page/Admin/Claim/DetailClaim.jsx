@@ -345,11 +345,11 @@ const terimaHandle = async () => {
                       <div class="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
-                          <label htmlFor="namaBarang" className="form-label">Nama Tempat</label>
+                          <label htmlFor="namaBarang" className="form-label">Lokasi Pengambilan Barang</label>
                           <input required type="text" className="form-control" id="namaBarang" onChange={(e)=>{setNamaTempat(e.target.value)}} />
                         </div>
                         <div className="mb-3">
-                          <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
+                          <label htmlFor="tgl" className="form-label">Tanggal klaim barang diterima</label>
                           <input required type="date" className="form-control" id="tgl"  onChange={(e)=>{setTgl(e.target.value)}} />
                         </div>
                         {/* End of Form filter */}
@@ -406,24 +406,41 @@ const terimaHandle = async () => {
                   <div class="modal-body">
                     {/* Form filter */}
                     <div>
-                      Item Found akan diclosed
+                      Item Claim akan diclosed
                     </div>
                     <div className="d-flex">
-                        <input type="file" 
-                        className="form-control"
-                        onChange={handleImageClosing} 
-                        accept="image/png, image/gif, image/jpeg"/>
-                      </div>
-                      <div className="row">
-                        {imageClosing && (
-                          <img
-                            src={image64Closing}
-                            alt="Selected Image"
-                            className=""
-                          />
-                        )}
-                      </div>
-                    {/* End of Form filter */}
+                      <input type="file" 
+                      className="form-control"
+                      onChange={handleImageClosing} 
+                      accept="image/png, image/gif, image/jpeg"/>
+                    </div>
+                    <div className="row">
+                      {imageClosing && (
+                        <img
+                          src={image64Closing}
+                          alt="Selected Image"
+                          className=""
+                        />
+                      )}
+                    </div>
+                    <div>
+                      Berita Acara
+                    </div>
+                    <div className="d-flex">
+                      <input type="file" 
+                      className="form-control"
+                      onChange={handleImageClosing} 
+                      accept="image/png, image/gif, image/jpeg"/>
+                    </div>
+                    
+                    <div>
+                      Nama Petugas
+                    </div>
+                    <div className="d-flex">
+                      <input type="text" 
+                      className="form-control"
+                      onChange={handleImageClosing} />
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
