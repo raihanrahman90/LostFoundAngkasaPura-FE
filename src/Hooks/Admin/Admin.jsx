@@ -17,12 +17,13 @@ export const defaultAdminRequest = async({
     try{
         var accessToken = Cookies.get("token");
         if(accessToken==undefined){
-            console.log("access token unddefined");
+            console.log("access token undefined");
         }
         var res = await callApiWithToken(url, method, body, accessToken);
         return res;
     }catch(e){
         try{
+            console.log("oh di sini")
             await getAccessToken();
             var res = await callApiWithToken(url, method, body, accessToken);
             return res.data;

@@ -188,7 +188,7 @@
     width: 300px;
     z-index: 1000;
 }
-#loading{
+.loading{
     position: fixed;
     z-index: 10000;
     opacity: 0.4;
@@ -201,7 +201,18 @@
     left: 0px;
     top: 0px;
 }
-#loading img{
+.loading-partial{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.4;
+}
+
+.loading-partial img, .loading img{
     width: 100px;
     height: 100px;
 }

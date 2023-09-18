@@ -154,7 +154,7 @@ useEffect(()=>{
                   List Barang
                 </Link>
               </li>
-              {isLogin?<li class="nav-item ms-5">
+              {isLogin?<li class="nav-itLogiem ms-5">
                 <Link class="nav-link fw-bold text-primary" to="/Claim">
                   List Claim
                 </Link>

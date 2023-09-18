@@ -7,7 +7,6 @@ import { Status } from "../../../Constants/Status";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { LoadingModal } from "../../Loading";
-import { getBase64 } from "../../../Util/Utils";
 
 export default function ItemFoundDetail() {
   // const location = useLocation();
@@ -23,12 +22,24 @@ export default function ItemFoundDetail() {
 
   const handleImageClosing = (event) => {
     const file = event.target.files[0];
-    setImageClosing64(getBase64(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleDocumentClosing = (event) => {
     const file = event.target.files[0];
-    setDocumentClosing64(getBase64(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDocumentClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   useEffect(() => {
@@ -47,7 +58,8 @@ export default function ItemFoundDetail() {
     });
   }, []);
 
-  const closeHandle = async()=>{
+  const closeHandle = async(e)=>{
+    e.preventDefault();
     setLoading(true);
     sendCloseItem({id:itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
     .then((e)=>{
@@ -70,12 +82,18 @@ export default function ItemFoundDetail() {
         <LoadingModal isLoading={isLoading}/>
         <div className="row"> 
           <div className="col-md-6 col-12 row">
-            <h6>Gambar Barang</h6>
-            <img className="mx-auto d-block rounded" src={data.image} alt="" />
+            <div>
+              <h6>Gambar Barang</h6>
+              <img className="mx-auto d-block rounded" src={data.image} alt="" />
+            </div>
             {
-              data.imageClosing===null?<></>:<>
+              data.closingImage===null?<></>:<>
                 <h6>Gambar Closing</h6>
-                <img className="mx-auto d-block rounded" src={data.imageClosing} alt="" />
+                <p>
+                  Closing oleh: {data.closingAgent} <br/>
+                  <a href={data.closingDocumentation}>Berita Acara</a>
+                </p>
+                <img className="mx-auto d-block rounded" src={data.closingImage} alt="" />
                 </>
             }
           </div>
@@ -176,7 +194,7 @@ export default function ItemFoundDetail() {
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
+                          <button type="submit" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
                         </div>
                       </form>
                     </div>

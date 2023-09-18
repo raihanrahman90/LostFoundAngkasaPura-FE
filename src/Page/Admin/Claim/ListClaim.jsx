@@ -15,15 +15,6 @@ export default function ListClaim() {
 
 
   let navigate = useNavigate();
-  const nextButton = async ()=>{
-    setCurrentPage(currentPage+1);
-  }
-  const prevButton = ()=>{
-    setCurrentPage(currentPage-1);
-  }
-  const handleFilter = ()=>{
-
-  }
   
   const handleStatus = (e) => {
     setStatus(e.target.value);
@@ -57,7 +48,7 @@ export default function ListClaim() {
           </button>
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <form class="modal-content" onSubmit={handleFilter}>
+              <form class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

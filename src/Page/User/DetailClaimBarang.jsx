@@ -3,7 +3,7 @@ import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDetailFoundClaim, getComment, sendComment, sendRating } from "../../Hooks/User/ItemClaim";
 import {AiOutlineUser} from 'react-icons/ai'
 import { Status } from "../../Constants/Status";
@@ -21,14 +21,14 @@ export default function DetailClaimBarang() {
     const [file, setFile] = useState();
     const [isLoading, setLoading] = useState(false);
     const [rating, setRating] = useState(0);
+    const [ratingCommentar, setRatingCommentar] = useState();
     var routeParams = useParams();
     var itemClaimId = routeParams["id"];
+    var navigate = useNavigate();
 
     useEffect(()=>{
-        getDetailFoundClaim(itemClaimId)
-        .then((e)=>{
-            setBarang(e.data);
-        })
+        setLoading(true);
+        fetchDetailBarang();
         fetchComment();
     },[routeParams]);
 
@@ -36,6 +36,27 @@ export default function DetailClaimBarang() {
         getComment(itemClaimId)
         .then(e=>{
             setComment(e.data);
+        })
+    }
+
+    const fetchDetailBarang = () =>{
+        getDetailFoundClaim(itemClaimId)
+        .then((e)=>{
+            setBarang(e.data);
+        })
+        .catch((e)=>{
+            if(e.status===401) alert("Mohon login terlebih dahulu")
+            if(e.data.statusCode===403) {
+                alert("Anda tidak dapat mengakses halaman ini");
+                navigate("/Claim");
+            }
+            if(e.data.statusCode === 404) {
+                alert("Data tidak ditemukan")
+                navigate("/Claim");
+            }
+        })
+        .finally((e)=>{
+            setLoading(false);
         })
     }
 
@@ -77,18 +98,16 @@ export default function DetailClaimBarang() {
     const submitRating = (e) =>{
         e.preventDefault();
         setLoading(true);
-        sendRating({itemClaimId:itemClaimId,rating:rating})
+        console.log("ini rating comentar");
+        console.log(ratingCommentar)
+        sendRating({itemClaimId:itemClaimId,rating:rating, ratingComentar:ratingCommentar})
         .then((e)=>{
-            getDetailFoundClaim(itemClaimId)
-            .then((e)=>{
-                setLoading(false);
-                setBarang(e.data);
-            })
-            .catch((e)=>{
-                setLoading(false);
-            })
+            fetchDetailBarang();
         })
         .catch((e)=>{
+            alert("Terjadi kesalahan");
+        })
+        .finally(e=>{
             setLoading(false);
         })
     }
@@ -107,7 +126,7 @@ export default function DetailClaimBarang() {
                     <>
                         <div className="container pb-5">
                             <div className="row justify-content-center">
-                                <div className="col-sm-12 col-lg-10 col-md-8">
+                                <div className="col-sm-12 col-lg-10">
                                     <div className="card">
                                     <div className="row card-body">
                                             <img className="col-sm-2" src={barang.image} alt="sans"/>
@@ -223,7 +242,7 @@ export default function DetailClaimBarang() {
                                                             </button>
                                                             <div className="modal fade" id="rating" tabindex="-1" aria-labelledby="RatingLabel" aria-hidden="true">
                                                                 <div className="modal-dialog">
-                                                                    <div className="modal-content">
+                                                                    <form className="modal-content" onSubmit={submitRating}>
                                                                         <div className="modal-header">
                                                                             <div className="modal-title">
                                                                                 berikan Rating pada Pelayanan
@@ -231,13 +250,21 @@ export default function DetailClaimBarang() {
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div className="modal-body">
-                                                                            <BsFillStarFill data-bs-dismiss="modal" onMouseEnter={()=>setRating(1)} onMouseLeave={()=>setRating(0)} onClick={submitRating} className={rating>0?"text-warning":""}/>
-                                                                            <BsFillStarFill data-bs-dismiss="modal" onMouseEnter={()=>setRating(2)} onMouseLeave={()=>setRating(0)} onClick={submitRating} className={rating>1?"text-warning":""}/>
-                                                                            <BsFillStarFill data-bs-dismiss="modal" onMouseEnter={()=>setRating(3)} onMouseLeave={()=>setRating(0)} onClick={submitRating} className={rating>2?"text-warning":""}/>
-                                                                            <BsFillStarFill data-bs-dismiss="modal" onMouseEnter={()=>setRating(4)} onMouseLeave={()=>setRating(0)} onClick={submitRating} className={rating>3?"text-warning":""}/>
-                                                                            <BsFillStarFill data-bs-dismiss="modal" onMouseEnter={()=>setRating(5)} onMouseLeave={()=>setRating(0)} onClick={submitRating} className={rating>4?"text-warning":""}/>
+                                                                            <BsFillStarFill onClick={()=>setRating(1)} className={rating>0?"text-warning":""}/>
+                                                                            <BsFillStarFill onClick={()=>setRating(2)} className={rating>1?"text-warning":""}/>
+                                                                            <BsFillStarFill onClick={()=>setRating(3)} className={rating>2?"text-warning":""}/>
+                                                                            <BsFillStarFill onClick={()=>setRating(4)} className={rating>3?"text-warning":""}/>
+                                                                            <BsFillStarFill onClick={()=>setRating(5)} className={rating>4?"text-warning":""}/>
+                                                                            <div>
+                                                                                <label>Komentar</label> <br/>
+                                                                                <input type="text" required="true" onChange={(e)=>setRatingCommentar(e.target.value)} />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                        <div className="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit" class="btn btn-primary text-white">Kirim</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </>:<RatingStar rating={barang.rating}/>}
@@ -255,7 +282,7 @@ export default function DetailClaimBarang() {
                 :<></>}
             <div className="container">
                 <div className="row pb-5">
-                    <div className="container col-sm-6">
+                    <div className="container col-lg-6 col-sm-12">
                         <form className="">
                             <h2 className="">
                                 Data Diri

@@ -41,7 +41,7 @@ export default function ItemFoundAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(namaBarang === "" || ciriBarang === "" || tanggalDitemukan === "" || kategori === "" || base64Image === ""){
+    if(namaBarang === "" || ciriBarang === "" || tanggalDitemukan === "" || kategori === "" || kategori == null || base64Image === ""){
       alert("Data tidak boleh kosong");
       return;
     }else{
@@ -119,6 +119,7 @@ export default function ItemFoundAdd() {
             className="form__field"
             id="kategori"
           >
+            <option value=""></option>
             {listCategory.map((e)=>{
               return <option value={e.category} key={e.category}>{e.category}</option>
             })}

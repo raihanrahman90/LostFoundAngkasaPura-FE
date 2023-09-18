@@ -7,7 +7,7 @@ import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
-import { LoadingModal } from "../../Loading";
+import { LoadingModal, LoadingPartial } from "../../Loading";
 import { RatingStar } from "../../Componen/Rating";
 
 const Detail = () => {
@@ -75,37 +75,47 @@ const Detail = () => {
 
   
   const handleImageClosing = (event) => {
-    const file = event.target.files[0];
-    setImageClosing64(getBase64(file));
+    const file = event.target.files[0];if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleDocumentClosing = (event) => {
     const file = event.target.files[0];
-    setDocumentClosing64(getBase64(file));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDocumentClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   const handleSubmitComment = async (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     const token = Cookies.get("token");
     const data = {
       itemClaimId: itemClaimId,
       value : comment,
       imageBase64 : image64 
-  };
-  console.log(data)
-  const res = axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  }).then((e)=>{
-    setLoading(false);
-    window.location.reload();
-  }).catch((e)=>{
-    setLoading(false);
-    alert("Terjadi kesalahan");
-  });
+    };
+    axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((e)=>{
+      getComment();
+      window.location.reload();
+    }).catch((e)=>{
+      setLoadingComment(false);
+      alert("Terjadi kesalahan");
+    });
 }
 
 const tolakHandle = async () => {
@@ -113,7 +123,6 @@ const tolakHandle = async () => {
     alert("Data tidak boleh kosong")
     return
   }
-  console.log(tolak)
   setLoading(true)
   try {
     const token = Cookies.get('token');
@@ -138,7 +147,8 @@ const tolakHandle = async () => {
   }
 };
 
-const closeHandle = async()=>{
+const closeHandle = async(e)=>{
+  e.preventDefault();
   setLoading(true);
   sendCloseItem({id:item.itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
   .then((e)=>{
@@ -148,7 +158,6 @@ const closeHandle = async()=>{
   })
   .catch((e)=>{
     setLoading(false);
-    console.log(e);
     alert(e.data.data);
   })
 }
@@ -191,7 +200,7 @@ const terimaHandle = async () => {
           {item==null?<></>:<>
           
           <div className={"row table overflow-auto min-h-80 h-80 pb-2 mx-0"}> 
-            <div className="col-md-4 card me-2 h-100 overflow-auto">
+            <div className="col-md-6 card me-2 h-100 overflow-auto">
               <div className="row">
                 <div className="col-12">
                   <h6>Detail Barang</h6>
@@ -215,7 +224,13 @@ const terimaHandle = async () => {
               <h6>Keterangan Klaim</h6>
               <div className="row">
                 <div className="col-12">
-                  <RatingStar rating={item.rating}/>
+                  {item.rating?<RatingStar rating={item.rating}/>:<></>}
+                </div>
+                <div className="row">
+                  <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.ratingComentar}/>
+                    <label className="form__label">Komentar Rating</label>
+                  </div>
                 </div>
                 <div className="row">
                   <div className="form__group col-12">
@@ -260,7 +275,7 @@ const terimaHandle = async () => {
               <ShowApprovalSection item={item}/>
               <ShowImageClosing imageClosing={item.imageClosing}/>
             </div>
-            <div className="col-md-7 card px-2 h-100 overflow-auto">
+            <div className="col-md-5 card px-2 h-100 overflow-auto relative">
               {showComment.length > 0?
               <div>
                 <h6>Keterangan Tambahan</h6>  
@@ -369,7 +384,7 @@ const terimaHandle = async () => {
                 </button>
                 <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
                   <div class="modal-dialog">
-                    <div class="modal-content">
+                    <form class="modal-content" onSubmit={tolakHandle}>
                       <div class="modal-header">
                         <h5 class="modal-title" id="TolakLabel">Tolak Item</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -384,9 +399,9 @@ const terimaHandle = async () => {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={tolakHandle}>Tolak</button>
+                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 </>
@@ -412,7 +427,8 @@ const terimaHandle = async () => {
                       <input type="file" 
                       className="form-control"
                       onChange={handleImageClosing} 
-                      accept="image/png, image/gif, image/jpeg"/>
+                      accept="image/png, image/gif, image/jpeg" 
+                      required/>
                     </div>
                     <div>
                       Berita Acara
@@ -421,7 +437,8 @@ const terimaHandle = async () => {
                       <input type="file" 
                       className="form-control"
                       onChange={handleDocumentClosing} 
-                      accept=".doc, .docx, .pdf"/>
+                      accept=".doc, .docx, .pdf"
+                      required/>
                     </div>
                     <div>
                       Nama Petugas
@@ -429,12 +446,13 @@ const terimaHandle = async () => {
                     <div className="d-flex">
                       <input type="text" 
                       className="form-control"
-                      onChange={(e)=>setAgentName(e.target.value)} />
+                      onChange={(e)=>setAgentName(e.target.value)} 
+                      required/>
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
+                    <button type="submit" class="btn btn-primary text-white">Terima</button>
                   </div>
                 </form>
               </div>
