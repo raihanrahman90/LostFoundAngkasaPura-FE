@@ -98,11 +98,10 @@ export default function DetailClaimBarang() {
     const submitRating = (e) =>{
         e.preventDefault();
         setLoading(true);
-        console.log("ini rating comentar");
-        console.log(ratingCommentar)
         sendRating({itemClaimId:itemClaimId,rating:rating, ratingComentar:ratingCommentar})
         .then((e)=>{
             fetchDetailBarang();
+            window.location.reload();
         })
         .catch((e)=>{
             alert("Terjadi kesalahan");
@@ -267,7 +266,12 @@ export default function DetailClaimBarang() {
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                        </>:<RatingStar rating={barang.rating}/>}
+                                                        </>:<>
+                                                            <RatingStar rating={barang.rating}/>
+                                                            <div className="row">
+                                                                <p className="card-title text-dark ">: {barang.ratingComentar}</p>
+                                                            </div>
+                                                        </>}
                                                         </div>
                                                     </div>
                                                     </>:<></>

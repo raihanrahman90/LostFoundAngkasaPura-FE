@@ -72,6 +72,7 @@ export function Chart() {
         setLabels(res.data.data.labels);
       })
       .catch((err) => {
+        alert("Maaf terjadi kesalahan")
         console.log(err);
       });
   }
@@ -95,7 +96,7 @@ export function Chart() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'data.xlsx'; // Nama file yang akan diunduh
+        a.download = 'LostFound.xlsx'; // Nama file yang akan diunduh
         a.click();
       });
   }

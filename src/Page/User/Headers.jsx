@@ -37,20 +37,24 @@ export default function Headers() {
     checkAccessToken()
     .then((e)=>{
       setIsLogin(true);
-      fetchCountNotification()
-      .then((e)=>{
-        setCountNotification(e.data);
-      })
-      getListNotification()
-      .then((e)=>{
-        setListNotification(e.data)
-      })
+      fetchAllNotification();
     })
     .catch((e)=>{
       setIsLogin(false);
     })
-    
-  },[isLogin])
+  },[isLogin]);
+
+  const fetchAllNotification = ()=>{
+    fetchCountNotification()
+      .then((e)=>{
+        setCountNotification(e.data);
+      })
+    getListNotification()
+    .then((e)=>{
+      setListNotification(e.data)
+    })
+  }
+
   const handleLogout = async()=>{
     setIsLogin(false);
     Cookies.remove("token");
@@ -274,19 +278,18 @@ useEffect(()=>{
             {
               listNotification.length<1?
               <>
-                <div className="notif-list">
+                <div className="notif-list" onClick={()=>fetchAllNotification()}>
                   <p className="notif-title">
-                    Tidak ada notifikasi untuk saat ini
+                    Tidak ada notification saat ini
                   </p>
-                </div>
-                <div className="notif-list">
-                  <p className="notif-title">
-                    Mohon refresh website untuk menampilkan notifikasi terbaru
-                  </p>
+                  <div className="notif-subtitle">Klik untuk refresh notification</div>
                 </div>
               </>:
               listNotification.map(t=><>
-                <div className="notif-list" onClick={()=>navigate(t.url)}>
+                <div className="notif-list" onClick={()=>{
+                  setShowNotif(false);
+                  navigate(t.url)
+                }}>
                   <div className="notif-title">{t.title}</div>
                   <div className="notif-subtitle">{t.subtitle}</div>
                 </div>

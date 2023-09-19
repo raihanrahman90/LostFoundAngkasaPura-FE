@@ -226,12 +226,13 @@ const terimaHandle = async () => {
                 <div className="col-12">
                   {item.rating?<RatingStar rating={item.rating}/>:<></>}
                 </div>
-                <div className="row">
+                {item.rating?<div className="row">
                   <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.ratingComentar}/>
                     <label className="form__label">Komentar Rating</label>
                   </div>
-                </div>
+                </div>:<></>}
+                
                 <div className="row">
                   <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.identityNumber}/>
@@ -273,7 +274,7 @@ const terimaHandle = async () => {
                 </div>
               </div>
               <ShowApprovalSection item={item}/>
-              <ShowImageClosing imageClosing={item.imageClosing}/>
+              <ShowImageClosing imageClosing={item.closingImage} agentClosing={item.closingAgent} documentClosing={item.closingDocumentation}/>
             </div>
             <div className="col-md-5 card px-2 h-100 overflow-auto relative">
               {showComment.length > 0?
@@ -473,11 +474,13 @@ const terimaHandle = async () => {
   );
 }
 
-const ShowImageClosing = ({imageClosing})=>{
+const ShowImageClosing = ({imageClosing, documentClosing, agentClosing})=>{
   return <>
     {imageClosing==null?<></>:
     <div>
-      <h6>Gambar Closing</h6>
+      <h6>Detail Closing</h6>
+      <div>Closing oleh: {agentClosing}</div>
+      <div><a href={documentClosing}>Berita Acara</a></div>
       <div className="row">
         <div className="col-12">
           <img src={imageClosing}/>
