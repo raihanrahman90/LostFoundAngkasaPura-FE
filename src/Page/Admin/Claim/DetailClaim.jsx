@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { AdminDefault } from "../AdminDefault";
-import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
+import { getDetailClaim, getUrlReport } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
@@ -146,7 +146,17 @@ const tolakHandle = async () => {
     setLoading(false);
   }
 };
-
+const downloadReport = async (e)=>{
+  setLoading(true);
+  try{
+    var result = await getUrlReport({id:itemClaimId});
+    window.open(result.data, "_blank");
+  } catch(e){
+    alert("Terjadi kesalahan");
+  } finally {
+    setLoading(false);
+  }
+}
 const closeHandle = async(e)=>{
   e.preventDefault();
   setLoading(true);
@@ -198,7 +208,7 @@ const terimaHandle = async () => {
     body={
       <>
           {item==null?<></>:<>
-          
+
           <div className={"row table overflow-auto min-h-80 h-80 pb-2 mx-0"}> 
             <div className="col-md-6 card me-2 h-100 overflow-auto">
               <div className="row">
@@ -346,6 +356,9 @@ const terimaHandle = async () => {
             <div className="row">
               <div className="col-11">
                 <div className="float-end top"> 
+                  <button className="btn bg-success text-white" onClick={downloadReport}>
+                    Download Report
+                  </button>
           {item.status === Status.Confirmation ? (
             <>
                 <button type="button" class="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
@@ -461,7 +474,7 @@ const terimaHandle = async () => {
             
             </div>
               {/* end tombol tolak */}
-              </div>
+            </div>
               
             </div>
           </>}

@@ -8,3 +8,8 @@ export const getListClaim = async ({page, status})=>{
     if(status!=null) url = url+"&status="+status;
     return await defaultAdminRequest({url:url, method:"get",body:""});
 }
+
+export const getUrlReport = async({id})=>{
+    let url = "/Admin/Item-Claim/"+id+"/report";
+    return defaultAdminRequest({url:url, method:"get", body:""});
+}
