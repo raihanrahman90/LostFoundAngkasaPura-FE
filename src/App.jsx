@@ -20,7 +20,7 @@ import ListClaimUser from "./Page/User/ListClaim";
 import DetailClaimBarang from "./Page/User/DetailClaimBarang";
 import Report from "./Page/User/Report";
 import NotFound from "./Page/User/NotFound";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {  Route, Routes, HashRouter } from "react-router-dom";
 import './App.css'
 import LoginUser from "./Page/User/Login";
 import ForgotPassword from "./Page/User/ForgotPassword";
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <section className="vh-100 vw-100">
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
               {/* <Route path="/" element={<Login />} /> */}
               <Route path="/admin" element={<LoginAdmin />} />
@@ -51,9 +51,8 @@ function App() {
               <Route path="/admin/user/:id" element={<UserDetail/>}/>
               <Route path="/admin/DetailAdmin/:id" element={<DetailAdmin />} />
 
-
     {/* user */}
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage/>} />
               <Route path="/Barang" element={<ListBarang />} />
               <Route path="/Barang/:id" element={<DetailBarang />} />
               <Route path="/report" element={<Report/>}/>
@@ -64,7 +63,7 @@ function App() {
               <Route path="/Login" element={<LoginUser/>}/>
               <Route path="/forgot-password" element = {<ForgotPassword/>}/>
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </section>
   );
 }
