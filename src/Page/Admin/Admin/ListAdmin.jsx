@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
 import { LoadingModal, LoadingPage } from "../../Loading";
 import { CookiesAdmin } from "../../../Constants/Cookies";
-
+import { deletAdmin } from "../../../Hooks/Admin/Admin";
 export default function ListAdmin() {
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -39,12 +39,7 @@ export default function ListAdmin() {
 
   const handleDelete = async (id) => {
     try {
-      const token = Cookies.get("token");
-      const response = await axios.delete(`${BASE_URL}/admin/admin/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      deletAdmin(id);
       // console.log(response.data);
       alert("Berhasil menghapus admin");
       fetchData();

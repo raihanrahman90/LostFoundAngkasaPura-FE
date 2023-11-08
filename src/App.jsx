@@ -34,7 +34,7 @@ function App() {
     <section className="vh-100 vw-100">
         <HashRouter>
             <Routes>
-              {/* <Route path="/" element={<Login />} /> */}
+              {/* <Route path="/" element={<LoginAdmin />} /> */}
               <Route path="/admin" element={<LoginAdmin />} />
               <Route path="/admin/FoundItem" element={<FoundItem />} />
               <Route path="/admin/FoundItem/:id" element={<ItemFoundDetail />} />

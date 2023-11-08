@@ -6,28 +6,26 @@ import {AiOutlineCheckCircle,AiOutlineMail,AiOutlineSearch} from 'react-icons/ai
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import {getDataDashboard} from "../../Hooks/Admin/Dashboard"; 
 export default function Dashboard() {
 
   const [datas, setDatas] = useState([]);
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   var navigate = useNavigate();
+
   useEffect(() => {
-    const token = Cookies.get("token");
-    axios
-      .get(`${BASE_URL}/admin/dashboard`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setDatas(res.data.data);
-      })
-      .catch((err) => {
-        if(err.response.status==401){
-          navigate("/admin");
-        };
-      });
+    getDataDashboard()
+    .then((e)=>{
+      setDatas(e.data);
+    })
+    .catch((err) => {
+      if(err.response.status==401){
+        navigate("/admin");
+      };
+    });
   }, []);
+
+  console.log(datas);
 
   const data = [
     {text:"Found Item", count:datas.foundCount, color:"bg-primary", icon:<AiOutlineSearch size={'5em'}/>},

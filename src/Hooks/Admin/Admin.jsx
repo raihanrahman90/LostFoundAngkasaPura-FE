@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
 import { CookiesAdmin } from "../../Constants/Cookies";
+
 export const login = async ({
     email, password
 })=>{
@@ -61,6 +62,10 @@ export const createAdmin = async ({body})=>{
     }catch(e){
         return e;
     }
+}
+
+export const deletAdmin = async ({id})=>{
+    return defaultAdminRequest({url:`admin/admin/${id}`, method:"delete", body:{}});
 }
 
 
