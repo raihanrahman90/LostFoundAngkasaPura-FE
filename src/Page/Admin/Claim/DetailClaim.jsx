@@ -119,9 +119,10 @@ const Detail = () => {
 }
 
 const tolakHandle = async () => {
+  console.log("test")
   if(tolak === ""){
     alert("Data tidak boleh kosong")
-    return
+    return;
   }
   setLoading(true)
   try {
@@ -413,7 +414,7 @@ const terimaHandle = async () => {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
+                        <button type="submit" class="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
                       </div>
                     </form>
                   </div>
