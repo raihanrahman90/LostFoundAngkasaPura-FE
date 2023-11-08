@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
 import { LoadingModal, LoadingPartial } from "../../Loading";
 import { RatingStar } from "../../Componen/Rating";
+import { getCommetID } from "../../../Hooks/Admin/ItemClaim";
 
 const Detail = () => {
   const [comment, setComment] = useState("")
@@ -45,16 +46,10 @@ const Detail = () => {
     });
   }
   const getComment = async ()=>{
-    const token = Cookies.get("token");
-    axios
-      .get(`${BASE_URL}/Admin/Item-Comment?itemClaimId=${routeParams["id"]}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "image/jpeg",
-        },
-      })
+    getCommetID(routeParams["id"])
       .then((res) => {
-        setShowComment(res.data.data);
+        // console.log(res);
+        setShowComment(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +108,7 @@ const Detail = () => {
       getComment();
       window.location.reload();
     }).catch((e)=>{
-      setLoadingComment(false);
+      // setLoadingComment(false);
       alert("Terjadi kesalahan");
     });
 }
