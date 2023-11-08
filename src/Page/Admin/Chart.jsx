@@ -105,6 +105,8 @@ export function Chart() {
         a.download = 'data.xlsx'; // Nama file yang akan diunduh
         a.click();
       });
+
+      
   }
   
 
