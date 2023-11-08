@@ -8,7 +8,7 @@ export const Card = ({id,image, name, description,category})=>{
                 </div>
                 <div className="card-body">
                     <div className="badge bg-success">{category}</div>
-                    <h5 className="card-title">{name}</h5>
+                    <h6 className="card-title ">{name}</h6>
                     <p className="card-text element">{description}</p>
                     <Link
                     to={"/Barang/"+id+"#title"}

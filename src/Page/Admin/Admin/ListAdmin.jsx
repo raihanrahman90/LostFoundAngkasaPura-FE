@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
 import { LoadingModal, LoadingPage } from "../../Loading";
+import { CookiesAdmin } from "../../../Constants/Cookies";
 
 export default function ListAdmin() {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ export default function ListAdmin() {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
-  const access = Cookies.get("access");
+  const access = Cookies.get(CookiesAdmin.access);
 
 
   const navigate = useNavigate();

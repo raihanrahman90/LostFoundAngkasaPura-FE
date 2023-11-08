@@ -13,8 +13,12 @@ export const addItem = async ({
 };
 
 
-export const sendCloseItem = async({id})=>{
-    return defaultAdminRequest({url:"admin/item-found/"+id+"/closed", method:"post", body:{}});
+export const sendCloseItem = async({id, image, news, agent})=>{
+    return defaultAdminRequest({url:"admin/item-found/"+id+"/closed", method:"post", body:{
+        image:image,
+        news:news,
+        agent:agent
+    }});
 }
 
 export const getCategory = async()=>{

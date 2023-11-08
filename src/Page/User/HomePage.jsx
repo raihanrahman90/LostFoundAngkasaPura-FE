@@ -14,14 +14,23 @@ import carousel_2 from '../../Asset/carousel_2.jpg'
 import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
 import { useMediaQuery } from 'react-responsive';
+import { LoadingPartial } from "../Loading";
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
+  const [loadingBarang, setLoadingBarang] = useState(false);
+
   const navigate = useNavigate();
   useEffect(()=>{
     const fetchData= async()=>{
-      var res = await getListFoundItem(1, 4, null,null,null);
-      setBarang(res.data.data);
+      setLoadingBarang(true);
+      try{
+        var res = await getListFoundItem(1, 4, null,null,null);
+        setBarang(res.data.data);
+        setLoadingBarang(false);
+      } catch (error){
+        setLoadingBarang(false);
+      }
     }
     fetchData();
   },[]);
@@ -103,7 +112,8 @@ export default function HomePage() {
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
           <div className="container">
-            <div className="row g-5">
+            <div className="row g-5 px-3">
+              <LoadingPartial isLoading={loadingBarang}/>
               {
               barang.length==0?
               <>

@@ -9,6 +9,7 @@ import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
 import { getListNotification } from "../../Hooks/Admin/Admin";
+import { CookiesAdmin } from "../../Constants/Cookies";
 
 export const AdminDefault = ({title, body}) =>{
   
@@ -21,8 +22,8 @@ export const AdminDefault = ({title, body}) =>{
   let navigate = useNavigate();
 
   const logout = () => {
-    Cookies.remove('token');
-    Cookies.remove('refreshToken');
+    Cookies.remove(CookiesAdmin.tokenAdmin);
+    Cookies.remove(CookiesAdmin.refreshAdmin);
     navigate('/admin');
   };
   useEffect(()=>{
@@ -55,14 +56,17 @@ export const AdminDefault = ({title, body}) =>{
   ]
 
   useEffect(()=>{
+    fetchNotification();    
+  },[])
+  const fetchNotification = ()=>{
     getListNotification()
     .then((e)=>{
       setCountNotification(e.data.length);
       setListNotification(e.data);
     })
-
-  },[])
+  }
   const gotoNotification=(url)=>{
+    setShowNotif(false);
     navigate(url);
   }
   return (
@@ -124,10 +128,13 @@ export const AdminDefault = ({title, body}) =>{
             </button>
             <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
               {countNotification==0?<>
-                <div className="notif-list">
+                <div className="notif-list" onClick={()=>fetchNotification()}>
                   <p className="notif-title">
                     Tidak ada notifikasi untuk saat ini
                   </p>
+                  <div className="notif-subtitle">
+                    Klik di sini untuk merefresh notification
+                  </div>
                 </div>
               </>:listNotification.map(data=>{
                 return <div className="notif-list" onClick={(e)=>gotoNotification(data.url)}>

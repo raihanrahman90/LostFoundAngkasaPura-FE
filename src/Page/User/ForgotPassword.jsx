@@ -5,6 +5,7 @@ import '../../Asset/user.css';
 import "../../Asset/style.css";
 import { requestCodeForgotPassword, requestPasswordReset } from "../../Hooks/User/Default";
 import { useNavigate } from "react-router-dom";
+
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [code, setCode] = useState("");

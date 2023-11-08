@@ -7,6 +7,7 @@ import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import jwt_decode from 'jwt-decode';
 import { LoadingModal } from '../Loading';
+import { CookiesAdmin } from '../../Constants/Cookies';
 
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
@@ -33,9 +34,9 @@ export default function LoginAdmin() {
         setLoading(false);
         let token = data.data.data.accessToken;
         var decoded = jwt_decode(token);
-        Cookies.set('token', token);
-        Cookies.set('refreshToken', data.data.data.refreshToken);
-        Cookies.set('access', decoded.Access)
+        Cookies.set(CookiesAdmin.tokenAdmin, token);
+        Cookies.set(CookiesAdmin.refreshAdmin, data.data.data.refreshToken);
+        Cookies.set(CookiesAdmin.access, decoded.Access)
         navigate('/admin/Dashboard');
       }
     })

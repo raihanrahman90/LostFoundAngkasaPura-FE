@@ -4,6 +4,8 @@ import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import { LoadingModal } from '../Loading';
+import { login } from '../../Hooks/User/Default';
+import { CookiesUser } from '../../Constants/Cookies';
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
 
@@ -20,8 +22,9 @@ export default function LoginUser() {
     login({email:email, password:password})
     .then((e)=>{
       if(e.status == 200){
-        setErrorLogin(null);
-        Cookies.set("token", e.data.data);
+        setMessage(null);
+        Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+        Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
         setIsLogin(true);
         setEmail("");
         setPassword("");
@@ -29,17 +32,18 @@ export default function LoginUser() {
         window.location.reload();
       }else{
         setLoading(false);
-        setErrorLogin(e.message);
+        setMessage(e.message);
       }
     })
     .catch((e)=>{
-      setErrorLogin(e.response.data.data);
+      setMessage(e.response.data.data);
+      setLoading(false)
     });
   }
   
 
   useEffect(() =>{
-    var params = new URLSearchParams(location.search);
+    var params = new URLSearchParams();
     var messageParam = params.get("message");
     if(messageParam){
       setMessage(messageParam);

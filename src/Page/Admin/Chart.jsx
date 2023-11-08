@@ -10,11 +10,11 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { downloadExcel } from "../../Hooks/Admin/Admin";
 import fileDownload from "js-file-download";
+import { saveAs } from 'file-saver';
 
 ChartJS.register(
   CategoryScale,
@@ -68,23 +68,17 @@ export function Chart() {
         }
       )
       .then((res) => {
-        console.log("ini jalankok")
         setDatasets(res.data.data.datasets);
         setLabels(res.data.data.labels);
       })
       .catch((err) => {
+        alert("Maaf terjadi kesalahan")
         console.log(err);
       });
   }
   useEffect(()=>{
     fetchData();
   },[])
-  // const clickDownload = ()=>{
-  //   downloadExcel({startDate:startDate,endDate:endDate})
-  //   .then((e)=>{
-  //     fileDownload(e, 'Lost found.xlsx');
-  //   });
-  // }
 
   const clickDownload = () => {
     const token = Cookies.get("token");
@@ -102,7 +96,7 @@ export function Chart() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'data.xlsx'; // Nama file yang akan diunduh
+        a.download = 'LostFound.xlsx'; // Nama file yang akan diunduh
         a.click();
       });
 

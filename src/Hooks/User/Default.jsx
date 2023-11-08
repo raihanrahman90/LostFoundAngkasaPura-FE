@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
+import { CookiesAdmin, CookiesUser } from "../../Constants/Cookies";
 export const login = async ({
     email, password
 })=>{
@@ -26,7 +27,7 @@ export const defaultUserRequest = async(
     url, method, body
 )=>{
     try{
-        var accessToken = Cookies.get("token");
+        var accessToken = Cookies.get(CookiesUser.tokenUser);
         var res = await callApiWithToken(url, method, body, accessToken);
         return res;
     }catch(e){
@@ -34,7 +35,7 @@ export const defaultUserRequest = async(
             if(e.status===401){
                 var accessToken = await getAccessToken();
                 var res = await callApiWithToken(url, method, body, accessToken);
-                Cookies.set("token", accessToken);
+                Cookies.set(CookiesUser.tokenUser, accessToken);
                 return res;
             }else{
                 throw e;
@@ -47,7 +48,7 @@ export const defaultUserRequest = async(
 
 export const getAccessToken = async ()=>{
     try {
-        var refreshToken = Cookies.get("refreshToken");
+        var refreshToken = Cookies.get(CookiesAdmin.refreshAdmin);
       var accessToken = await callApiWithToken("auth/access-token?refreshToken="+refreshToken, 'get', '','')
       return accessToken;
     }catch(e){

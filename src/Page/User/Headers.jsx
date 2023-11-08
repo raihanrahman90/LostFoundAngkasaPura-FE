@@ -3,12 +3,13 @@ import Logo from "../../Asset/logo.png";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {login, register} from '../../Hooks/User/Default';
+import { login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
-import {  fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
+import { fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
 import { LoadingPage } from "../Loading";
+import { CookiesUser } from "../../Constants/Cookies";
 
 export default function Headers() {
 
@@ -37,24 +38,28 @@ export default function Headers() {
     checkAccessToken()
     .then((e)=>{
       setIsLogin(true);
-      fetchCountNotification()
-      .then((e)=>{
-        setCountNotification(e.data);
-      })
-      getListNotification()
-      .then((e)=>{
-        setListNotification(e.data)
-      })
+      fetchAllNotification();
     })
     .catch((e)=>{
       setIsLogin(false);
     })
-    
-  },[isLogin])
+  },[isLogin]);
+
+  const fetchAllNotification = ()=>{
+    fetchCountNotification()
+      .then((e)=>{
+        setCountNotification(e.data);
+      })
+    getListNotification()
+    .then((e)=>{
+      setListNotification(e.data)
+    })
+  }
+
   const handleLogout = async()=>{
     setIsLogin(false);
-    Cookies.remove("token");
-    Cookies.remove("refrehToken");
+    Cookies.remove(CookiesUser.tokenUser);
+    Cookies.remove(CookiesUser.refreshUser);
     navigate("/")
   }
 
@@ -66,8 +71,8 @@ export default function Headers() {
     setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data.accessToken);
-      Cookies.set("refreshToken", e.data.data.refreshToken);
+      Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+      Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
       setEmail("");
       setPassword("");
       window.location.reload();
@@ -89,8 +94,8 @@ const handleRegister = async (e) => {
     setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data.accessToken);
-      Cookies.set("refreshToken", e.data.data.refreshToken);
+      Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+      Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
       setIsLogin(true);
       setEmail("");
       setPassword("");
@@ -154,7 +159,7 @@ useEffect(()=>{
                   List Barang
                 </Link>
               </li>
-              {isLogin?<li class="nav-item ms-5">
+              {isLogin?<li class="nav-itLogiem ms-5">
                 <Link class="nav-link fw-bold text-primary" to="/Claim">
                   List Claim
                 </Link>
@@ -273,13 +278,19 @@ useEffect(()=>{
           <div className={"notif-dropdown "+(showNotif?"":"d-none")}>
             {
               listNotification.length<1?
-              <div className="notif-list">
-              <p className="notif-title">
-                Tidak ada notifikasi untuk saat ini
-              </p>
-            </div>:
+              <>
+                <div className="notif-list" onClick={()=>fetchAllNotification()}>
+                  <p className="notif-title">
+                    Tidak ada notification saat ini
+                  </p>
+                  <div className="notif-subtitle">Klik untuk refresh notification</div>
+                </div>
+              </>:
               listNotification.map(t=><>
-                <div className="notif-list" onClick={()=>navigate(t.url)}>
+                <div className="notif-list" onClick={()=>{
+                  setShowNotif(false);
+                  navigate(t.url)
+                }}>
                   <div className="notif-title">{t.title}</div>
                   <div className="notif-subtitle">{t.subtitle}</div>
                 </div>

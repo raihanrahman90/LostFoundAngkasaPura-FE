@@ -3,16 +3,20 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { AdminDefault } from "../AdminDefault";
-import { getDetailClaim } from "../../../Hooks/Admin/ItemClaim";
+import { getDetailClaim, getUrlReport } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
-import { LoadingModal } from "../../Loading";
+import { LoadingModal, LoadingPartial } from "../../Loading";
+import { RatingStar } from "../../Componen/Rating";
 
 const Detail = () => {
   const [comment, setComment] = useState("")
   const [showComment, setShowComment] = useState([]);
   const [image64, setImage64] = useState("")
+  const [imageClosing64, setImageClosing64] = useState("");
+  const [documentClosing64, setDocumentClosing64] = useState("");
+  const [agentName, setAgentName] = useState();
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
@@ -69,36 +73,57 @@ const Detail = () => {
     }
   };
 
+  
+  const handleImageClosing = (event) => {
+    const file = event.target.files[0];if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDocumentClosing = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDocumentClosing64(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   const handleSubmitComment = async (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     const token = Cookies.get("token");
     const data = {
       itemClaimId: itemClaimId,
       value : comment,
       imageBase64 : image64 
-  };
-  console.log(data)
-  const res = axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  }).then((e)=>{
-    setLoading(false);
-    window.location.reload();
-  }).catch((e)=>{
-    setLoading(false);
-    alert("Terjadi kesalahan");
-  });
+    };
+    axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((e)=>{
+      getComment();
+      window.location.reload();
+    }).catch((e)=>{
+      setLoadingComment(false);
+      alert("Terjadi kesalahan");
+    });
 }
 
 const tolakHandle = async () => {
+  console.log("test")
   if(tolak === ""){
     alert("Data tidak boleh kosong")
-    return
+    return;
   }
-  console.log(tolak)
   setLoading(true)
   try {
     const token = Cookies.get('token');
@@ -122,16 +147,28 @@ const tolakHandle = async () => {
     setLoading(false);
   }
 };
-
-const closeHandle = async()=>{
-  console.log(",asuk sini gak sih")
-  sendCloseItem({id:item.itemFoundId})
+const downloadReport = async (e)=>{
+  setLoading(true);
+  try{
+    var result = await getUrlReport({id:itemClaimId});
+    window.open(result.data, "_blank");
+  } catch(e){
+    alert("Terjadi kesalahan");
+  } finally {
+    setLoading(false);
+  }
+}
+const closeHandle = async(e)=>{
+  e.preventDefault();
+  setLoading(true);
+  sendCloseItem({id:item.itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
   .then((e)=>{
+    setLoading(false);
     alert("Berhasil meng-closed item");
     window.location.reload();
   })
   .catch((e)=>{
-    console.log(e);
+    setLoading(false);
     alert(e.data.data);
   })
 }
@@ -172,9 +209,9 @@ const terimaHandle = async () => {
     body={
       <>
           {item==null?<></>:<>
-          
+
           <div className={"row table overflow-auto min-h-80 h-80 pb-2 mx-0"}> 
-            <div className="col-md-4 card me-2 h-100 overflow-auto">
+            <div className="col-md-6 card me-2 h-100 overflow-auto">
               <div className="row">
                 <div className="col-12">
                   <h6>Detail Barang</h6>
@@ -197,6 +234,16 @@ const terimaHandle = async () => {
               </div>
               <h6>Keterangan Klaim</h6>
               <div className="row">
+                <div className="col-12">
+                  {item.rating?<RatingStar rating={item.rating}/>:<></>}
+                </div>
+                {item.rating?<div className="row">
+                  <div className="form__group col-12">
+                    <input type="text" disabled className="form__field" value={item.ratingComentar}/>
+                    <label className="form__label">Komentar Rating</label>
+                  </div>
+                </div>:<></>}
+                
                 <div className="row">
                   <div className="form__group col-12">
                     <input type="text" disabled className="form__field" value={item.identityNumber}/>
@@ -237,47 +284,10 @@ const terimaHandle = async () => {
                   <img src={item.proofImage}/>
                 </div>
               </div>
-              {
-                item.status === Status.Rejected || item.status === Status.Approved?
-                <div>
-                  <h6>Keterangan Persetujuan</h6>
-                  {
-                    item.status===Status.Rejected?<>
-                      <div className="row">
-                        <div className="form__group col-12">
-                          <input type="text" disabled className="form__field" value={item.rejectReason}/>
-                          <label className="form__label">Alasan</label>
-                        </div>
-                      </div>
-                    </>:<></>
-                  }
-                  {
-                    item.status===Status.Approved?<>
-                      <div className="row">
-                        <div className="form__group col-12">
-                          <input type="text" disabled className="form__field" value={item.claimLocation}/>
-                          <label className="form__label">Tanggal Pengambilan</label>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="form__group col-12">
-                          <input type="text" disabled className="form__field" value={item.claimDate}/>
-                          <label className="form__label">Lokasi Pengambilan</label>
-                        </div>
-                      </div>
-                    </>:<></>
-                  }
-                  
-                  <div className="row">
-                    <div className="form__group col-12">
-                      <input type="text" disabled className="form__field" value={item.approvalBy}/>
-                      <label className="form__label">Persetujuan Oleh</label>
-                    </div>
-                  </div>
-                </div>:<></>
-              }
+              <ShowApprovalSection item={item}/>
+              <ShowImageClosing imageClosing={item.closingImage} agentClosing={item.closingAgent} documentClosing={item.closingDocumentation}/>
             </div>
-            <div className="col-md-7 card px-2 h-100 overflow-auto">
+            <div className="col-md-5 card px-2 h-100 overflow-auto relative">
               {showComment.length > 0?
               <div>
                 <h6>Keterangan Tambahan</h6>  
@@ -322,7 +332,8 @@ const terimaHandle = async () => {
                   <div className="d-flex">
                     <input type="file" 
                     className="form-control"
-                    onChange={handleFileInputChange} />
+                    onChange={handleFileInputChange} 
+                    accept="image/png, image/gif, image/jpeg"/>
                   </div>
                   <div className="row">
                     {selectedFile && (
@@ -346,6 +357,9 @@ const terimaHandle = async () => {
             <div className="row">
               <div className="col-11">
                 <div className="float-end top"> 
+                  <button className="btn bg-success text-white" onClick={downloadReport}>
+                    Download Report
+                  </button>
           {item.status === Status.Confirmation ? (
             <>
                 <button type="button" class="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
@@ -361,11 +375,11 @@ const terimaHandle = async () => {
                       <div class="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
-                          <label htmlFor="namaBarang" className="form-label">Nama Tempat</label>
+                          <label htmlFor="namaBarang" className="form-label">Lokasi Pengambilan Barang</label>
                           <input required type="text" className="form-control" id="namaBarang" onChange={(e)=>{setNamaTempat(e.target.value)}} />
                         </div>
                         <div className="mb-3">
-                          <label htmlFor="tgl" className="form-label">Tanggal Ditemukan</label>
+                          <label htmlFor="tgl" className="form-label">Tanggal klaim barang diterima</label>
                           <input required type="date" className="form-control" id="tgl"  onChange={(e)=>{setTgl(e.target.value)}} />
                         </div>
                         {/* End of Form filter */}
@@ -385,7 +399,7 @@ const terimaHandle = async () => {
                 </button>
                 <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
                   <div class="modal-dialog">
-                    <div class="modal-content">
+                    <form class="modal-content" onSubmit={tolakHandle}>
                       <div class="modal-header">
                         <h5 class="modal-title" id="TolakLabel">Tolak Item</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -400,9 +414,9 @@ const terimaHandle = async () => {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={tolakHandle}>Tolak</button>
+                        <button type="submit" class="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 </>
@@ -414,7 +428,7 @@ const terimaHandle = async () => {
             </button>
             <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
               <div class="modal-dialog">
-                <div class="modal-content">
+                <form class="modal-content" onSubmit={closeHandle}>
                   <div class="modal-header">
                     <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -422,21 +436,46 @@ const terimaHandle = async () => {
                   <div class="modal-body">
                     {/* Form filter */}
                     <div>
-                      Item Found akan diclosed
+                      Item Claim akan diclosed
                     </div>
-                    {/* End of Form filter */}
+                    <div className="d-flex">
+                      <input type="file" 
+                      className="form-control"
+                      onChange={handleImageClosing} 
+                      accept="image/png, image/gif, image/jpeg" 
+                      required/>
+                    </div>
+                    <div>
+                      Berita Acara
+                    </div>
+                    <div className="d-flex">
+                      <input type="file" 
+                      className="form-control"
+                      onChange={handleDocumentClosing} 
+                      accept=".doc, .docx, .pdf"
+                      required/>
+                    </div>
+                    <div>
+                      Nama Petugas
+                    </div>
+                    <div className="d-flex">
+                      <input type="text" 
+                      className="form-control"
+                      onChange={(e)=>setAgentName(e.target.value)} 
+                      required/>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={closeHandle}>Terima</button>
+                    <button type="submit" class="btn btn-primary text-white">Terima</button>
                   </div>
-                </div>
+                </form>
               </div>
             </div></>:<></>}
             
             </div>
               {/* end tombol tolak */}
-              </div>
+            </div>
               
             </div>
           </>}
@@ -447,5 +486,63 @@ const terimaHandle = async () => {
     />
   </>
   );
+}
+
+const ShowImageClosing = ({imageClosing, documentClosing, agentClosing})=>{
+  return <>
+    {imageClosing==null?<></>:
+    <div>
+      <h6>Detail Closing</h6>
+      <div>Closing oleh: {agentClosing}</div>
+      <div><a href={documentClosing}>Berita Acara</a></div>
+      <div className="row">
+        <div className="col-12">
+          <img src={imageClosing}/>
+        </div>
+      </div>
+    </div>}
+  </>
+}
+
+const ShowApprovalSection = ({item})=>{
+  return <>{
+    item.status === Status.Rejected || item.status === Status.Approved?
+    <div>
+      <h6>Keterangan Persetujuan</h6>
+      {
+        item.status===Status.Rejected?<>
+          <div className="row">
+            <div className="form__group col-12">
+              <input type="text" disabled className="form__field" value={item.rejectReason}/>
+              <label className="form__label">Alasan</label>
+            </div>
+          </div>
+        </>:<></>
+      }
+      {
+        item.status===Status.Approved?<>
+          <div className="row">
+            <div className="form__group col-12">
+              <input type="text" disabled className="form__field" value={item.claimLocation}/>
+              <label className="form__label">Tanggal Pengambilan</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="form__group col-12">
+              <input type="text" disabled className="form__field" value={item.claimDate}/>
+              <label className="form__label">Lokasi Pengambilan</label>
+            </div>
+          </div>
+        </>:<></>
+      }
+      
+      <div className="row">
+        <div className="form__group col-12">
+          <input type="text" disabled className="form__field" value={item.approvalBy}/>
+          <label className="form__label">Persetujuan Oleh</label>
+        </div>
+      </div>
+    </div>:<></>
+  }</>
 }
 export default Detail;
