@@ -135,7 +135,7 @@ export default function DetailClaimBarang() {
                                                         <p className="card-title text-dark fw-bold">Nama barang </p>
                                                     </div>
                                                     <div className="col-8">
-                                                        <p className="card-title text-dark ">: {barang.name}</p>
+                                                        <p className="text-dark ">: {barang.name}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -143,7 +143,7 @@ export default function DetailClaimBarang() {
                                                         <p className="card-title fw-bold text-dark ">Waktu pengajuan </p>
                                                     </div>
                                                     <div className="col-8">
-                                                        <p className="card-title text-dark ">: {barang.createdDate==null?"":barang.createdDate.split("T")[0]}</p>
+                                                        <p className="text-dark ">: {barang.createdDate==null?"":barang.createdDate.split("T")[0]}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row">
@@ -152,7 +152,7 @@ export default function DetailClaimBarang() {
                                                         
                                                     </div>
                                                     <div className="col-8">
-                                                        <p className="card-title text-dark ">: 
+                                                        <p className="text-dark ">: 
                                                             {statusBadge(barang.status)}
                                                             <button type="button" class="text-white bg-dark badge ms-2" data-bs-toggle="modal" data-bs-target="#Tolak">
                                                             !

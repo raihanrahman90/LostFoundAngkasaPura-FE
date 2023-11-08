@@ -5,6 +5,7 @@ import bg from '../../Asset/background_1.png';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import { LoadingModal } from '../Loading';
 import { login } from '../../Hooks/User/Default';
+import { CookiesUser } from '../../Constants/Cookies';
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
 
@@ -22,7 +23,8 @@ export default function LoginUser() {
     .then((e)=>{
       if(e.status == 200){
         setMessage(null);
-        Cookies.set("token", e.data.data);
+        Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+        Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
         setIsLogin(true);
         setEmail("");
         setPassword("");

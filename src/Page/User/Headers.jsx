@@ -3,12 +3,13 @@ import Logo from "../../Asset/logo.png";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {login, register} from '../../Hooks/User/Default';
+import { login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import {IoMdNotifications} from 'react-icons/io';
-import {  fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
+import { fetchCountNotification, getListNotification } from "../../Hooks/User/Notification";
 import { LoadingPage } from "../Loading";
+import { CookiesUser } from "../../Constants/Cookies";
 
 export default function Headers() {
 
@@ -57,8 +58,8 @@ export default function Headers() {
 
   const handleLogout = async()=>{
     setIsLogin(false);
-    Cookies.remove("token");
-    Cookies.remove("refrehToken");
+    Cookies.remove(CookiesUser.tokenUser);
+    Cookies.remove(CookiesUser.refreshUser);
     navigate("/")
   }
 
@@ -70,8 +71,8 @@ export default function Headers() {
     setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data.accessToken);
-      Cookies.set("refreshToken", e.data.data.refreshToken);
+      Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+      Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
       setEmail("");
       setPassword("");
       window.location.reload();
@@ -93,8 +94,8 @@ const handleRegister = async (e) => {
     setLoading(false);
     if(e.status == 200){
       setErrorLogin(null);
-      Cookies.set("token", e.data.data.accessToken);
-      Cookies.set("refreshToken", e.data.data.refreshToken);
+      Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
+      Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
       setIsLogin(true);
       setEmail("");
       setPassword("");

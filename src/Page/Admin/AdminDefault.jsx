@@ -9,6 +9,7 @@ import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
 import { getListNotification } from "../../Hooks/Admin/Admin";
+import { CookiesAdmin } from "../../Constants/Cookies";
 
 export const AdminDefault = ({title, body}) =>{
   
@@ -21,8 +22,8 @@ export const AdminDefault = ({title, body}) =>{
   let navigate = useNavigate();
 
   const logout = () => {
-    Cookies.remove('token');
-    Cookies.remove('refreshToken');
+    Cookies.remove(CookiesAdmin.tokenAdmin);
+    Cookies.remove(CookiesAdmin.refreshAdmin);
     navigate('/admin');
   };
   useEffect(()=>{

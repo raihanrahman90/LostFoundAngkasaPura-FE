@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import {getDetailAdmin, resetPassword} from '../../../Hooks/Admin/Admin'
 import { LoadingModal } from '../../Loading';
+import { CookiesAdmin } from '../../../Constants/Cookies';
 
 export default function DetailAdmin() {
     const routeParams = useParams();
     const id = routeParams.id;
     const [data, setData] = useState([]);
     const [loading, setLoadings] = useState(false);
-    const access = Cookies.get("access");
+    const access = Cookies.get(CookiesAdmin.access);
 
     const fetchData = async () => {
         const respon = await getDetailAdmin({id});
