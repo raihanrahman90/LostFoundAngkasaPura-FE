@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { defaultRequest, callApiWithToken } from "../DefaultRequest"
-import { useNavigate } from "react-router-dom";
+import { CookiesAdmin } from "../../Constants/Cookies";
 export const login = async ({
     email, password
 })=>{
@@ -15,7 +15,7 @@ export const defaultAdminRequest = async({
     url, method, body
 })=>{
     try{
-        var accessToken = Cookies.get("token");
+        var accessToken = Cookies.get(CookiesAdmin.tokenAdmin);
         if(accessToken==undefined){
             console.log("access token undefined");
         }
@@ -23,7 +23,6 @@ export const defaultAdminRequest = async({
         return res;
     }catch(e){
         try{
-            console.log("oh di sini")
             await getAccessToken();
             var res = await callApiWithToken(url, method, body, accessToken);
             return res.data;
@@ -35,7 +34,7 @@ export const defaultAdminRequest = async({
 
 export const getAccessToken = async ()=>{
     try {
-        var refreshToken = Cookies.get("refreshToken");
+        var refreshToken = Cookies.get(CookiesAdmin.refreshAdmin);
         var accessToken = await callApiWithToken("admin/admin/access-token?refreshToken="+refreshToken, 'get', '','')
         return accessToken.accessToken;
     }catch(e){
