@@ -112,7 +112,7 @@ export default function HomePage() {
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
           <div className="container">
-            <div className="row g-5">
+            <div className="row g-5 px-3">
               <LoadingPartial isLoading={loadingBarang}/>
               {
               barang.length==0?
