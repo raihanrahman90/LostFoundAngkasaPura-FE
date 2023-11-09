@@ -25,7 +25,7 @@ export default function Dashboard() {
     });
   }, []);
 
-  console.log(datas);
+  // console.log(datas);
 
   const data = [
     {text:"Found Item", count:datas.foundCount, color:"bg-primary", icon:<AiOutlineSearch size={'5em'}/>},

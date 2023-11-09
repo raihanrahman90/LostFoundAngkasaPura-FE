@@ -10,6 +10,7 @@ import { Status } from "../../../Constants/Status";
 import { LoadingModal, LoadingPartial } from "../../Loading";
 import { RatingStar } from "../../Componen/Rating";
 import { getCommetID } from "../../../Hooks/Admin/ItemClaim";
+import { postComment, tolakHandleDetailClaim, terimaHandleDetailClaim } from "../../../Hooks/Admin/DetailClaim";
 
 const Detail = () => {
   const [comment, setComment] = useState("")
@@ -93,18 +94,13 @@ const Detail = () => {
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const token = Cookies.get("token");
     const data = {
       itemClaimId: itemClaimId,
       value : comment,
       imageBase64 : image64 
     };
-    axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }).then((e)=>{
+    postComment(data)
+    .then((e)=>{
       getComment();
       window.location.reload();
     }).catch((e)=>{
@@ -121,19 +117,8 @@ const tolakHandle = async () => {
   }
   setLoading(true)
   try {
-    const token = Cookies.get('token');
-    const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/reject`,
-      {
-        rejectReason: tolak,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
 
+    tolakHandleDetailClaim({id : itemClaimId, rejectReason : tolak})
     console.log('Tolak response:', response.data);
     setLoading(false);
     fetchData();
@@ -174,19 +159,7 @@ const terimaHandle = async () => {
   }
   setLoading(true)
   try {
-    const token = Cookies.get('token');
-    const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/approve`,
-      {
-        claimLocation: namaTempat,
-        claimDate: tgl
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    terimaHandleDetailClaim({id : itemClaimId, claimLocation : namaTempat, claimDate : tgl})
     setLoading(false);
     fetchData();
   } catch (error) {
