@@ -28,3 +28,25 @@ export const callApiWithToken = async(
     throw e.response;
   }
 }
+
+export const downloadWithToken = async(
+  url,
+  method,
+  dataToSend,
+  accessToken)=>{
+
+  try {
+      const response = await defaultRequest.request({
+          url,
+          method,
+          data: dataToSend,
+          headers: {
+              'Authorization': `Bearer ${accessToken}`,
+          },
+          responseType:'blob'
+      });
+      return response.data;
+  } catch (e) {
+    throw e.response;
+  }
+}

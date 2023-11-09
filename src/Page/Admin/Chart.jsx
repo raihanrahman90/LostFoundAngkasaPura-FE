@@ -11,11 +11,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { downloadExcel } from "../../Hooks/Admin/Admin";
-import fileDownload from "js-file-download";
-import { saveAs } from 'file-saver';
-import { getDataChart } from "../../Hooks/Admin/Chart";
+import { getDataChart,downloadChart } from "../../Hooks/Admin/Chart";
 
 ChartJS.register(
   CategoryScale,
@@ -57,6 +53,7 @@ export function Chart() {
     e.preventDefault();
     fetchData();
   };
+
   const fetchData = (e)=>{
     getDataChart(startDate,endDate).then((res)=>{
       setDatasets(res.data.datasets);
@@ -64,39 +61,15 @@ export function Chart() {
     })
   }
 
-  //   axios
-  //     .get(
-  //       `${BASE_URL}/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setDatasets(res.data.data.datasets);
-  //       setLabels(res.data.data.labels);
-  //     })
-  //     .catch((err) => {
-  //       alert("Maaf terjadi kesalahan")
-  //       console.log(err);
-  //     });
-  // }
   useEffect(()=>{
     fetchData();
   },[])
 
   const clickDownload = () => {
-    const token = Cookies.get("token");
-    axios
-      .get(`${BASE_URL}/admin/dashboard/download?startDate=${startDate}&endDate=${endDate}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        responseType: "blob"
-      })
+    downloadChart(startDate, endDate)
       .then(response => {
-        const blob = new Blob([response.data], {
+        alert(response)
+        const blob = new Blob([response], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         });
         const url = window.URL.createObjectURL(blob);
@@ -105,8 +78,6 @@ export function Chart() {
         a.download = 'LostFound.xlsx'; // Nama file yang akan diunduh
         a.click();
       });
-
-      
   }
   
 

@@ -14,7 +14,6 @@ export default function CustomReport() {
 
   const handleNoHp = (e) => {
     setNoHp(e.target.value);
-
   }
 
   const handleEmail = (e) => {

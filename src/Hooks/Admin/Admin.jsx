@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { defaultRequest, callApiWithToken } from "../DefaultRequest"
+import { defaultRequest, callApiWithToken, downloadWithToken } from "../DefaultRequest"
 import { CookiesAdmin } from "../../Constants/Cookies";
 
 export const login = async ({
@@ -26,6 +26,27 @@ export const defaultAdminRequest = async({
         try{
             await getAccessToken();
             var res = await callApiWithToken(url, method, body, accessToken);
+            return res.data;
+        }catch(e){
+            throw e
+        }
+    }
+}
+
+export const blobAdminRequest = async({
+    url, method, body
+})=>{
+    try{
+        var accessToken = Cookies.get(CookiesAdmin.tokenAdmin);
+        if(accessToken==undefined){
+            console.log("access token undefined");
+        }
+        var res = await downloadWithToken(url, method, body, accessToken);
+        return res;
+    }catch(e){
+        try{
+            await getAccessToken();
+            var res = await downloadWithToken(url, method, body, accessToken);
             return res.data;
         }catch(e){
             throw e
@@ -64,7 +85,7 @@ export const createAdmin = async ({body})=>{
     }
 }
 
-export const deletAdmin = async ({id})=>{
+export const deletAdmin = async (id)=>{
     return defaultAdminRequest({url:`admin/admin/${id}`, method:"delete", body:{}});
 }
 

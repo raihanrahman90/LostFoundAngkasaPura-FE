@@ -21,7 +21,6 @@ export default function ListAdmin() {
     fetchData(); // Fetch data when component mounts
   }, [page]);
 
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData = async () => {
     try{
       setLoading(true);
@@ -39,7 +38,7 @@ export default function ListAdmin() {
 
   const handleDelete = async (id) => {
     try {
-      deletAdmin(id);
+      await deletAdmin(id);
       // console.log(response.data);
       alert("Berhasil menghapus admin");
       fetchData();
