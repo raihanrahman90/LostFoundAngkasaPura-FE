@@ -7,7 +7,6 @@ import { LoadingModal } from "../../Loading";
 
 export default function ListClaim() {
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState(1);

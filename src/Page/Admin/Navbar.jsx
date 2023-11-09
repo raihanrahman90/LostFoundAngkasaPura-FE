@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import jwt_decode from "jwt-decode";
+import { CookiesAdmin } from '../../Constants/Cookies';
 
 
 export default function Navbar() {
   const jwtToken = () => {
-    const token = Cookies.get("token");
+    const token = Cookies.get(CookiesAdmin.tokenAdmin);
     const decoded = jwt_decode(token);
     console.log(decoded);
   }
@@ -23,7 +24,8 @@ export default function Navbar() {
   let navigate = useNavigate();
 
   const logout = () => {
-    Cookies.remove('token');
+    Cookies.remove(CookiesAdmin.refreshAdmin);
+    Cookies.remove(CookiesAdmin.tokenAdmin);
     navigate('/admin');
   };
 

@@ -11,9 +11,6 @@ export default function ListData({
   claimDate,
   itemFoundId,
 }) {
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-  
-
   const datanavigate = {
     id  : id,
     itemFoundId : itemFoundId 

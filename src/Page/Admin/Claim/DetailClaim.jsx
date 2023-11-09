@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { AdminDefault } from "../AdminDefault";
@@ -7,7 +7,7 @@ import { getDetailClaim, getUrlReport } from "../../../Hooks/Admin/ItemClaim";
 import { sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
-import { LoadingModal, LoadingPartial } from "../../Loading";
+import { LoadingModal} from "../../Loading";
 import { RatingStar } from "../../Componen/Rating";
 import { getCommetID } from "../../../Hooks/Admin/ItemClaim";
 

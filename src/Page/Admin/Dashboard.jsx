@@ -3,14 +3,11 @@ import { Chart } from "./Chart";
 import {AdminDefault} from './AdminDefault';
 import {GoReport} from 'react-icons/go';
 import {AiOutlineCheckCircle,AiOutlineMail,AiOutlineSearch} from 'react-icons/ai';
-import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import {getDataDashboard} from "../../Hooks/Admin/Dashboard"; 
 export default function Dashboard() {
 
   const [datas, setDatas] = useState([]);
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   var navigate = useNavigate();
 
   useEffect(() => {

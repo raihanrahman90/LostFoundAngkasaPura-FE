@@ -40,7 +40,6 @@ function App() {
               <Route path="/admin/FoundItem/:id" element={<ItemFoundDetail />} />
               <Route path="/admin/AddItem" element={<AddItem />} />
               <Route path="/admin/Dashboard" element={<Dashboard />} />
-              <Route path="/admin/CustomReport" element={<CustomReport />} />
               <Route path="/admin/ItemClaim" element={<ListClaim />} />
               <Route path="/admin/ItemClaim/:id" element={<DetailClaim />} />
               <Route path="/admin/CreateAdmin" element={<CreateAdmin />} />
