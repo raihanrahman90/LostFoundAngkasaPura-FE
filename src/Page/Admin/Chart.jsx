@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import { downloadExcel } from "../../Hooks/Admin/Admin";
 import fileDownload from "js-file-download";
 import { saveAs } from 'file-saver';
+import { getDataChart } from "../../Hooks/Admin/Chart";
 
 ChartJS.register(
   CategoryScale,
@@ -57,25 +58,30 @@ export function Chart() {
     fetchData();
   };
   const fetchData = (e)=>{
-    const token = Cookies.get("token");
-    axios
-      .get(
-        `${BASE_URL}/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setDatasets(res.data.data.datasets);
-        setLabels(res.data.data.labels);
-      })
-      .catch((err) => {
-        alert("Maaf terjadi kesalahan")
-        console.log(err);
-      });
+    getDataChart(startDate,endDate).then((res)=>{
+      setDatasets(res.data.datasets);
+      setLabels(res.data.labels);
+    })
   }
+
+  //   axios
+  //     .get(
+  //       `${BASE_URL}/admin/dashboard/grafik?startDate=${startDate}&endDate=${endDate}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       setDatasets(res.data.data.datasets);
+  //       setLabels(res.data.data.labels);
+  //     })
+  //     .catch((err) => {
+  //       alert("Maaf terjadi kesalahan")
+  //       console.log(err);
+  //     });
+  // }
   useEffect(()=>{
     fetchData();
   },[])
@@ -99,6 +105,8 @@ export function Chart() {
         a.download = 'LostFound.xlsx'; // Nama file yang akan diunduh
         a.click();
       });
+
+      
   }
   
 

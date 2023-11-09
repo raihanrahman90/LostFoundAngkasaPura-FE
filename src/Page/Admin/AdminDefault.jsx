@@ -97,9 +97,9 @@ export const AdminDefault = ({title, body}) =>{
         </div>
         <div className={"position-fixed d-block d-md-none sidebar-mobile "+(showSidebar?"opened":"closed")}>
         <ul style={{ listStyle: 'none', padding:'0px'}}>
-              {listMenu.map(element => {
-                return <li className='py-1 px-lg-3 px-md-1 text-white my-3 pe-xl-5 menu_link px-3' style={{fontSize:'16px'}}>
-                  <Link className="decoration-none w-100 ml-3" to={element.to}>
+              {listMenu.map((element, index) => {
+                return <li key={index} className='py-1 px-lg-3 px-md-1 text-white my-3 pe-xl-5 menu_link px-3' style={{fontSize:'16px'}}>
+                  <Link  className="decoration-none w-100 ml-3" to={element.to}>
                     {element.icon}
                     <span className='ms-3'>
                       {element.text}
