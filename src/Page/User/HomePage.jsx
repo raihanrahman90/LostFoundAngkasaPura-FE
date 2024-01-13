@@ -15,6 +15,7 @@ import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
 import { useMediaQuery } from 'react-responsive';
 import { LoadingPartial } from "../Loading";
+import React from 'react';
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);

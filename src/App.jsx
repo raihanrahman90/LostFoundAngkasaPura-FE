@@ -1,8 +1,9 @@
+import React from 'react';
+
 import FoundItem from "./Page/Admin/ItemFound/ItemFoundList";
 import LoginAdmin from "./Page/Admin/LoginAdmin";
 import AddItem from "./Page/Admin/ItemFound/ItemFoundAdd";
 import Dashboard from "./Page/Admin/Dashboard";
-import CustomReport from "./Page/Admin/CustomReport";
 import ListClaim from "./Page/Admin/Claim/ListClaim";
 import DetailClaim from "./Page/Admin/Claim/DetailClaim";
 import CreateAdmin from "./Page/Admin/Admin/CreateAdmin";

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from "react";
 import Logo from "../../Asset/logo.png";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import { login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
@@ -85,7 +85,11 @@ export default function Headers() {
     setErrorLogin(err.response.data.data);
   });
 }
-
+const handleToLupaPassword = async (e) => { 
+  e.preventDefault();
+  window.location = "/#/forgot-password";
+  window.location.reload();
+}
 const handleRegister = async (e) => {
   e.preventDefault();
   setLoading(true);
@@ -209,11 +213,12 @@ useEffect(()=>{
                       <input className="mx-1 px-4 py-2 w-100 form-control" onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="Password" required/>
                     </div>
 
-                      <p className="mt-3"><Link to="/forgot-password"> Lupa password </Link></p>
-
+                      <p className="mt-3">
+                        <button onClick={handleToLupaPassword}> Lupa password </button>
+                      </p>
                       <div className="mx-auto d-block">
 
-                    <button className="w-100 mt-3 btn bg-primary text-white" type="submit">Login</button>
+                      <button className="w-100 mt-3 btn bg-primary text-white" type="submit">Login</button>
                     </div>
 
                   </form>
