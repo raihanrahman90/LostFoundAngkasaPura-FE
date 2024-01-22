@@ -87,8 +87,9 @@ export default function Headers() {
 }
 const handleToLupaPassword = async (e) => { 
   e.preventDefault();
-  window.location = "/#/forgot-password";
-  window.location.reload();
+  alert("ini terklik");
+  document.getElementById("button-close").click();
+  window.location = "./#/forgot-password";
 }
 const handleRegister = async (e) => {
   e.preventDefault();
@@ -192,7 +193,7 @@ useEffect(()=>{
                 <div class="modal-content">
                   <div class="modal-header">
                     {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="button-close"></button>
                   </div>
                   <form class="modal-body" onSubmit={handleLogin}>
 
@@ -214,7 +215,7 @@ useEffect(()=>{
                     </div>
 
                       <p className="mt-3">
-                        <button onClick={handleToLupaPassword}> Lupa password </button>
+                        <button onClick={handleToLupaPassword} type="button"> Lupa password </button>
                       </p>
                       <div className="mx-auto d-block">
 

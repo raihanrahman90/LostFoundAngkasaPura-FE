@@ -25,4 +25,24 @@ export const getCategory = async()=>{
     return defaultAdminRequest({url:"admin/item-found/category", method:"get", body:{}});
 }
 
+export const getItemFound = async({page,namaBarang, tglStart, tglEnd, kategori, status})=>{
+    let url = `${BASE_URL}/Admin/Item-Found?page=${page}`;
+    if(namaBarang.trim() != ""){
+      url = `${url}&name=${namaBarang}`;
+    }
+    if(tglStart.trim() != ""){
+      url = `${url}&foundDateStart=${tglStart}`;
+    }
+    if(tglEnd.trim() != ""){
+      url = `${url}&foundDateEnd=${tglEnd}`;
+    }
+    if(kategori.trim() != ""){
+      url = `${url}&category=${kategori}`;
+    }
+    if(status.trim()!=""){
+      url = `${url}&status=${status}`;
+    }
+    return defaultAdminRequest({url:url, method:"get", body:{}});
+}
+
 

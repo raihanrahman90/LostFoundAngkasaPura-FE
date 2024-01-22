@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { AdminDefault } from "../AdminDefault";
 import { LoadingPage } from "../../Loading";
 import { statusBadge } from "../../../Util/Utils";
+import { getCategory, getItemFound } from "../../../Hooks/Admin/Item";
 
 export default function FoundItemList() {
   const [data, setData] = useState([]);
@@ -44,34 +45,10 @@ export default function FoundItemList() {
     setCurrentPage(1);
   }
   
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const fetchData= async () => {
     setLoading(true);
-    let url = `${BASE_URL}/Admin/Item-Found?page=${page}`;
-    if(namaBarang.trim() != ""){
-      url = `${url}&name=${namaBarang}`;
-    }
-    if(tglStart.trim() != ""){
-      url = `${url}&foundDateStart=${tglStart}`;
-    }
-    if(tglEnd.trim() != ""){
-      url = `${url}&foundDateEnd=${tglEnd}`;
-    }
-    if(kategori.trim() != ""){
-      url = `${url}&category=${kategori}`;
-    }
-    if(status.trim()!=""){
-      url = `${url}&status=${status}`;
-    }
-
-    const token = Cookies.get("token");
     try {
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // console.log(res);
+      const res = await getItemFound(page, namaBarang, tglStart, tglEnd, kategori, status);
       setData(res.data.data.data);
       setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
@@ -82,14 +59,9 @@ export default function FoundItemList() {
     }
   };
   useEffect(()=>{
-    const token = Cookies.get("token");
-    axios.get(`${BASE_URL}/Admin/Item-Found/Category`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    getCategory()
     .then((res) => {
-      setValueKategori(res.data.data);
+      setValueKategori(res.data);
       // console.log(res.data.data);
     })
     .catch((err) => {
