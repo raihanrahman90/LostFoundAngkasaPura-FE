@@ -26,7 +26,7 @@ export const getCategory = async()=>{
 }
 
 export const getItemFound = async({page,namaBarang, tglStart, tglEnd, kategori, status})=>{
-    let url = `${BASE_URL}/Admin/Item-Found?page=${page}`;
+    let url = `/Admin/Item-Found?page=${page}`;
     if(namaBarang.trim() != ""){
       url = `${url}&name=${namaBarang}`;
     }

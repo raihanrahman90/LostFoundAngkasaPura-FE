@@ -48,8 +48,8 @@ export default function FoundItemList() {
   const fetchData= async () => {
     setLoading(true);
     try {
-      const res = await getItemFound(page, namaBarang, tglStart, tglEnd, kategori, status);
-      setData(res.data.data.data);
+      const res = await getItemFound({page, namaBarang, tglStart, tglEnd, kategori, status});
+      setData(res.data.data);
       setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
       setLoading(false);
