@@ -16,7 +16,7 @@ export const addItem = async ({
     }
     )
     .catch((error)=>{
-        console.error(new Error("TOLOOOOOOONG"));
+        console.error(error);
     }
     );
 };
@@ -31,7 +31,7 @@ export const geListItem = async () => {
     }
     )
     .catch((error)=>{
-        console.error(new Error("TOLOOOOOOONG"));
+        console.error(error);
     }
     );
 }

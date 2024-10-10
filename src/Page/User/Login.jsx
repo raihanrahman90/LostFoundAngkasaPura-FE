@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
@@ -25,7 +25,6 @@ export default function LoginUser() {
         setMessage(null);
         Cookies.set(CookiesUser.tokenUser, e.data.data.accessToken);
         Cookies.set(CookiesUser.refreshUser, e.data.data.refreshToken);
-        setIsLogin(true);
         setEmail("");
         setPassword("");
         setLoading(false);

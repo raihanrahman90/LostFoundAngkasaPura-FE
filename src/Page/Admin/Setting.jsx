@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AdminDefault } from './AdminDefault';
 import { getProfile, updateProfile } from '../../Hooks/Admin/Admin';
 export default function Setting() {

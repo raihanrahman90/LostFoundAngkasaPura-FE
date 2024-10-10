@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {AiOutlineMenu} from "react-icons/ai";
 import { Link, useParams } from 'react-router-dom';
 import '../../Asset/style.css';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
-import { BiUser, BiUserCheck, BiUserCircle } from "react-icons/bi";
+import { BiUser, BiUserCircle } from "react-icons/bi";
 import {IoMdNotifications} from 'react-icons/io';
 import {CgProfile} from 'react-icons/cg';
 import { getListNotification } from "../../Hooks/Admin/Admin";
@@ -137,7 +137,7 @@ export const AdminDefault = ({title, body}) =>{
                   </div>
                 </div>
               </>:listNotification.map(data=>{
-                return <div className="notif-list" onClick={(e)=>gotoNotification(data.url)}>
+                return <div className="notif-list" onClick={()=>gotoNotification(data.url)} key={data.title}>
                   <div className="notif-title">{data.title}</div>
                   <div className="notif-subtitle">{data.subtitle}</div>
 

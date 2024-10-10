@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { Chart } from "./Chart";
 import {AdminDefault} from './AdminDefault';
 import {GoReport} from 'react-icons/go';
@@ -18,9 +18,9 @@ export default function Dashboard() {
     .catch((err) => {
       if(err.response.status==401){
         navigate("/admin");
-      };
+      }
     });
-  }, []);
+  });
 
   console.log(datas);
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
                   <div className="col-4 justify-content-center align-middle inline-block d-flex align-item-center">
                     {data.icon}
                   </div>
-                  <div className="col-8 py-2 d-flex">
+                  <div className="col-8 d-flex">
                     <div className="align-self-center">
                       <h6>{data.text}</h6>
                       <h4>{data.count}</h4>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 export default function ShowImage() {
@@ -12,7 +11,7 @@ export default function ShowImage() {
   return (
     <div>
       <h1>
-        <img src={img} alt="" />
+        <img src={img} alt="" className='w-100 h-100'/>
       </h1>
     </div>
   )

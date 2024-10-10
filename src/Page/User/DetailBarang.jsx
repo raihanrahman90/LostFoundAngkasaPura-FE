@@ -16,11 +16,13 @@ export default function DetailBarang() {
     useEffect(()=>{
         getDetailFoundItem(itemFoundId)
         .then((e)=>{
+            console.log(e);
             setData(e.data);
         });
         checkAccessToken()
         .then((e)=>{
             setIsLogin(true);
+            console.log(e);
         });
     },[])
     const goToConfirmation = ()=>{

@@ -19,12 +19,13 @@ export default function ForgotPassword() {
         .then((e)=>{
             alert("Kode reset password telah terkirim ke email Anda")
             setPage(2);
+            console.log(e)
         })
     }
     const resetPassword = async(e)=>{
         e.preventDefault();
         requestPasswordReset({email:email, code:code,password:password})
-        .then((e)=>{
+        .then(()=>{
             alert("Password Anda berhasil diubah, silahkan login kembali");
             navigate("/");
         })

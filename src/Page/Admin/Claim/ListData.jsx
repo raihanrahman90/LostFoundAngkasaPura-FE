@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Status } from '../../../Constants/Status';
 import { statusBadge } from '../../../Util/Utils';
 
 export default function ListData({

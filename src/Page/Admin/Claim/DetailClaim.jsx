@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { AdminDefault } from "../AdminDefault";
 import { getDetailClaim, getUrlReport } from "../../../Hooks/Admin/ItemClaim";
-import { sendCloseItem } from "../../../Hooks/Admin/Item";
+import { approveClaim, postComment, rejectClaim, sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Link } from "react-router-dom";
 import { Status } from "../../../Constants/Status";
 import { LoadingModal} from "../../Loading";
@@ -26,7 +24,6 @@ const Detail = () => {
   const [namaTempat, setNamaTempat] = useState("");
   const [tgl, setTgl] = useState("");
   const [tolak, setTolak] = useState(false);
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -34,6 +31,7 @@ const Detail = () => {
     fetchData();
     getComment();
   },[routeParams]);
+
   const fetchData = async()=>{
     getDetailClaim({id:routeParams["id"]})
     .then((e)=>{
@@ -45,6 +43,7 @@ const Detail = () => {
       }
     });
   }
+  
   const getComment = async ()=>{
     getCommetID(routeParams["id"])
       .then((res) => {
@@ -93,24 +92,17 @@ const Detail = () => {
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const token = Cookies.get("token");
-    const data = {
-      itemClaimId: itemClaimId,
-      value : comment,
-      imageBase64 : image64 
-    };
-    axios.post(`${BASE_URL}/Admin/Item-Comment`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }).then((e)=>{
+    try{
+      await postComment(itemClaimId, comment, image64);
       getComment();
-      window.location.reload();
-    }).catch((e)=>{
-      // setLoadingComment(false);
+      setLoading(false);
+      setComment("")
+      setImage64("");
+    }catch(e){
+      setLoading(false)
+      console.log(e);
       alert("Terjadi kesalahan");
-    });
+    }
 }
 
 const tolakHandle = async () => {
@@ -121,28 +113,16 @@ const tolakHandle = async () => {
   }
   setLoading(true)
   try {
-    const token = Cookies.get('token');
-    const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/reject`,
-      {
-        rejectReason: tolak,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
+    const response = await rejectClaim(itemClaimId, tolak);
     console.log('Tolak response:', response.data);
     setLoading(false);
-    fetchData();
+    //fetchData();
   } catch (error) {
     console.error('Tolak error:', error);
     setLoading(false);
   }
 };
-const downloadReport = async (e)=>{
+const downloadReport = async ()=>{
   setLoading(true);
   try{
     var result = await getUrlReport({id:itemClaimId});
@@ -153,11 +133,12 @@ const downloadReport = async (e)=>{
     setLoading(false);
   }
 }
+
 const closeHandle = async(e)=>{
   e.preventDefault();
   setLoading(true);
   sendCloseItem({id:item.itemFoundId, image:imageClosing64, news:documentClosing64, agent:agentName})
-  .then((e)=>{
+  .then(()=>{
     setLoading(false);
     alert("Berhasil meng-closed item");
     window.location.reload();
@@ -174,25 +155,12 @@ const terimaHandle = async () => {
   }
   setLoading(true)
   try {
-    const token = Cookies.get('token');
-    const response = await axios.post(
-      `${BASE_URL}/Admin/Item-Claim/${itemClaimId}/approve`,
-      {
-        claimLocation: namaTempat,
-        claimDate: tgl
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await approveClaim(itemClaimId, tgl, namaTempat)
     setLoading(false);
     fetchData();
   } catch (error) {
     setLoading(false);
     alert(error);
-
   }
 };
 
@@ -289,7 +257,7 @@ const terimaHandle = async () => {
               </div>:<></>}
                   {showComment.map((comment, index) => {
                     return (
-                      <div className={"row "+(comment.userStatus==="Admin"?"justify-content-start":"justify-content-end")}>
+                      <div className={"row "+(comment.userStatus==="Admin"?"justify-content-start":"justify-content-end")} key={index}>
                         <div key={index} className="border mb-2 col-10 col-md-8">
                           <div className=" ">
                           <span className="fw-bold text-dark">From: {comment.userName} ({comment.userStatus})</span>
@@ -357,17 +325,17 @@ const terimaHandle = async () => {
                   </button>
           {item.status === Status.Confirmation ? (
             <>
-                <button type="button" class="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
+                <button type="button" className="btn btn-success me-1 text-white me-3 px-5" data-bs-toggle="modal" data-bs-target="#Terima">
                   Terima
                 </button>
-                <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="TerimaLabel">Terima Claim User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="Terima" tabIndex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="TerimaLabel">Terima Claim User</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
+                      <div className="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
                           <label htmlFor="namaBarang" className="form-label">Lokasi Pengambilan Barang</label>
@@ -379,9 +347,9 @@ const terimaHandle = async () => {
                         </div>
                         {/* End of Form filter */}
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={terimaHandle}>Terima</button>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" className="btn btn-primary text-white" data-bs-dismiss="modal" onClick={terimaHandle}>Terima</button>
                       </div>
                     </div>
                   </div>
@@ -389,17 +357,17 @@ const terimaHandle = async () => {
                 {/* end tombol terima */}
                 {/* start tombol tolak */}
 
-                <button type="button" class="btn btn-danger px-5  me-1 text-white" data-bs-toggle="modal" data-bs-target="#Tolak">
+                <button type="button" className="btn btn-danger px-5  me-1 text-white" data-bs-toggle="modal" data-bs-target="#Tolak">
                   Tolak
                 </button>
-                <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <form class="modal-content" onSubmit={tolakHandle}>
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="TolakLabel">Tolak Item</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="Tolak" tabIndex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <form className="modal-content" onSubmit={tolakHandle}>
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="TolakLabel">Tolak Item</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
+                      <div className="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
                           <label htmlFor="namaBarang" className="form-label">Alasan</label>
@@ -407,9 +375,9 @@ const terimaHandle = async () => {
                         </div>
                         {/* End of Form filter */}
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" className="btn btn-primary text-white" data-bs-dismiss="modal">Tolak</button>
                       </div>
                     </form>
                   </div>
@@ -418,17 +386,17 @@ const terimaHandle = async () => {
               ):(null)}
 
             {item.itemFoundStatus==Status.Confirmed?<>
-            <button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
+            <button type="button" className="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
               Close Item
             </button>
-            <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <form class="modal-content" onSubmit={closeHandle}>
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="Terima" tabIndex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <form className="modal-content" onSubmit={closeHandle}>
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="TerimaLabel">Close Item</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     {/* Form filter */}
                     <div>
                       Item Claim akan diclosed
@@ -460,9 +428,9 @@ const terimaHandle = async () => {
                       required/>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary text-white">Terima</button>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" className="btn btn-primary text-white">Terima</button>
                   </div>
                 </form>
               </div>

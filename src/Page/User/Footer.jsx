@@ -1,15 +1,10 @@
-import React from "react";
-import logo from "../../Asset/image 2.png";
 import {BsTelephone, BsPeople} from 'react-icons/bs'
 
-export default function Footer() {
+const Footer=()=>{
   return (
 <div className="py-5 px-5">
   <div className="row">
-    <div className="col-12 col-md-5 align-self-center">
-      <img src={logo} className="mx-auto d-block" alt="" />
-    </div>
-    <div className="col-12 col-md-3 mt-4 mt-md-0">
+    <div className="col-12 col-md-6 mt-4 mt-md-0">
       <h3 className="text-white">Kontak Kami</h3>
       <br />
       <br />
@@ -30,14 +25,14 @@ export default function Footer() {
     </div>
     <div className="col-6 col-md-2 mt-4 mt-md-0">
       <div className=" mx-auto d-block">
-        <BsTelephone size={50} className="text-white" />
+        <BsTelephone size={30} className="text-white" />
         <p className="text-white ">HOTLINE KAMI <br />172</p>
         
       </div>
     </div>
     <div className="col-6 col-md-2 mt-4 mt-md-0">
       <div className=" mx-auto d-block">
-        <BsPeople size={50} className="text-white" />
+        <BsPeople size={30} className="text-white" />
         <div>
         <p className="text-white ">KIRIM MASUKKAN <br /> cc172@ap1.co.id</p>
         </div>
@@ -47,3 +42,5 @@ export default function Footer() {
 </div>
   );
 }
+
+export default Footer;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ListData from "./ListData";
 import { getListClaim } from "../../../Hooks/Admin/ItemClaim";
 import { AdminDefault } from "../AdminDefault";
@@ -7,7 +7,6 @@ import { LoadingModal } from "../../Loading";
 
 export default function ListClaim() {
   const [data, setData] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
@@ -30,7 +29,7 @@ export default function ListClaim() {
         setLoading(false);
         if(e.error ===401){
           navigate("/Admin", -1);
-        };
+        }
       }
     }
     getListData();
@@ -42,17 +41,17 @@ export default function ListClaim() {
 <>
         <LoadingModal isLoading={isLoading}/>
         <div className="">
-          <button type="button" class="mr-2 me-5 bg-primary text-white ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button type="button" className="mr-2 me-5 bg-primary text-white ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Filter
           </button>
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <form class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <form className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">Filter</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <div className="mb-3">
                     <label htmlFor="kategori" className="form-label">Status</label>
                     <select className="form-select" id="status" onChange={handleStatus}>
@@ -64,8 +63,8 @@ export default function ListClaim() {
                   </div>
                   {/* End of Form filter */}
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
               </form>
             </div>
@@ -101,9 +100,9 @@ export default function ListClaim() {
             </table>
           </div>
           <div className="d-flex justify-content-center ">
-          <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
-          <button disabled className="mx-1">{page}{hasMore}</button>
-          <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
+            <button onClick={()=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+            <button disabled className="mx-1">{page}</button>
+            <button onClick={()=>setPage(page+1)}>{">"}</button>
           </div>
         </div></>
       }/>

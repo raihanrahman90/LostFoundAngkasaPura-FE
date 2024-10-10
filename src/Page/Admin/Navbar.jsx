@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../Asset/logo.png';
 import '../../Asset/style.css';
@@ -8,6 +7,7 @@ import { BsGraphDown, BsSearch, BsTicketDetailedFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import jwt_decode from "jwt-decode";
 import { CookiesAdmin } from '../../Constants/Cookies';
+import { useEffect } from 'react';
 
 
 export default function Navbar() {

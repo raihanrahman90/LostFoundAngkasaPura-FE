@@ -3,7 +3,7 @@ import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailFoundClaim, getComment, sendComment, sendRating } from "../../Hooks/User/ItemClaim";
 import {AiOutlineUser} from 'react-icons/ai'
 import { Status } from "../../Constants/Status";
@@ -57,6 +57,7 @@ export default function DetailClaimBarang() {
         })
         .finally((e)=>{
             setLoading(false);
+            console.log(e)
         })
     }
 
@@ -82,7 +83,7 @@ export default function DetailClaimBarang() {
         e.preventDefault();
         setLoading(true);
         sendComment({itemClaimId:itemClaimId,comment:informasiTambahan,image:base64Image})
-        .then((e)=>{
+        .then(()=>{
             setInformasiTambahan("");
             setFile("")
             setBase64Image("");
@@ -91,6 +92,7 @@ export default function DetailClaimBarang() {
             window.location.reload();
         })
         .catch((e)=>{
+            console.log(e)
             setLoading(false);
         })
     }
@@ -99,14 +101,16 @@ export default function DetailClaimBarang() {
         e.preventDefault();
         setLoading(true);
         sendRating({itemClaimId:itemClaimId,rating:rating, ratingComentar:ratingCommentar})
-        .then((e)=>{
+        .then(()=>{
             fetchDetailBarang();
             window.location.reload();
         })
         .catch((e)=>{
+            console.log(e)
             alert("Terjadi kesalahan");
         })
         .finally(e=>{
+            console.log(e)
             setLoading(false);
         })
     }
@@ -154,17 +158,17 @@ export default function DetailClaimBarang() {
                                                     <div className="col-8">
                                                         <p className="text-dark ">: 
                                                             {statusBadge(barang.status)}
-                                                            <button type="button" class="text-white bg-dark badge ms-2" data-bs-toggle="modal" data-bs-target="#Tolak">
+                                                            <button type="button" className="text-white bg-dark badge ms-2" data-bs-toggle="modal" data-bs-target="#Tolak">
                                                             !
                                                             </button>
-                                                            <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="TolakLabel">Keterangan Status</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <div className="modal fade" id="Tolak" tabIndex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
+                                                                <div className="modal-dialog">
+                                                                    <div className="modal-content">
+                                                                    <div className="modal-header">
+                                                                        <h5 className="modal-title" id="TolakLabel">Keterangan Status</h5>
+                                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <div class="modal-body">
+                                                                    <div className="modal-body">
                                                                         <div className="row">
                                                                             <div className="col-3"><span className="bg-warning badge"> Confirmation</span></div>
                                                                             <div className="col-1">:</div>
@@ -187,8 +191,8 @@ export default function DetailClaimBarang() {
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <div className="modal-footer">
+                                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                     </div>
                                                                     </div>
                                                                 </div>
@@ -239,14 +243,14 @@ export default function DetailClaimBarang() {
                                                             <button className="badge bg-primary" data-bs-toggle="modal" data-bs-target="#rating">
                                                                 Berikan rating
                                                             </button>
-                                                            <div className="modal fade" id="rating" tabindex="-1" aria-labelledby="RatingLabel" aria-hidden="true">
+                                                            <div className="modal fade" id="rating" tabIndex="-1" aria-labelledby="RatingLabel" aria-hidden="true">
                                                                 <div className="modal-dialog">
                                                                     <form className="modal-content" onSubmit={submitRating}>
                                                                         <div className="modal-header">
                                                                             <div className="modal-title">
                                                                                 berikan Rating pada Pelayanan
                                                                             </div>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div className="modal-body">
                                                                             <BsFillStarFill onClick={()=>setRating(1)} className={rating>0?"text-warning":""}/>
@@ -260,8 +264,8 @@ export default function DetailClaimBarang() {
                                                                             </div>
                                                                         </div>
                                                                         <div className="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                            <button type="submit" class="btn btn-primary text-white">Kirim</button>
+                                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit" className="btn btn-primary text-white">Kirim</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -334,7 +338,7 @@ export default function DetailClaimBarang() {
                         </h5>
                         {
                             comment.map(e=>{
-                                return <div className={"row "+(e.userStatus=="User"?"justify-content-end":"")}> 
+                                return <div className={"row "+(e.userStatus=="User"?"justify-content-end":"")} key={e.id}> 
                                     {e.userStatus!="User"?<div className="col-1 d-flex justify-content-end pt-2">
                                         <AiOutlineUser/>
                                     </div>:<></>}

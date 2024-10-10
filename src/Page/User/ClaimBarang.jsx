@@ -3,8 +3,7 @@ import Headers from './Headers';
 import Footer from "./Footer";
 import '../../Asset/user.css'; 
 import "../../Asset/style.css";
-import Logo from "../../Asset/logo.png";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailFoundItem } from "../../Hooks/User/ListFoundItem";
 import { checkAccessToken } from "../../Hooks/User/Default";
 import { createClaim } from "../../Hooks/User/ItemClaim";
@@ -15,7 +14,6 @@ export default function ClaimBarang() {
     const itemFoundId = routeParams["id"];
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
     const [informasiTambahan, setInformasiTambahan] = useState();
     const [identityNumber, setIdentityNumber] = useState();
     const [base64Image, setBase64Image] = useState("");
@@ -27,13 +25,13 @@ export default function ClaimBarang() {
         });
         checkAccessToken()
         .catch((e)=>{
+            console.log(e)
             navigate("/Login");
         })
     },[])
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
-        setSelectedFile(file);
     
         if (file) {
           const reader = new FileReader();
@@ -69,6 +67,7 @@ export default function ClaimBarang() {
         .catch((err)=>{
             alert("Terjadi kesalahan pada server");
             setLoading(false);
+            console.log(err)
         });
     };
 

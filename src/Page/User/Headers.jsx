@@ -1,8 +1,8 @@
-import React,{useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import Logo from "../../Asset/logo.png";
 import '../../Asset/user.css'
 import '../../Asset/style.css';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login, register} from '../../Hooks/User/Default';
 import Cookies from "js-cookie";
 import { checkAccessToken } from "../../Hooks/User/Default";
@@ -37,10 +37,12 @@ export default function Headers() {
   useEffect(()=>{
     checkAccessToken()
     .then((e)=>{
+      console.log(e)
       setIsLogin(true);
       fetchAllNotification();
     })
     .catch((e)=>{
+      console.log(e)
       setIsLogin(false);
     })
   },[isLogin]);
@@ -116,12 +118,6 @@ const handleRegister = async (e) => {
 }
 
 useEffect(()=>{
-  const data = {
-    email:email,
-    password:password,
-    phone:phone,
-    name:name
-  }
 },[])
 
 
@@ -129,9 +125,9 @@ useEffect(()=>{
     <>
     {isLoading?<LoadingPage/>:<></>}
     <div id="header">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid py-3">
-          <a class="navbar-brand ms-5 d-none d-md-inline" href="#">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid py-3">
+          <a className="navbar-brand ms-5 d-none d-md-inline" href="#">
             <img src={Logo} height={70} />
           </a>
           <button
@@ -143,7 +139,7 @@ useEffect(()=>{
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
           {isLogin?
           <>
@@ -152,26 +148,26 @@ useEffect(()=>{
             <span className="notif-count">{countNotification}</span>
           </button></>
           :<></>}
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item ms-5">
-                <Link class="nav-link active fw-bold text-primary" aria-current="page" to="/">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item ms-5">
+                <Link className="nav-link active fw-bold text-primary" aria-current="page" to="/">
                   Beranda
                 </Link>
               </li>
-              <li class="nav-item ms-5">
-                <Link class="nav-link fw-bold text-primary" to="/Barang">
+              <li className="nav-item ms-5">
+                <Link className="nav-link fw-bold text-primary" to="/Barang">
                   List Barang
                 </Link>
               </li>
-              {isLogin?<li class="nav-itLogiem ms-5">
-                <Link class="nav-link fw-bold text-primary" to="/Claim">
+              {isLogin?<li className="nav-itLogiem ms-5">
+                <Link className="nav-link fw-bold text-primary" to="/Claim">
                   List Claim
                 </Link>
               </li>:<></>}
               
             </ul>
-            <div class="">
+            <div className="">
               
               {isLogin?
               <>
@@ -181,21 +177,21 @@ useEffect(()=>{
                 </button>
                 <button className="btn bg-danger text-white pe-5 ps-5 me-5 ms-5" onClick={handleLogout}> Logout </button>
               </>:
-              <button type="button" class="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
+              <button type="button" className="btn bg-danger text-white pe-5 ps-5 me-5 ms-5"  data-bs-toggle="modal" data-bs-target="#exampleModalLogin">
                 Login
               </button>}
               
               
 
             {/* <!-- Modal --> */}
-            <div class="modal modalLogin fade" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="button-close"></button>
+            <div className="modal modalLogin fade" id="exampleModalLogin" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    {/* <h5 className="modal-title" id="exampleModalLabel">Modal title</h5> */}
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="button-close"></button>
                   </div>
-                  <form class="modal-body" onSubmit={handleLogin}>
+                  <form className="modal-body" onSubmit={handleLogin}>
 
                     <div>
                       <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />
@@ -230,14 +226,14 @@ useEffect(()=>{
 
             {/* modalRegis */}
 
-            <div class="modal modalRegis fade" id="exampleModalRegis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    {/* <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> */}
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal modalRegis fade" id="exampleModalRegis" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    {/* <h5 className="modal-title" id="exampleModalLabel">Modal title</h5> */}
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form class="modal-body" onSubmit={handleRegister}>
+                  <form className="modal-body" onSubmit={handleRegister}>
 
                     <div>
                       <img src={Logo} className="mx-auto d-flex my-3" height={50} alt="" />

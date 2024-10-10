@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AdminDefault } from "../AdminDefault";
 import { getListAdmin } from "../../../Hooks/Admin/Admin"; 
-import axios from "axios";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from 'react-router-dom';
-import { LoadingModal, LoadingPage } from "../../Loading";
+import { LoadingModal} from "../../Loading";
 import { CookiesAdmin } from "../../../Constants/Cookies";
 import { deletAdmin } from "../../../Hooks/Admin/Admin";
 export default function ListAdmin() {
   const [data, setData] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
@@ -27,7 +25,6 @@ export default function ListAdmin() {
       const response = await getListAdmin({page, name:null,email:null,access:null}); 
       // console.log(response);
       setData(response.data.data);
-      setTotalPages(response.data.pageTotal);
       setHasMore(response.data.isHasMore);
       setLoading(false);
     }catch(e){
@@ -43,11 +40,11 @@ export default function ListAdmin() {
       alert("Berhasil menghapus admin");
       fetchData();
     } catch (error) {
-      if(err.response.status==401){
+      if(error.response.status==401){
         navigate("/admin");
       }else{
-        alert(err.response.data);
-      };
+        alert(error.response.data);
+      }
     }
   };
   
@@ -95,9 +92,9 @@ export default function ListAdmin() {
             </div>
              {/* Pagination */}
              <div className="d-flex justify-content-center ">
-          <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+          <button onClick={()=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
           <button disabled className="mx-1">{page}{hasMore}</button>
-          <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
+          <button onClick={()=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
           </div>
           </div>
         </>

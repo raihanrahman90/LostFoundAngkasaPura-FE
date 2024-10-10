@@ -46,3 +46,29 @@ export const getItemFound = async({page,namaBarang, tglStart, tglEnd, kategori, 
 }
 
 
+export const getItemFoundById = async(id)=>{
+  let url = `/Admin/Item-Found/${id}`;
+  return defaultAdminRequest({url:url, method:"get", body:{}});
+}
+
+export const postComment = async(itemClaimId, comment, image64)=>{
+  
+  return defaultAdminRequest({url:'/Admin/Item-Comment', method:'post',body:{
+    itemClaimId: itemClaimId,
+    value : comment,
+    imageBase64 : image64 
+  }})
+}
+
+export const approveClaim = async(itemClaimId, date, location)=>{
+  return defaultAdminRequest({url:`/Admin/Item-Claim/${itemClaimId}/approve`, method:'post',body:{
+    claimLocation: location,
+    claimDate: date
+  }})
+}
+
+export const rejectClaim = async(itemClaimId, rejectReason)=>{
+  return defaultAdminRequest({url:`/Admin/Item-Claim/${itemClaimId}/reject`, method:'post',body:{
+    rejectReason:rejectReason
+  }})
+}

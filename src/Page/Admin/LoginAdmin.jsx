@@ -1,8 +1,7 @@
-import React, { useEffect,useState } from 'react';
+import { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
 import bg from '../../Asset/background_1.png';
-import { useNavigate } from 'react-router-dom';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import jwt_decode from 'jwt-decode';
@@ -17,34 +16,31 @@ export default function LoginAdmin() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
-  let navigate = useNavigate();
 
 
 
   const handleLogin = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const data = await login({
-      email: email,
-      password: password,
-    })
-    .then((data)=>{
-      // console.log(data)
+    try{
+      var data = await login({
+        email:email,
+        password:password
+      })
       if (data) {
         setLoading(false);
         let token = data.data.data.accessToken;
         var decoded = jwt_decode(token);
+        console.log(token);
         Cookies.set(CookiesAdmin.tokenAdmin, token);
         Cookies.set(CookiesAdmin.refreshAdmin, data.data.data.refreshToken);
         Cookies.set(CookiesAdmin.access, decoded.Access)
-        navigate('/admin/Dashboard');
+        //navigate('/admin/Dashboard');
       }
-    })
-    .catch((e)=>{
+    }catch(e) {
       setMessage(e.response.data.data)
       setLoading(false);
-    });
-    
+    }    
   };
 
 

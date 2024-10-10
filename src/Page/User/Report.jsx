@@ -25,7 +25,7 @@ export default function Report() {
                         <p className='col-12 mb-3'>Hubungi contact center kami jika tidak dapat menemukan barang Anda pada website ini dalam 1x24 Jam</p>
                         <div className='col-10 fs-12px'>
                             <p>
-                                E-mail: <Link to="https://mail.google.com/mail/u/0/?view=cm&tf=1&fs=1&to=cc172@ap1.co.id" className='text-white'>cc172@ap1.co.id</Link> <br/>
+                                E-mail: <Link to="https://mail.google.com/mail/u/0/?view=cm&tf=1&fs=1&to=cc172@injourneyairports.id" className='text-white'>cc172@injourneyairports.id</Link> <br/>
                                 Twitter: <Link to="https://twitter.com/angkasapura172" className='text-white'>@Angkasapura172</Link><br/>
                                 Instagram: <Link to = "https://www.instagram.com/angkasapura_172/" className='text-white'>@angkasapura_172</Link><br/>
                                 Facebook: <Link to = "https://www.facebook.com/angkasapura172ap1" className='text-white'>Contact Center Angkasa Pura 172</Link><br/>

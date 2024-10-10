@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AdminDefault } from "../AdminDefault";
 import { useParams } from "react-router-dom";
 import { getDetailUser } from "../../../Hooks/Admin/User";

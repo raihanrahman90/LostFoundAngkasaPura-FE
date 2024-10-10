@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AdminDefault } from "../AdminDefault";
-import { useNavigate, useParams } from "react-router-dom";
-import { sendCloseItem } from "../../../Hooks/Admin/Item";
+import { useParams } from "react-router-dom";
+import { getItemFoundById, sendCloseItem } from "../../../Hooks/Admin/Item";
 import { Status } from "../../../Constants/Status";
 
-import axios from "axios";
-import Cookies from 'js-cookie';
 import { LoadingModal } from "../../Loading";
 
 export default function ItemFoundDetail() {
   // const location = useLocation();
   const routeParams = useParams();
   const itemFoundId = routeParams["id"];
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [data, setData] = useState("");
   const [imageClosing64, setImageClosing64] = useState();
   const [documentClosing64, setDocumentClosing64] = useState();
   const [agentName, setAgentName] = useState();
   const [isLoading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleImageClosing = (event) => {
     const file = event.target.files[0];
@@ -43,20 +39,18 @@ export default function ItemFoundDetail() {
   }
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    const res = axios.get(`${BASE_URL}/Admin/Item-Found/${itemFoundId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      setData(res.data.data);
-    }).catch((err) => {
-      if(err.response.status==401){
-        navigate("/admin");
-      };
-    });
-  }, []);
+    getData();
+  });
+
+  const getData =  async () => {
+    try{
+      let response = await getItemFoundById(itemFoundId)
+      setData(response.data);
+    }catch(e){
+      console.log(e)
+    }
+    
+  }
 
   const closeHandle = async(e)=>{
     e.preventDefault();
@@ -65,6 +59,7 @@ export default function ItemFoundDetail() {
     .then((e)=>{
       setLoading(false);
       alert("Berhasil meng-closed item");
+      console.log(e)
       window.location.reload();
     })
     .catch((e)=>{
@@ -152,17 +147,17 @@ export default function ItemFoundDetail() {
                   {data.status===Status.Confirmed || data.status===Status.Found?
                   <>
                 <div className="col-12 d-flex justify-content-end">
-                  <button type="button" class="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
+                  <button type="button" className="btn btn-success me-1 text-white me-3 px-5 mb-2" data-bs-toggle="modal" data-bs-target="#Terima">
                     Close Item
                   </button>
-                  <div class="modal fade" id="Terima" tabindex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <form class="modal-content" onSubmit={closeHandle}>
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="TerimaLabel">Close Item</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div className="modal fade" id="Terima" tabIndex="-1" aria-labelledby="TerimaLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <form className="modal-content" onSubmit={closeHandle}>
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="TerimaLabel">Close Item</h5>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                           {/* Form filter */}
                           <div>
                             Foto Documentasi
@@ -192,9 +187,9 @@ export default function ItemFoundDetail() {
                           </div>
                           {/* End of Form filter */}
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" className="btn btn-primary text-white" data-bs-dismiss="modal">Terima</button>
                         </div>
                       </form>
                     </div>

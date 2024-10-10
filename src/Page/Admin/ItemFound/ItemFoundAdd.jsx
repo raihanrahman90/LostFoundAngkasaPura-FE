@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../../../Asset/style.css";
 import { addItem } from "../../../Hooks/Admin/Item";
 import { AdminDefault } from "../AdminDefault";
@@ -67,7 +67,7 @@ export default function ItemFoundAdd() {
           navigate("/admin");
         }else{
           alert(err.data.data);
-        };
+        }
       }
     }
   };
@@ -128,7 +128,7 @@ export default function ItemFoundAdd() {
         </div>
         <div className="form__group col-md-3 col-6">
           <input
-            onChange={(e) => setNewCategory(!newCategory)}
+            onChange={() => setNewCategory(!newCategory)}
             type="checkbox"
           />
           <label  htmlFor="kategori">kategory baru?</label>

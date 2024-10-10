@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import axios from "axios";
-import Cookies from 'js-cookie';
 import { AdminDefault } from "../AdminDefault";
 import { LoadingPage } from "../../Loading";
 import { statusBadge } from "../../../Util/Utils";
@@ -13,8 +11,6 @@ export default function FoundItemList() {
   const [tglStart, setTglStart] = useState("");
   const [tglEnd, setTglEnd] = useState("");
   const [valueKategori, setValueKategori] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [namaBarang, setNamaBarang] = useState("");
   const [status, setStatus] = useState("");
@@ -28,21 +24,21 @@ export default function FoundItemList() {
 
   const handleNamaBarang = (e) => {
     setNamaBarang(e.target.value);
-    setCurrentPage(1);
+    setPage(1);
   }
 
   const handleTglStart = (e) => {
     setTglStart(e.target.value);
-    setCurrentPage(1);
+    setPage(1);
   }
   const handleTglEnd = (e) => {
     setTglEnd(e.target.value);
-    setCurrentPage(1);
+    setPage(1);
   }
 
   const handleStatus = (e)=>{
     setStatus(e.target.value);
-    setCurrentPage(1);
+    setPage(1);
   }
   
   const fetchData= async () => {
@@ -50,7 +46,6 @@ export default function FoundItemList() {
     try {
       const res = await getItemFound({page, namaBarang, tglStart, tglEnd, kategori, status});
       setData(res.data.data);
-      setTotalPages(res.data.data.pageTotal);
       setHasMore(res.data.data.isHasMore);
       setLoading(false);
     } catch (error) {
@@ -58,6 +53,7 @@ export default function FoundItemList() {
       console.error('Error fetching data:', error);
     }
   };
+
   useEffect(()=>{
     getCategory()
     .then((res) => {
@@ -67,9 +63,10 @@ export default function FoundItemList() {
     .catch((err) => {
       if(err.response.status==401){
         navigate("/admin");
-      };
+      }
     });
   },[])
+
   useEffect(() => {
     fetchData();
   }, [page, tglStart, tglEnd, kategori, namaBarang, status]);
@@ -85,17 +82,17 @@ export default function FoundItemList() {
           <div className="">
             <div className="d-flex justify-content-start pb-4 relative h-100">
               {/* popup filter */}
-              <button type="button" class="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" className="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Filter
               </button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">Filter</h5>
+                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                       {/* Form filter */}
                       <div className="mb-3">
                         <label htmlFor="namaBarang" className="form-label">Nama Barang</label>
@@ -105,8 +102,8 @@ export default function FoundItemList() {
                         <label htmlFor="kategori" className="form-label">Kategori</label>
                         <select className="form-select" id="kategori"  onChange={handleKategori}>
                           <option value="">--</option>
-                          {valueKategori.map((item)=>{
-                            return <option value={item.category}>{item.category}</option>
+                          {valueKategori.map((item, index)=>{
+                            return <option value={item.category} key={index}>{item.category}</option>
                           })}
                         </select>
                       </div>
@@ -126,8 +123,8 @@ export default function FoundItemList() {
                       </div>
                       {/* End of Form filter */}
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -157,7 +154,7 @@ export default function FoundItemList() {
                       <td colSpan={5} className="text-center">Belum ada data ditambahkan</td>
                     </tr>
                   </>:<></>}
-                  {data.map((item, index) => {
+                  {data.map((item) => {
                     return <>
                     <tr key={item.id}>
                       <td>{item.name}</td>
@@ -182,9 +179,9 @@ export default function FoundItemList() {
             </div>
             {/* Pagination */}
             <div className="d-flex justify-content-center ">
-            <button onClick={(e)=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
-            <button disabled className="mx-1">{page}{hasMore}</button>
-            <button onClick={(e)=>setPage(page+1)} className={!hasMore?"d-none":""}>{">"}</button>
+              <button onClick={()=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+              <button disabled className="mx-1">{page}</button>
+              <button onClick={()=>setPage(page+1)} className={hasMore?"d-none":""}>{">"}</button>
             </div>
           </div>
         </>}/>

@@ -15,7 +15,6 @@ import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
 import { useMediaQuery } from 'react-responsive';
 import { LoadingPartial } from "../Loading";
-import React from 'react';
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
@@ -73,7 +72,7 @@ export default function HomePage() {
               Cari dan laporkan barang Anda melalui website kami
             </h5>
             <div>
-              <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold w-fit" onClick={(e)=>navigate("/Barang")}>
+              <button className="buttonTitle bg-warning text-white px-3 rounded border-0 py-2 mt-4 fw-bold w-fit" onClick={()=>navigate("/Barang")}>
                 Cari
               </button>
             

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AdminDefault } from '../AdminDefault'
 import { useParams } from 'react-router-dom'
 import Cookies from 'js-cookie';
@@ -53,7 +53,7 @@ export default function DetailAdmin() {
                 </div>
                 {access=="SuperAdmin"?
                 <>
-                  <button type="button" class="btn btn-danger px-3 me-1 text-white float-end mt-5" data-bs-toggle="modal" data-bs-target="#Tolak">
+                  <button type="button" className="btn btn-danger px-3 me-1 text-white float-end mt-5" data-bs-toggle="modal" data-bs-target="#Tolak">
                     Reset Password
                   </button>
                 </>
@@ -61,14 +61,14 @@ export default function DetailAdmin() {
                 }
                 
 
-                <div class="modal fade" id="Tolak" tabindex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="TolakLabel">Tolak Item</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="Tolak" tabIndex="-1" aria-labelledby="TolakLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="TolakLabel">Tolak Item</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
+                      <div className="modal-body">
                         {/* Form filter */}
                         <div className="mb-3">
                           <label htmlFor="namaBarang" className="form-label">Apakah Anda Yakin Ingin Mereset Password <span className='fw-bold'>
@@ -77,9 +77,9 @@ export default function DetailAdmin() {
                         </div>
                         {/* End of Form filter */}
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal" onClick={handleResetPassword}>Reset Password</button>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary text-white" data-bs-dismiss="modal" onClick={handleResetPassword}>Reset Password</button>
                       </div>
                     </div>
                   </div>

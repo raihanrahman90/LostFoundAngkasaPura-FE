@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AdminDefault } from "../AdminDefault";
 import { createAdmin } from "../../../Hooks/Admin/Admin";
 import { useNavigate } from "react-router-dom";

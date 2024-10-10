@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import axios from "axios";
 import { getDataChart,downloadChart } from "../../Hooks/Admin/Chart";
 
 ChartJS.register(
@@ -29,7 +28,6 @@ export function Chart() {
   var year = new Date().getFullYear();
   const [startDate, setStartDate] = useState(year+"-01");
   const [endDate, setEndDate] = useState(year+"-12");
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const options = {
     responsive: true,
@@ -54,7 +52,7 @@ export function Chart() {
     fetchData();
   };
 
-  const fetchData = (e)=>{
+  const fetchData = ()=>{
     getDataChart(startDate,endDate).then((res)=>{
       setDatasets(res.data.datasets);
       setLabels(res.data.labels);
