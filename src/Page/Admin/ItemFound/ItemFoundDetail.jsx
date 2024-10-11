@@ -40,7 +40,7 @@ export default function ItemFoundDetail() {
 
   useEffect(() => {
     getData();
-  });
+  },[]);
 
   const getData =  async () => {
     try{

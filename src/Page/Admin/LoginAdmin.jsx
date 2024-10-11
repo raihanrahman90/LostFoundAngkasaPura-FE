@@ -7,6 +7,7 @@ import {getAccessToken} from '../../Hooks/Admin/Admin';
 import jwt_decode from 'jwt-decode';
 import { LoadingModal } from '../Loading';
 import { CookiesAdmin } from '../../Constants/Cookies';
+import { useNavigate } from 'react-router-dom';
 
 // import {getAccessToken} from '../../Hooks/Admin/Admin';
 
@@ -16,8 +17,7 @@ export default function LoginAdmin() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
-
-
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     setLoading(true);
@@ -35,7 +35,7 @@ export default function LoginAdmin() {
         Cookies.set(CookiesAdmin.tokenAdmin, token);
         Cookies.set(CookiesAdmin.refreshAdmin, data.data.data.refreshToken);
         Cookies.set(CookiesAdmin.access, decoded.Access)
-        //navigate('/admin/Dashboard');
+        navigate('/admin/Dashboard');
       }
     }catch(e) {
       setMessage(e.response.data.data)

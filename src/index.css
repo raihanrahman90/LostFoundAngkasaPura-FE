@@ -101,7 +101,8 @@ button:focus-visible {
 
 .trial-container{
   width: 100%;
-  max-width: 560px;
+  max-width: 720px;
   background-color: white;
+  filter: drop-shadow(5px 5px 10px #000000);
 }
 
