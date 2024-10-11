@@ -38,7 +38,7 @@ export default function Footer() {
       <div className=" mx-auto d-block">
         <BsPeople size={30} className="text-white" />
         <div>
-        <p className="text-white ">KIRIM MASUKKAN <br /> cc172@ap1.co.id</p>
+        <p className="text-white ">KIRIM MASUKKAN <br /> cc172@injourneyairports.id</p>
         </div>
       </div>
     </div>
