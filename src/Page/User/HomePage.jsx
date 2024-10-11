@@ -15,6 +15,7 @@ import carousel_3 from '../../Asset/carousel_3.jpg'
 import carousel_3_mobile from '../../Asset/carousel_3_mobile.jpg';
 import { useMediaQuery } from 'react-responsive';
 import { LoadingPartial } from "../Loading";
+import TrialMessage from "../Componen/TrialMessage";
 
 export default function HomePage() {
   const [barang, setBarang] = useState([]);
@@ -41,6 +42,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <TrialMessage/>
       <Headers />
       <div className="vh-80 overflow-y-hidden position-relative">
         <MDBCarousel>

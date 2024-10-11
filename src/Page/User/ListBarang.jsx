@@ -68,7 +68,12 @@ export default function ListBarang() {
             <Headers />
 
             <div className="bgdasboard text-center py-5">
-                <h1 className="title text-white pb-3 fw-bold">Temukan <span className="text-warning">Barangmu</span></h1>
+                <h1 className="title text-white pb-3 fw-bold">Temukan <span className="text-warning">Barang Anda</span></h1>
+                <p className="text-white">
+                Cari barang anda yang hilang atau tertinggal di area bandara melalui website Lost and Found Bandara SAMS Sepinggan Balikpapan, <br/>
+                jika barang anda tertinggal di pesawat silahkan menghubungi Lost and Found maskapai, <br/>
+                jika membutuhkan bantuan lanjut silahkan menghubungi Contact Center Angkasa Pura Indonesia
+                </p>
                 <Container className="mt-5 pb-5">
                     <Row className="d-flex justify-content-center">
                         <Col md={6}>
