@@ -26,7 +26,6 @@ export default function ListBarang() {
     const [endDate, setEndDate] = useState('');
     const [dataCategory, setDataCategory] = useState([]);
     const [isHasMore, setHasMore] = useState(false);
-    const [totalPage, setTotalPage] = useState(0);
     const handleKategori = (e) => {
         setKategori(e.target.value);
     };
@@ -46,7 +45,6 @@ export default function ListBarang() {
         .then((e)=>{
             setBarang(e.data.data)
             setHasMore(e.data.isHasMore);
-            setTotalPage(e.data.totalPage);
         })
     },[kategori, startDate, endDate, name, page])
 

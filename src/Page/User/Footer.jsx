@@ -1,10 +1,14 @@
+import logo from "../../Asset/image 2.png";
 import {BsTelephone, BsPeople} from 'react-icons/bs'
 
-const Footer=()=>{
+export default function Footer() {
   return (
 <div className="py-5 px-5">
   <div className="row">
-    <div className="col-12 col-md-6 mt-4 mt-md-0">
+    <div className="col-12 col-md-5 align-self-center">
+      <img src={logo} className="mx-auto d-block" alt="" />
+    </div>
+    <div className="col-12 col-md-3 mt-4 mt-md-0">
       <h3 className="text-white">Kontak Kami</h3>
       <br />
       <br />
@@ -42,5 +46,3 @@ const Footer=()=>{
 </div>
   );
 }
-
-export default Footer;
