@@ -73,11 +73,11 @@ export const AdminDefault = ({title, body}) =>{
     <div className="bg-secondary h-100 roboto shadow admin max-vh-100 overflow-hidden">
       <div className="row px-0 h-100">
         <div className="col-lg-2 col-sm-3 px-0 d-none d-md-block">
-          <div className='bg-dark mx-auto px-xl-3 px-lg-0 position-relative h-100 pt-5 sidebar shadow ps-5'>
+          <div className='bg-white mx-auto px-xl-3 px-lg-0 position-relative h-100 pt-5 sidebar shadow ps-5'>
             <ul style={{ listStyle: 'none', padding:'0px'}}>
               {listMenu.map((element, index) => {
-                return <li className='py-1 px-0 text-white my-3  menu_link ' style={{fontSize:'16px'}} key={index}>
-                  <Link className="decoration-none w-100 ml-3 d-block px-3" to={element.to}>
+                return <li className='py-1 px-0 text-white my-1 mx-2 menu_link ' style={{fontSize:'16px'}} key={index}>
+                  <Link className="decoration-none w-100 ml-3 d-block px-3 py-1" to={element.to}>
                     {element.icon}
                     <span className='ms-3'>
                       {element.text}

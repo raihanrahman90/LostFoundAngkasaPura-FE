@@ -82,7 +82,7 @@ export default function FoundItemList() {
           <div className="">
             <div className="d-flex justify-content-start pb-4 relative h-100">
               {/* popup filter */}
-              <button type="button" className="mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" className="btn btn-primary mr-2 me-5 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Filter
               </button>
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -179,7 +179,7 @@ export default function FoundItemList() {
             </div>
             {/* Pagination */}
             <div className="d-flex justify-content-center ">
-              <button onClick={()=>setPage(page-1)} className={page==1?"d-none":""}>{"<"}</button>
+              <button onClick={()=>setPage(page-1)} className={"btn btn-primary "+page==1?"d-none":""}>{"<"}</button>
               <button disabled className="mx-1">{page}</button>
               <button onClick={()=>setPage(page+1)} className={hasMore?"d-none":""}>{">"}</button>
             </div>

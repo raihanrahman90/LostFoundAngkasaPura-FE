@@ -1,7 +1,7 @@
 import { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
-import bg from '../../Asset/background_1.png';
+import bg from '../../Asset/carousel_1.jpg';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import { LoadingModal } from '../Loading';
 import { login } from '../../Hooks/User/Default';

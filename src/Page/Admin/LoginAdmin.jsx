@@ -1,7 +1,7 @@
 import { useEffect,useState } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../../Asset/logo.png';
-import bg from '../../Asset/background_1.png';
+import bg from '../../Asset/carousel_1.jpg';
 import {login}from '../../Hooks/Admin/Admin';
 import {getAccessToken} from '../../Hooks/Admin/Admin';
 import jwt_decode from 'jwt-decode';
@@ -67,9 +67,9 @@ export default function LoginAdmin() {
     <section className="vh-100 vw-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="row g-0">
-            <div className="col-md-6 d-none vh-100 overflow-hidden d-md-flex justify-content-center">
+            <div className="col-md-6 d-none vh-100 overflow-hidden d-md-flex justify-content-center p-md-5">
               <img src={bg}
-                alt="login form" className="img-fluid" />
+                alt="login form" className="img-fluid rounded h-100 w-auto" />
             </div>
             <div className="col-md-6 d-flex align-items-center">
               <div className="card-body p-4 p-lg-5 text-black">

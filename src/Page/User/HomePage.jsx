@@ -110,7 +110,7 @@ export default function HomePage() {
 
       <div className="">
         <div className="bgdasboard  min-vh-50 ">
-          <h1 className=" text-center text-white pb-5 fw-bold pt-5">
+          <h1 className=" text-center text-white pb-5 fw-bold pt-5 h3">
             Penemuan <span className="text-warning">Barang Hilang</span> Terbaru
           </h1>
           <div className="container">
