@@ -32,15 +32,14 @@ const TrialMessage = () => {
         <div className="trial-content">
           <p>Yth Pengguna Jasa Bandara SAMS Sepinggan Balikpapan</p>
           <p>
-            Sehubungan dengan penggunaan website Lost & Found SAMS Sepinggan Balikpapan pada masa transisi penggabungan PT Angkasa Pura I dan PT Angkasa Pura II
-            menjadi Angkasa pura Indonesia, maka saat ii website sedang dalam proses maintenance dan pemutakhiran.
+            Sehubungan dengan penggunaan website Lost & Found SAMS Sepinggan Balikpapan pada masa transisi penggabungan PT Angkasa Pura I dan PT Angkasa Pura II menjadi PT Angkasa Pura Indonesia, 
+            maka saat ini website sedang dalam proses maintenance dan pemutakhiran.
           </p>
           <p>
-            Sebagai informasi, dalam masa transisi saat ini arang kehilangan khususnya di area terminal Bnadara SAMS Sepinggan Balikpapan akan ttap diposting, untuk proses
-            klaim sementara dapat menghubungi Contact Center Angkasa Pura Indonesia.
+            Sebagai informasi, dalam masa transisi saat ini barang kehilangan khususnya di area terminal Bandara SAMS Sepinggan Balikpapan akan tetap diposting, untuk proses klaim sementara dapat menghubungi Contact Center Angkasa Pura Indonesia.
           </p>
           <p>
-            Demikian disampaikan, atas perhatiannya diucapkan terima kasih.
+            Demikian disampaikan, atas perhatiannya diucapkan terima kasih
           </p>
         <button onClick={closePopup} className='btn btn-primary text-white ml-auto'>Close</button>
       </div>
