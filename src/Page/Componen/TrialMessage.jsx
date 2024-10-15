@@ -4,14 +4,14 @@ const TrialMessage = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check the last time the popup was shown
+    // If it's been more than 24 hours (86400000 ms in a day), show the popup
+    setIsVisible(true);
+    /*
     const lastShown = localStorage.getItem('popupLastShown');
     const now = new Date().getTime();
-
-    // If it's been more than 24 hours (86400000 ms in a day), show the popup
     if (!lastShown || now - lastShown > 86400000) {
       setIsVisible(true);
-    }
+    }*/
     
   }, []);
 
